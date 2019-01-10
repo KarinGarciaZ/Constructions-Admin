@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
 import './App.css';
-import Home from './Containers/Home';
+import { BrowserRouter } from 'react-router-dom';
+
+import Layout from './hoc/Layout';
 
 class App extends Component {
   render() {
     return (
-      <Home />
+      <BrowserRouter>     
+        <Layout>
+          
+        </Layout>
+      </BrowserRouter>
     );
   }
 }
