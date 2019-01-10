@@ -12,12 +12,13 @@ import Types from '../../Containers/Types';
 
 export default class MainLayout extends Component {
   render() {
-    console.log(this.props)
     return (
       <div className='main-layout'>
         <Switch>
           <Route path="/construction/:id" component={Construction}/>
           <Route path="/editConstruction/:id" component={EditConstruction}/>
+          <Route path="/construction" component={Construction}/>
+          <Route path="/editConstruction" component={EditConstruction}/>
           <Route path="/allConstructions" component={AllConstructions}/>
           <Route path="/createConstruction" component={CreateConstruction}/>
           <Route path="/editOwnUser" component={EditOwnUser}/>

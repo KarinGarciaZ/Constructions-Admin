@@ -1,6 +1,13 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import * as actionsCreators from '../store/actions/index';
 
-export default class AllConstructions extends Component {
+class AllConstructions extends Component {
+
+  componentDidMount() {
+    this.props.onChangeTitle();
+  }
+
   render() {
     return (
       <div>
@@ -9,3 +16,13 @@ export default class AllConstructions extends Component {
     )
   }
 }
+
+
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onChangeTitle: () => dispatch( actionsCreators.changeHeaderTitle('All constructions') )
+  }
+}
+
+export default connect( null, mapDispatchToProps )(AllConstructions);
