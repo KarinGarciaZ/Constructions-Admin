@@ -1,0 +1,5 @@
+.footer {
+  grid-column: sidebar-start / full-end;
+  background-color: $color-secondary-hover;
+  min-height: 7vh;
+}

@@ -1,5 +1,5 @@
 .header {
   grid-column: sidebar-start / full-end;
-  background-color: grey;
-  min-height: 5rem;
+  background-color: $color-primary-dark;
+  min-height: 8vh;
 }
