@@ -1,0 +1,40 @@
+.sidebar {
+  grid-column: sidebar-start / sidebar-end;
+  background-color: $color-primary-light;
+  min-height: 85vh;
+
+  padding-top: 3rem;
+}
+
+.list-of-navs {
+  font-size: 1.8rem;
+
+  display: grid;
+  grid-row-gap: 1rem;
+}
+
+.navlink {
+  list-style: none;
+  cursor: pointer;
+
+  a{
+    color:$color-secondary-hover;
+    text-decoration: none;
+
+    display: block;
+    padding: 1rem 4rem;
+  }
+
+  a.active {
+    color: white;
+    background-color: $color-secondary-hover;
+  }
+  
+  &:hover {
+    background-color: $color-secondary-hover;
+
+    a {
+      color: white;
+    }
+  }
+}
