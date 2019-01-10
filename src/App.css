@@ -22,12 +22,28 @@ body {
 .footer {
   grid-column: sidebar-start / full-end;
   background-color: #192e46;
-  min-height: 7vh; }
+  min-height: 7vh;
+  font-size: 2rem;
+  color: #c69963CC;
+  display: grid;
+  justify-content: center;
+  align-content: center; }
 
 .header {
   grid-column: sidebar-start / full-end;
   background-color: #B28451;
-  min-height: 8vh; }
+  min-height: 8vh;
+  padding-right: 4rem;
+  display: grid;
+  grid-template-columns: 1fr max-content;
+  align-items: center;
+  text-transform: capitalize;
+  color: #101d2c; }
+  .header__title {
+    justify-self: center;
+    font-size: 3rem; }
+  .header__user {
+    font-size: 1.8rem; }
 
 .main-layout {
   grid-column: full-start / full-end;
@@ -46,16 +62,31 @@ body {
 
 .navlink {
   list-style: none;
-  cursor: pointer; }
+  cursor: pointer;
+  position: relative; }
   .navlink a {
-    color: #192e46;
+    color: #101d2c;
     text-decoration: none;
     display: block;
-    padding: 1rem 4rem; }
+    padding: 1rem 4rem;
+    position: relative;
+    z-index: 3;
+    transition: color .2s .2s; }
   .navlink a.active {
     color: white;
     background-color: #192e46; }
-  .navlink:hover {
-    background-color: #192e46; }
-    .navlink:hover a {
-      color: white; }
+  .navlink::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 3px;
+    background-color: #192e46;
+    transform: scaleY(0);
+    transition: transform .2s, width .2s .2s; }
+  .navlink:hover::before {
+    transform: scaleY(1);
+    width: 100%; }
+  .navlink:hover a {
+    color: white; }

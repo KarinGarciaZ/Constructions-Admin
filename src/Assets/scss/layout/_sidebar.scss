@@ -16,22 +16,46 @@
 .navlink {
   list-style: none;
   cursor: pointer;
+  position: relative;
 
   a{
-    color:$color-secondary-hover;
+    color:$color-secondary;
     text-decoration: none;
 
     display: block;
     padding: 1rem 4rem;
+
+    position: relative;
+    z-index: 3;
+
+    transition: color .2s .2s;
   }
 
   a.active {
     color: white;
     background-color: $color-secondary-hover;
   }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 3px;
+    background-color: $color-secondary-hover;
+    transform: scaleY(0);   
+    
+    //The 1st .2s is for transform and the other one
+    //is for the width, this width has a delay of .2s
+    transition: transform .2s, width .2s .2s;
+  }
   
   &:hover {
-    background-color: $color-secondary-hover;
+    &::before {
+      transform: scaleY(1);
+      width: 100%;
+    }
 
     a {
       color: white;
