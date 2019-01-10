@@ -17,9 +17,45 @@ body {
 .container {
   display: grid;
   grid-template-rows: repeat(3, min-content);
-  grid-template-columns: [sidebar-start] minmax(min-content, 25rem) [sidebar-end full-start] minmax(6rem, 1fr) [center-start] repeat(8, [col-start] minmax(min-content, 14rem) [col-end]) [center-end] minmax(6rem, 1fr) [full-end]; }
+  grid-template-columns: [sidebar-start] max-content [sidebar-end full-start] minmax(2rem, 1fr) [center-start] repeat(8, [col-start] minmax(min-content, 14rem) [col-end]) [center-end] minmax(2rem, 1fr) [full-end]; }
+
+.footer {
+  grid-column: sidebar-start / full-end;
+  background-color: #192e46;
+  min-height: 7vh; }
 
 .header {
   grid-column: sidebar-start / full-end;
-  background-color: grey;
-  min-height: 5rem; }
+  background-color: #B28451;
+  min-height: 8vh; }
+
+.main-layout {
+  grid-column: full-start / full-end;
+  min-height: 80vh; }
+
+.sidebar {
+  grid-column: sidebar-start / sidebar-end;
+  background-color: #c69963CC;
+  min-height: 85vh;
+  padding-top: 3rem; }
+
+.list-of-navs {
+  font-size: 1.8rem;
+  display: grid;
+  grid-row-gap: 1rem; }
+
+.navlink {
+  list-style: none;
+  cursor: pointer; }
+  .navlink a {
+    color: #192e46;
+    text-decoration: none;
+    display: block;
+    padding: 1rem 4rem; }
+  .navlink a.active {
+    color: white;
+    background-color: #192e46; }
+  .navlink:hover {
+    background-color: #192e46; }
+    .navlink:hover a {
+      color: white; }
