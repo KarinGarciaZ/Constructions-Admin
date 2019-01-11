@@ -1,0 +1,24 @@
+.add-user-container {
+  height: 100%;
+  width: 100%;
+
+  display: grid;
+  align-content: center;
+  justify-content: center;
+
+  grid-template-columns: [user-start] minmax(3rem, 1fr) 
+    repeat(8, [col-start-user] minmax(min-content, 14rem) [col-end-user])
+    minmax(3rem, 1fr) [user-end];
+}
+
+.form-container {
+  padding: 5rem;
+  box-shadow: -1rem 1rem 3rem rgba(0, 0, 0, 0.15);
+  grid-column: col-start-user 1 / col-end-user 8;
+}
+
+.form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+  grid-gap: 4rem;
+}

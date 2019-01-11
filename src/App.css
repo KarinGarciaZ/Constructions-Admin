@@ -90,3 +90,70 @@ body {
     width: 100%; }
   .navlink:hover a {
     color: white; }
+
+.input {
+  padding: .6rem 1.5rem;
+  border: 2px solid #aaa;
+  outline-style: none;
+  border-radius: 5px;
+  width: 100%; }
+
+.input-error {
+  font-size: 1.4rem;
+  padding-top: .5rem;
+  color: rgba(255, 68, 0, 0.8); }
+
+.invalid {
+  outline-color: orangered;
+  background-color: rgba(255, 68, 0, 0.05);
+  border-style: none;
+  border: 2px solid rgba(255, 68, 0, 0.5); }
+
+.label {
+  font-size: 1.6rem;
+  display: block;
+  margin-bottom: .5rem;
+  text-transform: capitalize; }
+
+.form-buttons {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 11rem);
+  justify-content: end;
+  grid-column-gap: 3rem; }
+
+.btn {
+  background-color: #c69963;
+  color: white;
+  border: none;
+  border-radius: 0;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  padding: 1.2rem 2.4rem;
+  cursor: pointer;
+  transition: all .2s; }
+  .btn:hover {
+    background-color: #B28451; }
+
+.btn-cancel {
+  background-color: orangered; }
+  .btn-cancel:hover {
+    background-color: red; }
+
+.add-user-container {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  align-content: center;
+  justify-content: center;
+  grid-template-columns: [user-start] minmax(3rem, 1fr) repeat(8, [col-start-user] minmax(min-content, 14rem) [col-end-user]) minmax(3rem, 1fr) [user-end]; }
+
+.form-container {
+  padding: 5rem;
+  box-shadow: -1rem 1rem 3rem rgba(0, 0, 0, 0.15);
+  grid-column: col-start-user 1 / col-end-user 8; }
+
+.form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+  grid-gap: 4rem; }

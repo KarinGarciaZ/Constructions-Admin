@@ -1,0 +1,58 @@
+.input {
+  padding: .6rem 1.5rem;
+  border: 2px solid $color-grey-light-2;
+  outline-style: none;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.input-error {
+  font-size: 1.4rem;
+  padding-top: .5rem;
+  color: rgba(255, 68, 0, 0.8);
+}
+
+.invalid {
+  outline-color: orangered;
+  background-color: rgba(255, 68, 0, 0.05);
+  border-style: none;
+  border: 2px solid rgba(255, 68, 0, 0.5);
+}
+
+.label {
+  font-size: 1.6rem;
+  display: block;
+  margin-bottom: .5rem;
+  text-transform: capitalize;
+}
+
+.form-buttons {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns:  repeat(auto-fit, 11rem );
+  justify-content: end;
+  grid-column-gap: 3rem;
+}
+
+.btn {
+  background-color: $color-primary;
+  color: white;
+  border: none;
+  border-radius: 0;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  padding: 1.2rem 2.4rem;
+  cursor: pointer;
+  transition: all .2s;
+
+  &:hover {
+    background-color: $color-primary-dark;
+  }
+}
+
+.btn-cancel {
+  background-color: orangered;
+  &:hover {
+    background-color: red;
+  }
+}
