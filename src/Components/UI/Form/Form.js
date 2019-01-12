@@ -65,7 +65,9 @@ class Form extends Component {
   render() {
     console.log('Render Form');
     let buttonDisabled = false;
-    let formElementsForHTML = [];    
+    let formElementsForHTML = [];
+    let btnClasses = ['btn'];
+    
     for ( let key in this.state.formElements ) {
       formElementsForHTML.push( {
         id: key,
@@ -74,8 +76,10 @@ class Form extends Component {
     }
 
     for( let element of formElementsForHTML ){
-      if ( !element.config.valid )
+      if ( !element.config.valid ) {
         buttonDisabled = true;
+        btnClasses.push('btn-disabled')
+      }
     }
 
     let form = (
@@ -93,8 +97,8 @@ class Form extends Component {
             />
         })}
         <div className='form-buttons'>
-          <button className='btn btn-cancel' type='button' disabled={buttonDisabled}>cancel</button>
-          <button className='btn' disabled={buttonDisabled}>Save</button>
+          <button className='btn btn-cancel' type='button' onClick={this.props.onCancel}>cancel</button>
+          <button className={btnClasses.join(' ')} disabled={buttonDisabled}>Save</button>
         </div>
       </form>
     );

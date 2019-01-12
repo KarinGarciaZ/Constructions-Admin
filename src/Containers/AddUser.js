@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as actionsCreators from '../store/actions/index';
 
+import * as actionsCreators from '../store/actions/index';
 import Form from '../Components/UI/Form/Form';
+import axios from '../axios-connection';
 
 class AddUser extends Component {
 
@@ -125,7 +126,12 @@ class AddUser extends Component {
           passwordMatch: {
             valid: true,
             errorMessage: 'Password doesn´t match.'
-          }
+          },
+          minLength: {
+            valid: true,
+            value: 6,
+            errorMessage: 'Min length is 6 characters.'
+          }   
         }
       }
     }
@@ -139,7 +145,8 @@ class AddUser extends Component {
   componentWillReceiveProps( nextProps ) {
     if ( nextProps.formState.formElements.confirmPassword.valid )
       if ( nextProps.formState.formElements.password.value === nextProps.formState.formElements.confirmPassword.value ) {
-        this.saveUser();
+        let props = { ...nextProps };
+        this.saveUser(props);
       } else {
         let newProps = { ...nextProps };
         newProps.formState.formElements.confirmPassword.validation.passwordMatch.valid = false;
@@ -153,18 +160,26 @@ class AddUser extends Component {
     this.props.onUpdateFormState( state.formElements );
   }
 
-  saveUser = () => {
-    this.props.history.push('/')
+  saveUser = ( props ) => {
+    let newUser = {
+      username: props.formState.formElements.username.value,
+      name: props.formState.formElements.name.value,
+      email: props.formState.formElements.email.value,
+      phoneNumber: props.formState.formElements.phoneNumber.value,
+      password: props.formState.formElements.password.value
+    }
+    axios.post( '/user', newUser )
+    .then( data => {
+      console.log('data: ', data);
+      this.props.history.push('/')
+    })
+    .catch( error => {
+      console.log('error: ', error);
+    })
   }
-  
-  checkPasswords = () => {
-    if ( this.state.formElements.password.value !== this.state.formElements.confirmPassword.value ) {
-      let state = {...this.state};
-      state.formElements.password.valid = false;
-      state.formElements.confirmPassword.valid = false;
 
-      this.setState({ formElement: state.formElements })
-    }      
+  onCancel = () => {
+    this.props.history.push('/');
   }
 
   render() {
@@ -172,7 +187,7 @@ class AddUser extends Component {
     return (
       <div className='add-user-container'>
         <div className='form-container'>
-          <Form/>
+          <Form onCancel={this.onCancel} />
         </div>
       </div>
     )
