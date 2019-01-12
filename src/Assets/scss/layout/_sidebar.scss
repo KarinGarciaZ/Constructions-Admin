@@ -1,0 +1,64 @@
+.sidebar {
+  grid-column: sidebar-start / sidebar-end;
+  background-color: $color-primary-light;
+  min-height: 85vh;
+
+  padding-top: 3rem;
+}
+
+.list-of-navs {
+  font-size: 1.8rem;
+
+  display: grid;
+  grid-row-gap: 1rem;
+}
+
+.navlink {
+  list-style: none;
+  cursor: pointer;
+  position: relative;
+
+  a{
+    color:$color-secondary;
+    text-decoration: none;
+
+    display: block;
+    padding: 1rem 4rem;
+
+    position: relative;
+    z-index: 3;
+
+    transition: color .2s .2s;
+  }
+
+  a.active {
+    color: white;
+    background-color: $color-secondary-hover;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 3px;
+    background-color: $color-secondary-hover;
+    transform: scaleY(0);   
+    
+    //The 1st .2s is for transform and the other one
+    //is for the width, this width has a delay of .2s
+    transition: transform .2s, width .2s .2s;
+  }
+  
+  &:hover {
+    &::before {
+      transform: scaleY(1);
+      width: 100%;
+    }
+
+    a {
+      color: white;
+    }
+  }
+}

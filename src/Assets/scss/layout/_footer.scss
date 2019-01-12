@@ -1,0 +1,12 @@
+.footer {
+  grid-column: sidebar-start / full-end;
+  background-color: $color-secondary-hover;
+  min-height: 7vh;
+
+  font-size: 2rem;
+  color: $color-primary-light;
+
+  display: grid;
+  justify-content: center;
+  align-content: center;
+}

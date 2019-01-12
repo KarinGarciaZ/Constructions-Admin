@@ -1,32 +1,159 @@
-.App {
-  text-align: center;
-}
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit; }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-}
+html {
+  box-sizing: border-box;
+  font-size: 62.5%; }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+body {
+  color: #6D5D4B;
+  font-weight: 300;
+  line-height: 1.6; }
+
+.container {
+  display: grid;
+  grid-template-rows: repeat(3, min-content);
+  grid-template-columns: [sidebar-start] max-content [sidebar-end full-start] minmax(2rem, 1fr) [center-start] repeat(8, [col-start] minmax(min-content, 14rem) [col-end]) [center-end] minmax(2rem, 1fr) [full-end]; }
+
+.footer {
+  grid-column: sidebar-start / full-end;
+  background-color: #192e46;
+  min-height: 7vh;
+  font-size: 2rem;
+  color: #c69963CC;
+  display: grid;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  align-content: center; }
+
+.header {
+  grid-column: sidebar-start / full-end;
+  background-color: #B28451;
+  min-height: 8vh;
+  padding-right: 4rem;
+  display: grid;
+  grid-template-columns: 1fr max-content;
+  align-items: center;
+  text-transform: capitalize;
+  color: #101d2c; }
+  .header__title {
+    justify-self: center;
+    font-size: 3rem; }
+  .header__user {
+    font-size: 1.8rem; }
+
+.main-layout {
+  grid-column: full-start / full-end;
+  min-height: 80vh; }
+
+.sidebar {
+  grid-column: sidebar-start / sidebar-end;
+  background-color: #c69963CC;
+  min-height: 85vh;
+  padding-top: 3rem; }
+
+.list-of-navs {
+  font-size: 1.8rem;
+  display: grid;
+  grid-row-gap: 1rem; }
+
+.navlink {
+  list-style: none;
+  cursor: pointer;
+  position: relative; }
+  .navlink a {
+    color: #101d2c;
+    text-decoration: none;
+    display: block;
+    padding: 1rem 4rem;
+    position: relative;
+    z-index: 3;
+    transition: color .2s .2s; }
+  .navlink a.active {
+    color: white;
+    background-color: #192e46; }
+  .navlink::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 3px;
+    background-color: #192e46;
+    transform: scaleY(0);
+    transition: transform .2s, width .2s .2s; }
+  .navlink:hover::before {
+    transform: scaleY(1);
+    width: 100%; }
+  .navlink:hover a {
+    color: white; }
+
+.input {
+  padding: .6rem 1.5rem;
+  border: 2px solid #aaa;
+  outline-style: none;
+  border-radius: 5px;
+  width: 100%; }
+
+.input-error {
+  font-size: 1.4rem;
+  padding-top: .5rem;
+  color: rgba(255, 68, 0, 0.8); }
+
+.invalid {
+  outline-color: orangered;
+  background-color: rgba(255, 68, 0, 0.05);
+  border-style: none;
+  border: 2px solid rgba(255, 68, 0, 0.5); }
+
+.label {
+  font-size: 1.6rem;
+  display: block;
+  margin-bottom: .5rem;
+  text-transform: capitalize; }
+
+.form-buttons {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 11rem);
+  justify-content: end;
+  grid-column-gap: 3rem; }
+
+.btn {
+  background-color: #c69963;
   color: white;
-}
+  border: none;
+  border-radius: 0;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  padding: 1.2rem 2.4rem;
+  cursor: pointer;
+  transition: all .2s; }
+  .btn:hover {
+    background-color: #B28451; }
 
-.App-link {
-  color: #61dafb;
-}
+.btn-cancel {
+  background-color: orangered; }
+  .btn-cancel:hover {
+    background-color: red; }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+.add-user-container {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  align-content: center;
+  justify-content: center;
+  grid-template-columns: [user-start] minmax(3rem, 1fr) repeat(8, [col-start-user] minmax(min-content, 14rem) [col-end-user]) minmax(3rem, 1fr) [user-end]; }
+
+.form-container {
+  padding: 5rem;
+  box-shadow: -1rem 1rem 3rem rgba(0, 0, 0, 0.15);
+  grid-column: col-start-user 1 / col-end-user 8; }
+
+.form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+  grid-gap: 4rem; }

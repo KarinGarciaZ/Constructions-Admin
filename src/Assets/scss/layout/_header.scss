@@ -1,0 +1,23 @@
+.header {
+  grid-column: sidebar-start / full-end;
+  background-color: $color-primary-dark;
+  min-height: 8vh;
+
+  padding-right: 4rem;
+
+  display: grid;
+  grid-template-columns: 1fr max-content;
+  align-items: center;
+
+  text-transform: capitalize;  
+  color: $color-secondary;
+
+  &__title {
+    justify-self: center;
+    font-size: 3rem;
+  }
+
+  &__user {
+    font-size: 1.8rem;
+  }
+}
