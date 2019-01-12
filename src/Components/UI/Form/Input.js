@@ -16,8 +16,6 @@ const input = ( props ) => {
       return false;
     })
 
-    console.log('validationsKeyWithErrors: ', validationsKeyWithErrors);
-
     arrayErrorMessages = validationsKeyWithErrors.map( key => {
       return <p key={key} className='input-error'>* {props.shouldValidate[key].errorMessage}</p>
     })
