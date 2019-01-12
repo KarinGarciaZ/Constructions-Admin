@@ -94,26 +94,34 @@ class AddUser extends Component {
 
   componentWillMount() {
     this.props.onChangeTitle();
+    this.setUserForm();
+  }
 
+  componentWillReceiveProps( nextProps ) {
+    if ( nextProps.formState.formElements.password.valid )
+      if ( nextProps.formState.formElements.password.value === nextProps.formState.formElements.confirmPassword.value ) {
+        this.saveUser();
+      } else {
+        let newProps = { ...nextProps };
+        newProps.formState.formElements.password.valid = false;
+        newProps.formState.formElements.password.value = '';
+        newProps.formState.formElements.confirmPassword.valid = false;
+        newProps.formState.formElements.confirmPassword.value = '';
+        this.props.onUpdateFormState( newProps.formState.formElements );
+      }
+  }
+
+  setUserForm = () => {
     let state = { ...this.state }
     this.props.onUpdateFormState( state.formElements );
   }
 
-  componentWillReceiveProps( nextProps ) {
-    if (nextProps.formState !== this.state.formElements) {
-      this.setState({ formElements: nextProps.formState })
-    }
-  }
-
   saveUser = () => {
-    console.log('grabar')
+    this.props.history.push('/')
   }
   
   checkPasswords = () => {
-    console.log(this.state)
     if ( this.state.formElements.password.value !== this.state.formElements.confirmPassword.value ) {
-      
-      console.log('entra')
       let state = {...this.state};
       state.formElements.password.valid = false;
       state.formElements.confirmPassword.valid = false;
@@ -126,7 +134,7 @@ class AddUser extends Component {
     return (
       <div className='add-user-container'>
         <div className='form-container'>
-          <Form checkPassword={this.checkPasswords}/>
+          <Form/>
         </div>
       </div>
     )
@@ -135,7 +143,7 @@ class AddUser extends Component {
 
 const mapStateToProps = state => {
   return {
-    formState: state.formState.formElements
+    formState: state.formState
   };
 };
 
