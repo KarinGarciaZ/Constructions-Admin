@@ -18,8 +18,15 @@ class AddUser extends Component {
           placeholder: 'Username'
         },
         validation: {
-          required: true,
-          minLength: 1
+          required: {
+            valid: false,
+            errorMessage: 'This field is required.'
+          },
+          maxLength: {
+            valid: true,
+            value: 100,
+            errorMessage: 'Max length is 100 characters.'
+          }
         }
       },
       name: {
@@ -32,8 +39,15 @@ class AddUser extends Component {
           placeholder: 'Name'
         },
         validation: {
-          required: true,
-          minLength: 1
+          required: {
+            valid: false,
+            errorMessage: 'This field is required.'
+          },
+          maxLength: {
+            valid: true,
+            value: 100,
+            errorMessage: 'Max length is 100 characters.'
+          }
         }
       },
       email: {
@@ -46,13 +60,20 @@ class AddUser extends Component {
           placeholder: 'Email'
         },
         validation: {
-          required: true,
-          minLength: 4
+          required: {
+            valid: false,
+            errorMessage: 'This field is required.'
+          },
+          maxLength: {
+            valid: true,
+            value: 200,
+            errorMessage: 'Max length is 200 characters.'
+          }
         }
       },
       phoneNumber: {
         elementType: 'input',
-        valid: false,
+        valid: true,
         touched: false, 
         value: '',
         elementConfig: {
@@ -71,9 +92,21 @@ class AddUser extends Component {
           placeholder: 'Password'
         },
         validation: {
-          required: true,
-          minLength: 6
-         }
+          required: {
+            valid: false,
+            errorMessage: 'This field is required.'
+          },
+          maxLength: {
+            valid: true,
+            value: 16,
+            errorMessage: 'Max length is 16 characters.'
+          },
+          minLength: {
+            valid: true,
+            value: 6,
+            errorMessage: 'Min length is 6 characters.'
+          }          
+        }
       },
       confirmPassword: {
         elementType: 'input',
@@ -85,8 +118,14 @@ class AddUser extends Component {
           placeholder: 'Confirm Password'
         },
         validation: { 
-          required: true,
-          minLength: 6
+          required: {
+            valid: false,
+            errorMessage: 'This field is required.'
+          },
+          passwordMatch: {
+            valid: true,
+            errorMessage: 'Password doesn´t match.'
+          }
         }
       }
     }
@@ -98,15 +137,13 @@ class AddUser extends Component {
   }
 
   componentWillReceiveProps( nextProps ) {
-    if ( nextProps.formState.formElements.password.valid )
+    if ( nextProps.formState.formElements.confirmPassword.valid )
       if ( nextProps.formState.formElements.password.value === nextProps.formState.formElements.confirmPassword.value ) {
         this.saveUser();
       } else {
         let newProps = { ...nextProps };
-        newProps.formState.formElements.password.valid = false;
-        newProps.formState.formElements.password.value = '';
+        newProps.formState.formElements.confirmPassword.validation.passwordMatch.valid = false;
         newProps.formState.formElements.confirmPassword.valid = false;
-        newProps.formState.formElements.confirmPassword.value = '';
         this.props.onUpdateFormState( newProps.formState.formElements );
       }
   }
@@ -131,6 +168,7 @@ class AddUser extends Component {
   }
 
   render() {
+    console.log('Render AddUser');
     return (
       <div className='add-user-container'>
         <div className='form-container'>

@@ -26,34 +26,44 @@ class Form extends Component {
     let valid = [];
 
     if( validation.required ){
-      valid.push( value.trim() !== '' )
+      let elementValidation = value.trim() !== '';
+      valid.push( elementValidation );
+      validation.required.valid = elementValidation
     }
 
     if( validation.minLength ){
-      valid.push( value.length >= validation.minLength )
+      let elementValidation = value.length >= validation.minLength.value;
+      valid.push( elementValidation );
+      validation.minLength.valid = elementValidation;
     }
 
     if( validation.maxLength ){
-      valid.push( value.length <= validation.maxLength )
+      let elementValidation = value.length <= validation.maxLength.value;
+      valid.push( elementValidation );
+      validation.maxLength.valid = elementValidation;
     }
 
     for( let bool of valid )
-      if ( !bool ) return false;
-    return true;
+      if ( !bool ) return [false, validation];
+    return [true, validation];
   }
 
   changedValueInput = ( id, event ) => {
     let formElement = { ...this.state.formElements }
     let values = { ...formElement[id] }
+
     values.value = event.target.value;
-    values.valid = this.checkValidity( values.value, values.validation )
+    let validationResponse = this.checkValidity( values.value, values.validation );
+    values.valid = validationResponse[0];
+    values.validation = validationResponse[1];
     values.touched = true
     formElement[id] = values;
+
     this.setState({ formElements: formElement })
   }
 
   render() {
-    console.log('render form');
+    console.log('Render Form');
     let buttonDisabled = false;
     let formElementsForHTML = [];    
     for ( let key in this.state.formElements ) {
@@ -73,7 +83,6 @@ class Form extends Component {
         {formElementsForHTML.map( formElementForHTML => {
           return <Input 
             key={formElementForHTML.id} 
-            label={formElementForHTML.id}
             inputtype={formElementForHTML.config.elementType} 
             elementConfig={formElementForHTML.config.elementConfig} 
             value={formElementForHTML.config.value} 
