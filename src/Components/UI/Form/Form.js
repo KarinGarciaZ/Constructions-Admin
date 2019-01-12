@@ -10,17 +10,16 @@ class Form extends Component {
   }
 
   componentWillReceiveProps( nextProps ) {
-    if (nextProps.formState !== this.props.formState) {
-      this.setState({ formElements: nextProps.formState })
+    if (nextProps.formState.formElements !== this.state.formElements) {
+      this.setState({ formElements: nextProps.formState.formElements })
     }
   }
 
-  onSave = ( event ) => {
+  onSubmitForm = ( event ) => {
     event.preventDefault();
 
     let state = { ...this.state };
     this.props.onUpdateFormState( state.formElements );
-    this.props.checkPassword();
   }
 
   checkValidity = ( value, validation ) => {
@@ -54,6 +53,7 @@ class Form extends Component {
   }
 
   render() {
+    console.log('render form');
     let buttonDisabled = false;
     let formElementsForHTML = [];    
     for ( let key in this.state.formElements ) {
@@ -69,7 +69,7 @@ class Form extends Component {
     }
 
     let form = (
-      <form onSubmit={this.onSave} className='form'>      
+      <form onSubmit={this.onSubmitForm} className='form'>      
         {formElementsForHTML.map( formElementForHTML => {
           return <Input 
             key={formElementForHTML.id} 
@@ -84,7 +84,7 @@ class Form extends Component {
             />
         })}
         <div className='form-buttons'>
-          <button className='btn btn-cancel' disabled={buttonDisabled}>cancel</button>
+          <button className='btn btn-cancel' type='button' disabled={buttonDisabled}>cancel</button>
           <button className='btn' disabled={buttonDisabled}>Save</button>
         </div>
       </form>
@@ -106,7 +106,7 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
   return {
-    formState: state.formState.formElements
+    formState: state.formState
   };
 };
 
