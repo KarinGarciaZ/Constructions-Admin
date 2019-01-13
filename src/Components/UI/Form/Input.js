@@ -3,14 +3,25 @@ import React from 'react';
 const input = ( props ) => {
   let imputElement = null;
   let inputClasses = []
-  let inputError = null;
+  let arrayErrorMessages = [];
 
   if ( !props.valid && props.shouldValidate && props.touched ){
-    inputError = (<p className='input-error'>Please enter a valid {props.elementConfig.placeholder}</p>)
+    let validationKeys = [];
+    for ( let validateField in props.shouldValidate )
+      validationKeys.push(validateField);
+
+    let validationsKeyWithErrors = validationKeys.filter( key => {        
+      if ( !props.shouldValidate[key].valid )
+        return true;
+      return false;
+    })
+
+    arrayErrorMessages = validationsKeyWithErrors.map( key => {
+      return <p key={key} className='input-error'>* {props.shouldValidate[key].errorMessage}</p>
+    })
+
     inputClasses.push('invalid');
   }
-  // if ( props.valid && props.shouldValidate && props.touched ) 
-  //   inputClasses.push('valid');
 
   switch( props.inputtype ) {
     case 'input':
@@ -31,7 +42,7 @@ const input = ( props ) => {
     <div className='input-container'>
       <label className='label'>{props.elementConfig.placeholder}:</label>
       {imputElement}
-      {inputError}
+      {arrayErrorMessages}
     </div>
   );
 

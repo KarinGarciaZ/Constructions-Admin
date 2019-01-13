@@ -1,6 +1,7 @@
 .add-user-container {
   height: 100%;
   width: 100%;
+  padding: 2rem 0;
 
   display: grid;
   align-content: center;
@@ -13,7 +14,7 @@
 
 .form-container {
   padding: 5rem;
-  box-shadow: -1rem 1rem 3rem rgba(0, 0, 0, 0.15);
+  box-shadow: -1rem 1rem 4rem rgba(0, 0, 0, 0.15);
   grid-column: col-start-user 1 / col-end-user 8;
 }
 

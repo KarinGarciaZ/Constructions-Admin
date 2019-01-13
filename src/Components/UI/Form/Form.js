@@ -10,52 +10,64 @@ class Form extends Component {
   }
 
   componentWillReceiveProps( nextProps ) {
-    if (nextProps.formState !== this.props.formState) {
-      this.setState({ formElements: nextProps.formState })
+    if (nextProps.formState.formElements !== this.state.formElements) {
+      this.setState({ formElements: nextProps.formState.formElements })
     }
   }
 
-  onSave = ( event ) => {
+  onSubmitForm = ( event ) => {
     event.preventDefault();
 
     let state = { ...this.state };
     this.props.onUpdateFormState( state.formElements );
-    this.props.checkPassword();
   }
 
   checkValidity = ( value, validation ) => {
     let valid = [];
 
     if( validation.required ){
-      valid.push( value.trim() !== '' )
+      let elementValidation = value.trim() !== '';
+      valid.push( elementValidation );
+      validation.required.valid = elementValidation
     }
 
     if( validation.minLength ){
-      valid.push( value.length >= validation.minLength )
+      let elementValidation = value.length >= validation.minLength.value;
+      valid.push( elementValidation );
+      validation.minLength.valid = elementValidation;
     }
 
     if( validation.maxLength ){
-      valid.push( value.length <= validation.maxLength )
+      let elementValidation = value.length <= validation.maxLength.value;
+      valid.push( elementValidation );
+      validation.maxLength.valid = elementValidation;
     }
 
     for( let bool of valid )
-      if ( !bool ) return false;
-    return true;
+      if ( !bool ) return [false, validation];
+    return [true, validation];
   }
 
   changedValueInput = ( id, event ) => {
     let formElement = { ...this.state.formElements }
     let values = { ...formElement[id] }
+
     values.value = event.target.value;
-    values.valid = this.checkValidity( values.value, values.validation )
+    let validationResponse = this.checkValidity( values.value, values.validation );
+    values.valid = validationResponse[0];
+    values.validation = validationResponse[1];
     values.touched = true
     formElement[id] = values;
+
     this.setState({ formElements: formElement })
   }
 
   render() {
+    console.log('Render Form');
     let buttonDisabled = false;
-    let formElementsForHTML = [];    
+    let formElementsForHTML = [];
+    let btnClasses = ['btn'];
+    
     for ( let key in this.state.formElements ) {
       formElementsForHTML.push( {
         id: key,
@@ -64,16 +76,17 @@ class Form extends Component {
     }
 
     for( let element of formElementsForHTML ){
-      if ( !element.config.valid )
+      if ( !element.config.valid ) {
         buttonDisabled = true;
+        btnClasses.push('btn-disabled')
+      }
     }
 
     let form = (
-      <form onSubmit={this.onSave} className='form'>      
+      <form onSubmit={this.onSubmitForm} className='form'>      
         {formElementsForHTML.map( formElementForHTML => {
           return <Input 
             key={formElementForHTML.id} 
-            label={formElementForHTML.id}
             inputtype={formElementForHTML.config.elementType} 
             elementConfig={formElementForHTML.config.elementConfig} 
             value={formElementForHTML.config.value} 
@@ -84,8 +97,8 @@ class Form extends Component {
             />
         })}
         <div className='form-buttons'>
-          <button className='btn btn-cancel' disabled={buttonDisabled}>cancel</button>
-          <button className='btn' disabled={buttonDisabled}>Save</button>
+          <button className='btn btn-cancel' type='button' onClick={this.props.onCancel}>cancel</button>
+          <button className={btnClasses.join(' ')} disabled={buttonDisabled}>Save</button>
         </div>
       </form>
     );
@@ -106,7 +119,7 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
   return {
-    formState: state.formState.formElements
+    formState: state.formState
   };
 };
 

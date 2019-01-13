@@ -48,11 +48,19 @@
   &:hover {
     background-color: $color-primary-dark;
   }
-}
 
-.btn-cancel {
-  background-color: orangered;
-  &:hover {
-    background-color: red;
+  &:focus {
+    outline: none;
+  }
+
+  &-cancel {
+    background-color: orangered;
+    &:hover {
+      background-color: red;
+    }
+  }
+
+  &-disabled {
+    opacity: .5;
   }
 }
