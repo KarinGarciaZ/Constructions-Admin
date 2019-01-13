@@ -27,6 +27,10 @@ class AddUser extends Component {
             valid: true,
             value: 100,
             errorMessage: 'Max length is 100 characters.'
+          },
+          unique: {
+            valid: true,
+            errorMessage: 'This username already exist.'
           }
         }
       },
@@ -69,6 +73,14 @@ class AddUser extends Component {
             valid: true,
             value: 200,
             errorMessage: 'Max length is 200 characters.'
+          },
+          unique: {
+            valid: true,
+            errorMessage: 'This email is used by another user.'
+          },
+          isEmail: {
+            valid: true,
+            errorMessage: 'This does not seem to be a valid email.'
           }
         }
       },
@@ -143,7 +155,7 @@ class AddUser extends Component {
   }
 
   componentWillReceiveProps( nextProps ) {
-    if ( nextProps.formState.formElements.confirmPassword.valid )
+    if ( nextProps.formState.formElements.confirmPassword.valid && nextProps.formState.formElements.email.valid && nextProps.formState.formElements.username.valid )
       if ( nextProps.formState.formElements.password.value === nextProps.formState.formElements.confirmPassword.value ) {
         let props = { ...nextProps };
         this.saveUser(props);
@@ -170,11 +182,28 @@ class AddUser extends Component {
     }
     axios.post( '/user', newUser )
     .then( data => {
-      console.log('data: ', data);
       this.props.history.push('/')
     })
     .catch( error => {
-      console.log('error: ', error);
+      error.response.data.errors.forEach(element => {
+        if ( element.path === 'username' ) {
+          props.formState.formElements.username.validation.unique.valid = false;
+          props.formState.formElements.username.valid = false;
+        }
+        if ( element.path === 'email' ) {
+          if ( element.type === 'Validation error' ) {
+            props.formState.formElements.email.validation.isEmail.valid = false;  
+            props.formState.formElements.email.validation.unique.valid = true; 
+          }
+          if ( element.type === 'unique violation' ) {
+            props.formState.formElements.email.validation.unique.valid = false; 
+            props.formState.formElements.email.validation.isEmail.valid = true;  
+          } 
+          props.formState.formElements.email.valid = false;      
+        }
+      });     
+
+      this.props.onUpdateFormState( props.formState.formElements );
     })
   }
 
