@@ -61,6 +61,9 @@
   }
 
   &-disabled {
-    opacity: .5;
+    &:hover {
+      background-color: $color-primary;
+    }
+    opacity: .35;
   }
 }

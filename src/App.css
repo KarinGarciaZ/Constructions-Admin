@@ -22,7 +22,7 @@ body {
 .footer {
   grid-column: sidebar-start / full-end;
   background-color: #192e46;
-  min-height: 7vh;
+  min-height: 5vh;
   font-size: 2rem;
   color: #c69963CC;
   display: grid;
@@ -32,7 +32,7 @@ body {
 .header {
   grid-column: sidebar-start / full-end;
   background-color: #B28451;
-  min-height: 8vh;
+  min-height: 6vh;
   padding-right: 4rem;
   display: grid;
   grid-template-columns: 1fr max-content;
@@ -52,7 +52,7 @@ body {
 .sidebar {
   grid-column: sidebar-start / sidebar-end;
   background-color: #c69963CC;
-  min-height: 85vh;
+  min-height: 89vh;
   padding-top: 3rem; }
 
 .list-of-navs {
@@ -134,15 +134,21 @@ body {
   transition: all .2s; }
   .btn:hover {
     background-color: #B28451; }
-
-.btn-cancel {
-  background-color: orangered; }
-  .btn-cancel:hover {
-    background-color: red; }
+  .btn:focus {
+    outline: none; }
+  .btn-cancel {
+    background-color: orangered; }
+    .btn-cancel:hover {
+      background-color: red; }
+  .btn-disabled {
+    opacity: .35; }
+    .btn-disabled:hover {
+      background-color: #c69963; }
 
 .add-user-container {
   height: 100%;
   width: 100%;
+  padding: 2rem 0;
   display: grid;
   align-content: center;
   justify-content: center;
@@ -150,7 +156,7 @@ body {
 
 .form-container {
   padding: 5rem;
-  box-shadow: -1rem 1rem 3rem rgba(0, 0, 0, 0.15);
+  box-shadow: -1rem 1rem 4rem rgba(0, 0, 0, 0.15);
   grid-column: col-start-user 1 / col-end-user 8; }
 
 .form {
