@@ -7,7 +7,7 @@ import Sidebar from  '../Components/Layout/Sidebar';
 import Header from  '../Components/Layout/Header';
 import MainLayout from  '../Components/Layout/MainLayout';
 import Login from '../Containers/Login';
-import Aux from '../hoc/Aux';
+import Aux from '../hoc/Auxiliar';
 
 class Layout extends Component {
 
