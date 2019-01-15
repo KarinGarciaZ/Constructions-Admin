@@ -5,3 +5,7 @@ export {
 export {
   updateFormState
 } from './formState';
+
+export {
+  login
+} from './auth';
