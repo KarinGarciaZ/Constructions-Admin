@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import {Switch, Route } from 'react-router-dom';
+import {Switch, Route, Redirect, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import Home from '../../Containers/Home';
 import CreateConstruction from '../../Containers/CreateConstruction';
@@ -9,11 +10,21 @@ import AddUser from '../../Containers/AddUser';
 import EditConstruction from '../../Containers/EditConstruction';
 import AllConstructions from '../../Containers/AllConstructions';
 import Types from '../../Containers/Types';
+import Login from '../../Containers/Login';
 
-export default class MainLayout extends Component {
+class MainLayout extends Component {
+
   render() {
-    return (
-      <div className='main-layout'>
+    console.log('render mainlayout')
+
+    let routes = (
+      <Switch>
+        <Route path="/" component={Login}/>
+      </Switch>
+    )
+
+    if ( this.props.isAuth ){
+      routes = (
         <Switch>
           <Route path="/construction/:id" component={Construction}/>
           <Route path="/editConstruction/:id" component={EditConstruction}/>
@@ -25,8 +36,22 @@ export default class MainLayout extends Component {
           <Route path="/addUser" component={AddUser}/>
           <Route path="/types" component={Types}/>
           <Route path="/" component={Home}/>
-        </Switch>
+        </Switch>   
+      )
+    }
+
+    return (
+      <div className='main-layout'>
+        {routes}
       </div>
     )
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    isAuth: state.auth.userInfo.isAuth
+  };
+};
+
+export default withRouter(connect( mapStateToProps )(MainLayout));
