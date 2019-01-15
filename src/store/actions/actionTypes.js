@@ -1,3 +1,5 @@
 export const CHANGE_HEADER_TITLE = 'CHANGE_HEADER_TITLE';
 
 export const UPDATE_FORM_STATE = 'UPDATE_FORM_STATE';
+
+export const LOGIN = 'LOGIN';

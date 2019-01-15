@@ -17,8 +17,6 @@ class AllConstructions extends Component {
   }
 }
 
-
-
 const mapDispatchToProps = dispatch => {
   return {
     onChangeTitle: () => dispatch( actionsCreators.changeHeaderTitle('All constructions') )

@@ -22,7 +22,7 @@ body {
 .footer {
   grid-column: sidebar-start / full-end;
   background-color: #192e46;
-  min-height: 7vh;
+  min-height: 6vh;
   font-size: 2rem;
   color: #c69963CC;
   display: grid;
@@ -32,7 +32,7 @@ body {
 .header {
   grid-column: sidebar-start / full-end;
   background-color: #B28451;
-  min-height: 8vh;
+  min-height: 7vh;
   padding-right: 4rem;
   display: grid;
   grid-template-columns: 1fr max-content;
@@ -52,7 +52,7 @@ body {
 .sidebar {
   grid-column: sidebar-start / sidebar-end;
   background-color: #c69963CC;
-  min-height: 85vh;
+  min-height: 87vh;
   padding-top: 3rem; }
 
 .list-of-navs {
@@ -90,6 +90,11 @@ body {
     width: 100%; }
   .navlink:hover a {
     color: white; }
+
+.form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+  grid-gap: 4rem; }
 
 .input {
   padding: .6rem 1.5rem;
@@ -134,26 +139,41 @@ body {
   transition: all .2s; }
   .btn:hover {
     background-color: #B28451; }
+  .btn:focus {
+    outline: none; }
+  .btn-cancel {
+    background-color: orangered; }
+    .btn-cancel:hover {
+      background-color: red; }
+  .btn-disabled {
+    opacity: .35; }
+    .btn-disabled:hover {
+      background-color: #c69963; }
 
-.btn-cancel {
-  background-color: orangered; }
-  .btn-cancel:hover {
-    background-color: red; }
+.login-container {
+  height: 100%;
+  width: 100%;
+  padding: 2rem 0;
+  display: grid;
+  align-content: center;
+  justify-content: center;
+  grid-template-columns: [login-start] minmax(3rem, 1fr) repeat(8, [col-start-login] minmax(min-content, 14rem) [col-end-login]) minmax(3rem, 1fr) [login-end]; }
+
+.login-form-container {
+  padding: 5rem;
+  box-shadow: -1rem 1rem 4rem rgba(0, 0, 0, 0.15);
+  grid-column: col-start-login 3 / col-end-login 6; }
 
 .add-user-container {
   height: 100%;
   width: 100%;
+  padding: 2rem 0;
   display: grid;
   align-content: center;
   justify-content: center;
   grid-template-columns: [user-start] minmax(3rem, 1fr) repeat(8, [col-start-user] minmax(min-content, 14rem) [col-end-user]) minmax(3rem, 1fr) [user-end]; }
 
-.form-container {
+.add-user-form-container {
   padding: 5rem;
-  box-shadow: -1rem 1rem 3rem rgba(0, 0, 0, 0.15);
+  box-shadow: -1rem 1rem 4rem rgba(0, 0, 0, 0.15);
   grid-column: col-start-user 1 / col-end-user 8; }
-
-.form {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
-  grid-gap: 4rem; }

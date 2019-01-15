@@ -97,8 +97,8 @@ class Form extends Component {
             />
         })}
         <div className='form-buttons'>
-          <button className='btn btn-cancel' type='button' onClick={this.props.onCancel}>cancel</button>
-          <button className={btnClasses.join(' ')} disabled={buttonDisabled}>Save</button>
+          {(this.props.cancelButton)? <button className='btn btn-cancel' type='button' onClick={this.props.onCancel}>cancel</button> : null}
+          <button className={btnClasses.join(' ')} disabled={buttonDisabled}>Submit</button>
         </div>
       </form>
     );
