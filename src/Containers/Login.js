@@ -78,12 +78,14 @@ class Login extends Component {
         this.props.history.push('/');
       } else {
         formElements.password.valid = false;
+        formElements.password.value = '';
         formElements.password.validation.auth.valid = false;
         this.props.onUpdateFormState(formElements);
       }
     })
     .catch( error => {
       formElements.password.valid = false;
+      formElements.password.value = '';
       formElements.password.validation.auth.valid = false;
       this.props.onUpdateFormState(formElements);
     })

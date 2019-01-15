@@ -19,5 +19,14 @@
 
   &__user {
     font-size: 1.8rem;
+    height: 100%;
+    padding: 0 2rem;
+    background-color: $color-primary-light;
+    color: $color-secondary-hover;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
   }
 }
