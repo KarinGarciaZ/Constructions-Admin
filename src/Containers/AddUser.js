@@ -146,15 +146,24 @@ class AddUser extends Component {
           }   
         }
       }
-    }
+    },
+    formName: 'addUser'
   }
 
   componentWillMount() {
     this.props.onChangeTitle();
-    this.setUserForm();
+    
+    let state = { ...this.state }
+    this.props.onUpdateFormState( state );
   }
 
-  componentWillReceiveProps( nextProps ) {
+  shouldComponentUpdate( nextProps ) {
+    if ( nextProps.formState.formName === 'addUser' )
+      return true;
+    return false;
+  }
+
+  componentWillUpdate( nextProps ) {
     if ( nextProps.formState.formElements.confirmPassword.valid && nextProps.formState.formElements.email.valid && nextProps.formState.formElements.username.valid )
       if ( nextProps.formState.formElements.password.value === nextProps.formState.formElements.confirmPassword.value ) {
         let props = { ...nextProps };
@@ -163,13 +172,8 @@ class AddUser extends Component {
         let newProps = { ...nextProps };
         newProps.formState.formElements.confirmPassword.validation.passwordMatch.valid = false;
         newProps.formState.formElements.confirmPassword.valid = false;
-        this.props.onUpdateFormState( newProps.formState.formElements );
-      }
-  }
-
-  setUserForm = () => {
-    let state = { ...this.state }
-    this.props.onUpdateFormState( state.formElements );
+        this.props.onUpdateFormState( newProps.formState );
+    }
   }
 
   saveUser = ( props ) => {
@@ -182,6 +186,7 @@ class AddUser extends Component {
     }
     axios.post( '/user', newUser )
     .then( data => {
+      this.props.onUpdateFormState( {} );
       this.props.history.push('/')
     })
     .catch( error => {
@@ -202,12 +207,14 @@ class AddUser extends Component {
           props.formState.formElements.email.valid = false;      
         }
       });     
-
-      this.props.onUpdateFormState( props.formState.formElements );
+      console.log('onLogin')
+      let errorProps = { ...props.formState };
+      this.props.onUpdateFormState( errorProps );
     })
   }
 
   onCancel = () => {
+    this.props.onUpdateFormState( {} );
     this.props.history.push('/');
   }
 
@@ -225,7 +232,7 @@ class AddUser extends Component {
 
 const mapStateToProps = state => {
   return {
-    formState: state.formState
+    formState: state.formState.form
   };
 };
 

@@ -6,20 +6,23 @@ import * as actionsCreators from '../../../store/actions/index';
 class Form extends Component {
 
   state = {
-    formElements: {}
+    formElements: {},
+    formName: ''
   }
 
   componentWillReceiveProps( nextProps ) {
     if (nextProps.formState.formElements !== this.state.formElements) {
-      this.setState({ formElements: nextProps.formState.formElements })
+      this.setState({ 
+        formElements: nextProps.formState.formElements, 
+        formName: nextProps.formState.formName 
+      })
     }
   }
 
   onSubmitForm = ( event ) => {
     event.preventDefault();
-
     let state = { ...this.state };
-    this.props.onUpdateFormState( state.formElements );
+    this.props.onUpdateFormState( state );
   }
 
   checkValidity = ( value, validation ) => {
@@ -119,7 +122,7 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
   return {
-    formState: state.formState
+    formState: state.formState.form
   };
 };
 

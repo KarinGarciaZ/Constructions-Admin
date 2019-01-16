@@ -9,4 +9,9 @@
   display: grid;
   justify-content: center;
   align-content: center;
+
+  &__autor {
+    text-decoration: none;
+    color: $color-primary-light-2;
+  }
 }
