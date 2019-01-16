@@ -45,28 +45,33 @@ class Login extends Component {
           }
         }  
       },
-    }
-    
+    },
+    formName: 'login'
   }
 
   componentWillMount() {
     let state = {...this.state};
-    this.props.onUpdateFormState(state.formElements);
+    this.props.onUpdateFormState(state);
   }
 
-  componentWillReceiveProps( nextProps ) {
-    if ( nextProps.formState.formElements.password && nextProps.formState.formElements.username) {
-      if ( nextProps.formState.formElements.password.value && nextProps.formState.formElements.password.valid ) {
-        let props = {...nextProps}
-        this.onLogin( props.formState.formElements );
-      }
+  componentWillUpdate( nextProps ) {
+    if ( nextProps.formState.formElements.password.value && nextProps.formState.formElements.password.valid ) {
+      let props = { ...nextProps };
+      this.onLogin( props.formState );
+    }    
+  }
+
+  shouldComponentUpdate( nextProps ) {
+    if ( nextProps.formState.formName === 'login') {
+      return true;
     }
+    return false;
   }
 
-  onLogin = ( formElements ) => {
+  onLogin = ( form ) => {    
     let user = {
-      username: formElements.username.value,
-      password: formElements.password.value
+      username: form.formElements.username.value,
+      password: form.formElements.password.value
     }
 
     axios.post( '/user/getByAuth', user )
@@ -75,19 +80,13 @@ class Login extends Component {
         this.props.onUpdateFormState({});
         data.data.isAuth = true;
         this.props.onLogin( data.data );
-        this.props.history.push('/');
       } else {
-        formElements.password.valid = false;
-        formElements.password.value = '';
-        formElements.password.validation.auth.valid = false;
-        this.props.onUpdateFormState(formElements);
+        let formError = { ...form };
+        formError.formElements.password.valid = false;
+        formError.formElements.password.value = '';
+        formError.formElements.password.validation.auth.valid = false;
+        this.props.onUpdateFormState(formError);
       }
-    })
-    .catch( error => {
-      formElements.password.valid = false;
-      formElements.password.value = '';
-      formElements.password.validation.auth.valid = false;
-      this.props.onUpdateFormState(formElements);
     })
 
   }
@@ -106,7 +105,7 @@ class Login extends Component {
 
 const mapStateToProps = state => {
   return {
-    formState: state.formState
+    formState: state.formState.form
   };
 };
 
