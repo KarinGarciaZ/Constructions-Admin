@@ -53,7 +53,41 @@ body {
     color: #192e46;
     display: flex;
     flex-direction: column;
-    justify-content: center; }
+    justify-content: center;
+    position: relative; }
+    .header__user:hover .header__user--menu {
+      display: grid;
+      grid-template-columns: max-content;
+      top: 7vh;
+      right: 0; }
+    .header__user--menu {
+      display: none;
+      position: absolute;
+      background-color: rgba(243, 208, 165, 0.89);
+      box-shadow: 0 2px 5px 0px rgba(0, 0, 0, 0.2);
+      z-index: 1; }
+      .header__user--menu > * {
+        padding: .3rem 2rem; }
+        .header__user--menu > *:hover:not(:first-child) {
+          cursor: pointer;
+          color: white;
+          background-color: #486f9c; }
+      .header__user--menu__info {
+        border-bottom: 1px solid #aaa;
+        margin-bottom: 1rem; }
+        .header__user--menu__info--name {
+          font-size: 1.5rem; }
+        .header__user--menu__info--email {
+          font-size: 1.2rem;
+          text-transform: lowercase;
+          float: right; }
+      .header__user--menu__edit {
+        text-decoration: none;
+        color: #101d2c; }
+      .header__user--menu__logout {
+        border-top: 1px solid #aaa;
+        padding-top: 0px;
+        margin-top: 1rem; }
 
 .main-layout {
   grid-column: full-start / full-end;
