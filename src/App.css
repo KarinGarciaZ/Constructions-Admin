@@ -51,21 +51,17 @@ body {
     padding: 0 2rem;
     background-color: rgba(230, 183, 125, 0.89);
     color: #192e46;
+    cursor: pointer;
     display: flex;
     flex-direction: column;
     justify-content: center;
     position: relative; }
-    .header__user:hover .header__user--menu {
-      display: grid;
-      grid-template-columns: max-content;
-      top: 7vh;
-      right: 0; }
     .header__user--menu {
       display: none;
       position: absolute;
-      background-color: rgba(243, 208, 165, 0.89);
+      background-color: white;
       box-shadow: 0 2px 5px 0px rgba(0, 0, 0, 0.2);
-      z-index: 1; }
+      z-index: 5; }
       .header__user--menu > * {
         padding: .3rem 2rem; }
         .header__user--menu > *:hover:not(:first-child) {
@@ -88,6 +84,11 @@ body {
         border-top: 1px solid #aaa;
         padding-top: 0px;
         margin-top: 1rem; }
+    .header__user--menu-active {
+      display: grid;
+      grid-template-columns: max-content;
+      top: 7vh;
+      right: 0; }
 
 .main-layout {
   grid-column: full-start / full-end;

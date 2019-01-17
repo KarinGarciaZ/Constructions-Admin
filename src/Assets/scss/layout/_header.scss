@@ -23,6 +23,7 @@
     padding: 0 2rem;
     background-color: $color-primary-light;
     color: $color-secondary-hover;
+    cursor: pointer;
 
     display: flex;
     flex-direction: column;
@@ -30,19 +31,15 @@
 
     position: relative;
 
-    &:hover &--menu{
-      display: grid;
-      grid-template-columns: max-content;
-      top: 7vh;
-      right: 0;
-    }
+    
 
     &--menu {
       display: none;
       position: absolute;
-      background-color: $color-primary-light-2;
+      //background-color: $color-primary-light-2;
+      background-color: white;
       box-shadow: 0 2px 5px 0px rgba(0,0,0,0.2);
-      z-index: 1;      
+      z-index: 5;     
 
       & > * {
         padding: .3rem 2rem;
@@ -76,6 +73,13 @@
         padding-top: 0px;
         margin-top: 1rem;
       }
+    }
+
+    &--menu-active{
+      display: grid;
+      grid-template-columns: max-content;
+      top: 7vh;
+      right: 0;
     }
   }
 }
