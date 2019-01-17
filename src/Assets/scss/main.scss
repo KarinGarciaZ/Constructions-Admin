@@ -1,9 +1,11 @@
 @import "./base/base";
+@import "./base/animations";
 
 @import './layout/footer';
 @import './layout/header';
 @import './layout/mainLayout';
 @import './layout/sidebar';
+@import './layout/shadow';
 
 @import './components//form';
 @import './components/inputs';

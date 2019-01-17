@@ -34,12 +34,15 @@
     
 
     &--menu {
-      display: none;
       position: absolute;
-      //background-color: $color-primary-light-2;
+      display: grid;
+      grid-template-columns: max-content;
       background-color: white;
       box-shadow: 0 2px 5px 0px rgba(0,0,0,0.2);
-      z-index: 5;     
+      z-index: 5;       
+      right: 0;  
+      top: -25vh;
+      animation: moveMenuUp 1s ease;   
 
       & > * {
         padding: .3rem 2rem;
@@ -76,10 +79,9 @@
     }
 
     &--menu-active{
-      display: grid;
-      grid-template-columns: max-content;
       top: 7vh;
-      right: 0;
+      right: 0;      
+      animation: moveMenuDown 1s ease;
     }
   }
 }
