@@ -95,7 +95,7 @@ class Login extends Component {
     console.log('render login')
     return (
       <div className='login-container'>
-        <div className='login-form-container'>
+        <div className='form-container'>
           <Form />
         </div>
       </div>

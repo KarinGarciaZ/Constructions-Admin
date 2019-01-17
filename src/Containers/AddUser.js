@@ -222,7 +222,7 @@ class AddUser extends Component {
     console.log('Render AddUser');
     return (
       <div className='add-user-container'>
-        <div className='add-user-form-container'>
+        <div className='form-container'>
           <Form onCancel={this.onCancel} cancelButton={true}/>
         </div>
       </div>

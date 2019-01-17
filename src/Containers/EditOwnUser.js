@@ -177,8 +177,8 @@ class EditOwnUser extends Component {
   render() {
     console.log('render edit user');
     return (
-      <div className='add-user-container'>
-        <div className='add-user-form-container'>
+      <div className='edit-user-container'>
+        <div className='form-container'>
           <Form onCancel={this.onCancel} cancelButton={true}/>
         </div>
       </div>

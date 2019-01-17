@@ -8,12 +8,6 @@
   justify-content: center;
 
   grid-template-columns: [login-start] minmax(3rem, 1fr) 
-    repeat(8, [col-start-login] minmax(min-content, 14rem) [col-end-login])
+    repeat(8, [col-start] minmax(min-content, 6rem) [col-end])
     minmax(3rem, 1fr) [login-end];
-}
-
-.login-form-container {
-  padding: 5rem;
-  box-shadow: -1rem 1rem 4rem rgba(0, 0, 0, 0.15);
-  grid-column: col-start-login 3 / col-end-login 6;
 }
