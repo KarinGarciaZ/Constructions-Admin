@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+
 import * as actionsCreators from '../store/actions/index';
+import axios from '../axios-connection';
+import Form from '../Components/UI/Form/Form';
 
 class EditOwnUser extends Component {
 
@@ -8,7 +11,7 @@ class EditOwnUser extends Component {
     formElements: {
       username: {
         elementType: 'input',
-        valid: false,
+        valid: true,
         touched: false, 
         value: '',
         elementConfig: {
@@ -33,7 +36,7 @@ class EditOwnUser extends Component {
       },
       name: {
         elementType: 'input',
-        valid: false,
+        valid: true,
         touched: false, 
         value: '',
         elementConfig: {
@@ -54,7 +57,7 @@ class EditOwnUser extends Component {
       },
       email: {
         elementType: 'input',
-        valid: false,
+        valid: true,
         touched: false, 
         value: '',
         elementConfig: {
@@ -91,63 +94,93 @@ class EditOwnUser extends Component {
           placeholder: 'Phone Number'
         },
         validation: { }
-      },
-      password: {
-        elementType: 'input',
-        valid: false,
-        touched: false, 
-        value: '',
-        elementConfig: {
-          type: 'password',
-          placeholder: 'Password'
-        },
-        validation: {
-          required: {
-            valid: false,
-            errorMessage: 'This field is required.'
-          },
-          maxLength: {
-            valid: true,
-            value: 16,
-            errorMessage: 'Max length is 16 characters.'
-          },
-          minLength: {
-            valid: true,
-            value: 6,
-            errorMessage: 'Min length is 6 characters.'
-          }          
-        }
       }
+    },
+    formName: 'editUser',
+    loadingData: true
+  }
+
+  componentWillMount() {
+    this.props.onChangeTitle();
+
+    let userForm = { ...this.state }
+    userForm.formElements.username.value = this.props.userInfo.username;
+    userForm.formElements.name.value = this.props.userInfo.name;
+    userForm.formElements.email.value = this.props.userInfo.email;
+    userForm.formElements.phoneNumber.value = this.props.userInfo.phoneNumber;
+    this.props.onUpdateFormState( userForm );
+  }
+
+  componentWillUpdate( nextProps ) {
+    if ( nextProps.formState.formElements.email.valid && nextProps.formState.formElements.username ) 
+      if ( !nextProps.formState.loadingData ) {
+        let formProps = { ...nextProps.formState };
+        this.updateUser( formProps );
     }
   }
-
-  componentDidMount() {
-    this.props.onChangeTitle();
-  }
-
-  componentWillReceiveProps( nextProps ) {
-    console.log('nextProps: ', nextProps);
-    let userForm = { ...this.state.formElements };
-    userForm.username.value = nextProps.username;
-    userForm.name.value = nextProps.name;
-    userForm.email.value = nextProps.email;
-    userForm.phoneNumber.value = nextProps.phoneNumber;
-
-    this.props.onUpdateFormState( userForm );
-
-  }
   
-  shouldComponentUpdate( nextProps, nextState ) {
-    if ( nextProps.formState.formElements === this.props.formState.formElements )   
-      return false;
-    return true;
+  shouldComponentUpdate( nextProps ) {
+    if ( nextProps.formState.formName === 'editUser' )
+      return true;
+    return false;    
+  }
+
+  updateUser = ( formProps ) => {
+    let newUser = {
+      id: this.props.userInfo.id,
+      username: formProps.formElements.username.value,
+      name: formProps.formElements.name.value,
+      phoneNumber: formProps.formElements.phoneNumber.value,
+      email: formProps.formElements.email.value
+    }
+
+    axios.put( '/user', newUser )
+    .then( data => {
+      let newUserInfo = { ...this.props.userInfo };
+      newUserInfo.username = newUser.username;
+      newUserInfo.name = newUser.name;
+      newUserInfo.email = newUser.email;
+      newUserInfo.phoneNumber = newUser.phoneNumber;
+
+      this.props.onUpdateFormState( {} );
+      this.props.onSetUserData(newUserInfo);
+      this.props.history.push('/');
+    })
+    .catch( error => {
+      error.response.data.errors.forEach(element => {
+        if ( element.path === 'username' ) {
+          formProps.formElements.username.validation.unique.valid = false;
+          formProps.formElements.username.valid = false;
+        }
+        if ( element.path === 'email' ) {
+          if ( element.type === 'Validation error' ) {
+            formProps.formElements.email.validation.isEmail.valid = false;  
+            formProps.formElements.email.validation.unique.valid = true; 
+          }
+          if ( element.type === 'unique violation' ) {
+            formProps.formElements.email.validation.unique.valid = false; 
+            formProps.formElements.email.validation.isEmail.valid = true;  
+          } 
+          formProps.formElements.email.valid = false;      
+        }
+      });
+      formProps.loadingData = true;  
+      let errorProps = { ...formProps };
+      this.props.onUpdateFormState( errorProps );
+    })
+  }
+
+  onCancel = () => {
+    this.props.history.push('/');
   }
 
   render() {
     console.log('render edit user');
     return (
-      <div>
-        EditOwnUser
+      <div className='add-user-container'>
+        <div className='add-user-form-container'>
+          <Form onCancel={this.onCancel} cancelButton={true}/>
+        </div>
       </div>
     )
   }
@@ -155,7 +188,7 @@ class EditOwnUser extends Component {
 
 const mapStateToProps = state => {
   return {
-    formState: state.formState,
+    formState: state.formState.form,
     userInfo: state.auth.userInfo
   };
 };
@@ -163,7 +196,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onChangeTitle: () => dispatch( actionsCreators.changeHeaderTitle('Edit your profile') ),
-    onUpdateFormState: payload => dispatch( actionsCreators.updateFormState( payload ) )
+    onUpdateFormState: payload => dispatch( actionsCreators.updateFormState( payload ) ),
+    onSetUserData: payload => { dispatch(actionsCreators.login( payload )) }
   }
 }
 

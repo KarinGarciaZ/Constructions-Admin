@@ -167,7 +167,7 @@ class AddUser extends Component {
     if ( nextProps.formState.formElements.confirmPassword.valid && nextProps.formState.formElements.email.valid && nextProps.formState.formElements.username.valid )
       if ( nextProps.formState.formElements.password.value === nextProps.formState.formElements.confirmPassword.value ) {
         let props = { ...nextProps };
-        this.saveUser(props);
+        this.saveUser(props.formState);
       } else {
         let newProps = { ...nextProps };
         newProps.formState.formElements.confirmPassword.validation.passwordMatch.valid = false;
@@ -178,37 +178,37 @@ class AddUser extends Component {
 
   saveUser = ( props ) => {
     let newUser = {
-      username: props.formState.formElements.username.value,
-      name: props.formState.formElements.name.value,
-      email: props.formState.formElements.email.value,
-      phoneNumber: props.formState.formElements.phoneNumber.value,
-      password: props.formState.formElements.password.value
+      username: props.formElements.username.value,
+      name: props.formElements.name.value,
+      email: props.formElements.email.value,
+      phoneNumber: props.formElements.phoneNumber.value,
+      password: props.formElements.password.value
     }
     axios.post( '/user', newUser )
     .then( data => {
       this.props.onUpdateFormState( {} );
-      this.props.history.push('/')
+      this.props.history.push('/');
     })
     .catch( error => {
       error.response.data.errors.forEach(element => {
         if ( element.path === 'username' ) {
-          props.formState.formElements.username.validation.unique.valid = false;
-          props.formState.formElements.username.valid = false;
+          props.formElements.username.validation.unique.valid = false;
+          props.formElements.username.valid = false;
         }
         if ( element.path === 'email' ) {
           if ( element.type === 'Validation error' ) {
-            props.formState.formElements.email.validation.isEmail.valid = false;  
-            props.formState.formElements.email.validation.unique.valid = true; 
+            props.formElements.email.validation.isEmail.valid = false;  
+            props.formElements.email.validation.unique.valid = true; 
           }
           if ( element.type === 'unique violation' ) {
-            props.formState.formElements.email.validation.unique.valid = false; 
-            props.formState.formElements.email.validation.isEmail.valid = true;  
+            props.formElements.email.validation.unique.valid = false; 
+            props.formElements.email.validation.isEmail.valid = true;  
           } 
-          props.formState.formElements.email.valid = false;      
+          props.formElements.email.valid = false;      
         }
       });     
       console.log('onLogin')
-      let errorProps = { ...props.formState };
+      let errorProps = { ...props };
       this.props.onUpdateFormState( errorProps );
     })
   }
