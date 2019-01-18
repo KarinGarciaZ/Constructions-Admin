@@ -41,7 +41,7 @@ class Login extends Component {
           },
           auth: {
             valid: true,
-            errorMessage: 'There is an error with your authentication, make sure your email and password are correct.'
+            errorMessage: 'There is an error with your authentication, make sure your username and password are correct.'
           }
         }  
       },
@@ -75,7 +75,7 @@ class Login extends Component {
       password: form.formElements.password.value
     }
 
-    axios.post( '/user/getByAuth', user )
+    axios.post( '/user/getByAuth', user, {withCredentials: true} )
     .then( data => {
       if ( data.data ) {     
         this.props.onUpdateFormState({});
@@ -88,6 +88,13 @@ class Login extends Component {
         formError.formElements.password.validation.auth.valid = false;
         this.props.onUpdateFormState(formError);
       }
+    })
+    .catch( error => {
+      let formError = { ...form };
+      formError.formElements.password.valid = false;
+      formError.formElements.password.value = '';
+      formError.formElements.password.validation.auth.valid = false;
+      this.props.onUpdateFormState(formError);
     })
 
   }
