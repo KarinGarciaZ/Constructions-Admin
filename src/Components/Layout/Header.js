@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
 import * as actionsCreators from '../../store/actions/index';
+import axios from '../../axios-connection';
 
 class Header extends Component {
 
@@ -13,6 +14,9 @@ class Header extends Component {
   onLogout = () => {
     this.props.onLogout( { isAuth: false } );
     this.props.onUpdateFormState( {} );
+    axios.get('/user/logout', { withCredentials: true })
+    .then( data => console.log(data) )
+    .catch( error => console.log(error) )
   }
 
   onMenuClick = () => {
