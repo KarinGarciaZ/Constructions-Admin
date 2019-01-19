@@ -77,10 +77,12 @@ class Login extends Component {
 
     axios.post( '/user/getByAuth', user, {withCredentials: true} )
     .then( data => {
-      if ( data.data ) {     
+      console.log(data)
+      localStorage.setItem('userToken', data.data.token);
+      if ( data.data.data ) {     
         this.props.onUpdateFormState({});
-        data.data.isAuth = true;
-        this.props.onLogin( data.data );
+        data.data.data.isAuth = true;
+        this.props.onLogin( data.data.data );
       } else {
         let formError = { ...form };
         formError.formElements.password.valid = false;

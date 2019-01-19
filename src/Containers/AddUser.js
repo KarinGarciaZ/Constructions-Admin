@@ -184,12 +184,15 @@ class AddUser extends Component {
       phoneNumber: props.formElements.phoneNumber.value,
       password: props.formElements.password.value
     }
-    axios.post( '/user', newUser )
+
+    let cachedHits = localStorage.getItem('userToken');
+    axios.post( '/user', newUser, {headers: {authorization: cachedHits}})
     .then( data => {
       this.props.onUpdateFormState( {} );
       this.props.history.push('/');
     })
     .catch( error => {
+      console.log(error.response)
       error.response.data.errors.forEach(element => {
         if ( element.path === 'username' ) {
           props.formElements.username.validation.unique.valid = false;
