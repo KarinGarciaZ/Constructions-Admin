@@ -75,14 +75,13 @@ class Login extends Component {
       password: form.formElements.password.value
     }
 
-    axios.post( '/user/getByAuth', user, {withCredentials: true} )
+    axios.post( '/auth/login', user )
     .then( data => {
-      console.log(data)
       localStorage.setItem('userToken', data.data.token);
-      if ( data.data.data ) {     
+      if ( data.data.userInfo ) {     
         this.props.onUpdateFormState({});
-        data.data.data.isAuth = true;
-        this.props.onLogin( data.data.data );
+        data.data.userInfo.isAuth = true;
+        this.props.onLogin( data.data.userInfo );
       } else {
         let formError = { ...form };
         formError.formElements.password.valid = false;
@@ -92,6 +91,7 @@ class Login extends Component {
       }
     })
     .catch( error => {
+      console.log('error: ', error.response);
       let formError = { ...form };
       formError.formElements.password.valid = false;
       formError.formElements.password.value = '';

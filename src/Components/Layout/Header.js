@@ -14,9 +14,7 @@ class Header extends Component {
   onLogout = () => {
     this.props.onLogout( { isAuth: false } );
     this.props.onUpdateFormState( {} );
-    axios.get('/user/logout', { withCredentials: true })
-    .then( data => console.log(data) )
-    .catch( error => console.log(error) )
+    localStorage.removeItem('userToken');
   }
 
   onMenuClick = () => {

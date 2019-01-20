@@ -193,26 +193,29 @@ class AddUser extends Component {
     })
     .catch( error => {
       console.log(error.response)
-      error.response.data.errors.forEach(element => {
-        if ( element.path === 'username' ) {
-          props.formElements.username.validation.unique.valid = false;
-          props.formElements.username.valid = false;
-        }
-        if ( element.path === 'email' ) {
-          if ( element.type === 'Validation error' ) {
-            props.formElements.email.validation.isEmail.valid = false;  
-            props.formElements.email.validation.unique.valid = true; 
+      if( error.response.status === 403 ){
+        this.props.onUpdateFormState( {} );
+      } else {
+        error.response.data.errors.forEach(element => {
+          if ( element.path === 'username' ) {
+            props.formElements.username.validation.unique.valid = false;
+            props.formElements.username.valid = false;
           }
-          if ( element.type === 'unique violation' ) {
-            props.formElements.email.validation.unique.valid = false; 
-            props.formElements.email.validation.isEmail.valid = true;  
-          } 
-          props.formElements.email.valid = false;      
-        }
-      });     
-      console.log('onLogin')
-      let errorProps = { ...props };
-      this.props.onUpdateFormState( errorProps );
+          if ( element.path === 'email' ) {
+            if ( element.type === 'Validation error' ) {
+              props.formElements.email.validation.isEmail.valid = false;  
+              props.formElements.email.validation.unique.valid = true; 
+            }
+            if ( element.type === 'unique violation' ) {
+              props.formElements.email.validation.unique.valid = false; 
+              props.formElements.email.validation.isEmail.valid = true;  
+            } 
+            props.formElements.email.valid = false;      
+          }
+        });     
+        let errorProps = { ...props };
+        this.props.onUpdateFormState( errorProps );
+      }
     })
   }
 
