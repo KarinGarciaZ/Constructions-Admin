@@ -9,6 +9,7 @@ import Header from  '../Components/Layout/Header';
 import MainLayout from  '../Components/Layout/MainLayout';
 import Login from '../Containers/Login';
 import Aux from '../hoc/Auxiliar';
+import Loading from '../Components/Layout/Loading';
 import axios from '../axios-connection';
 
 class Layout extends Component {
@@ -17,35 +18,43 @@ class Layout extends Component {
     render: ''
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.renderAccess()
   }
 
   componentWillUpdate() {
+    console.log('will update');
     this.renderAccess()
+  }
+
+  shouldComponentUpdate( nextProps, nextState ) {
+    console.log('nextProps: ', nextProps);
+    if ( this.props.isAuth === nextProps.isAuth && this.state.render === nextState.render )
+      if( this.props.location.pathname === nextProps.location.pathname && this.props.match.params === nextProps.match.params )
+        return false;
+    return true;
   }
 
   renderAccess = () => {
     let containerToRender = '';
 
     if ( this.props.isAuth && localStorage.getItem('userToken') ){
-      console.log('entras');
+      console.log('Tiene token y auth');
       containerToRender = 'Aux';
 
     } else if ( localStorage.getItem('userToken') && !this.props.isAuth ) {
       axios.get( 'auth/getUserByToken', {headers: {authorization: localStorage.getItem('userToken')}} )
       .then( resp => {
-        console.log('entras2');
         resp.data.isAuth = true;
         this.props.onLogin( resp.data );
         containerToRender = 'Aux';
-        if( this.state.render !== containerToRender )  
-          this.setState({render: containerToRender})
       })
       .catch( err => {
-        containerToRender = 'Login'
+        containerToRender = 'Login'        
+      })
+      .finally( fin => {
         if( this.state.render !== containerToRender )  
-          this.setState({render: containerToRender})
+        this.setState({render: containerToRender})
       })
     }
     else 
@@ -58,7 +67,7 @@ class Layout extends Component {
   render() {
     console.log('RENDER LAYOUT');
 
-    let renderContainer = null;    
+    let renderContainer = <Loading />;    
 
     if ( this.state.render === 'Login' )
       renderContainer = <Login />

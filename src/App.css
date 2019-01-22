@@ -157,12 +157,9 @@ body {
   .navlink:active::before {
     background-color: #03356d; }
 
-.shadow-container {
-  width: 100vw;
-  height: 100vh;
-  background-color: black;
-  top: 0;
-  left: 0; }
+.loading-container {
+  grid-column: 1 / -1;
+  min-height: 87vh; }
 
 .form {
   display: grid;
