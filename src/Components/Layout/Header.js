@@ -24,7 +24,6 @@ class Header extends Component {
   }
 
   render() {    
-    console.log('render Header')
 
     let menuClasses = ['header__user--menu']
     if ( this.state.menuActive )

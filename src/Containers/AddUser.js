@@ -225,7 +225,6 @@ class AddUser extends Component {
   }
 
   render() {
-    console.log('Render AddUser');
     return (
       <div className='add-user-container'>
         <div className='form-container'>

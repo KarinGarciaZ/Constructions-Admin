@@ -176,7 +176,6 @@ class EditOwnUser extends Component {
   }
 
   render() {
-    console.log('render edit user');
     return (
       <div className='edit-user-container'>
         <div className='form-container'>

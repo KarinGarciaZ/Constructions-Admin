@@ -66,7 +66,6 @@ class Form extends Component {
   }
 
   render() {
-    console.log('Render Form');
     let buttonDisabled = false;
     let formElementsForHTML = [];
     let btnClasses = ['btn'];
