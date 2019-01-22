@@ -5,7 +5,7 @@ import * as actionsCreators from '../store/actions/index';
 class Home extends Component {
 
   componentDidMount() {
-    this.props.onChangeTitle();
+    this.props.onChangeTitle();    
   }
 
   render() {

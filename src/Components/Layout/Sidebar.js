@@ -11,7 +11,6 @@ export default class Sidebar extends Component {
           <Navlink link='/construction'>Construction</Navlink>
           <Navlink link='/editConstruction'>Edit Construction</Navlink>
           <Navlink link='/types'>Types</Navlink>
-          <Navlink link='/editOwnUser'>Edit User</Navlink>
           <Navlink link='/addUser'>Add User</Navlink>
         </ul>
       </div>

@@ -48,7 +48,8 @@
     
     //The 1st .2s is for transform and the other one
     //is for the width, this width has a delay of .2s
-    transition: transform .2s, width .2s .2s;
+    transition: transform .2s, 
+                width .2s .2s;
   }
   
   &:hover {
@@ -60,5 +61,9 @@
     a {
       color: white;
     }
+  }
+
+  &:active::before {
+    background-color: $color-secondary-light-2;
   }
 }

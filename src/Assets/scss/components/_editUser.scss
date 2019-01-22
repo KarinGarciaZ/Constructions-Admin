@@ -1,4 +1,4 @@
-.add-user-container {
+.edit-user-container {
   height: 100%;
   width: 100%;
   padding: 2rem 0;
@@ -8,6 +8,6 @@
   justify-content: center;
 
   grid-template-columns: [user-start] minmax(3rem, 1fr) 
-    repeat(8, [col-start] minmax(min-content, 14rem) [col-end])
+    repeat(8, [col-start] minmax(min-content, 9rem) [col-end])
     minmax(3rem, 1fr) [user-end];
 }

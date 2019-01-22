@@ -41,7 +41,7 @@ class Login extends Component {
           },
           auth: {
             valid: true,
-            errorMessage: 'There is an error with your authentication, make sure your email and password are correct.'
+            errorMessage: 'There is an error with your authentication, make sure your username and password are correct.'
           }
         }  
       },
@@ -50,6 +50,7 @@ class Login extends Component {
   }
 
   componentWillMount() {
+    this.props.onChangeTitle('Welcome!')
     let state = {...this.state};
     this.props.onUpdateFormState(state);
   }
@@ -74,12 +75,13 @@ class Login extends Component {
       password: form.formElements.password.value
     }
 
-    axios.post( '/user/getByAuth', user )
+    axios.post( '/auth/login', user )
     .then( data => {
-      if ( data.data ) {     
+      localStorage.setItem('userToken', data.data.token);
+      if ( data.data.userInfo ) {     
         this.props.onUpdateFormState({});
-        data.data.isAuth = true;
-        this.props.onLogin( data.data );
+        data.data.userInfo.isAuth = true;
+        this.props.onLogin( data.data.userInfo );
       } else {
         let formError = { ...form };
         formError.formElements.password.valid = false;
@@ -88,6 +90,14 @@ class Login extends Component {
         this.props.onUpdateFormState(formError);
       }
     })
+    .catch( error => {
+      console.log('error: ', error.response);
+      let formError = { ...form };
+      formError.formElements.password.valid = false;
+      formError.formElements.password.value = '';
+      formError.formElements.password.validation.auth.valid = false;
+      this.props.onUpdateFormState(formError);
+    })
 
   }
 
@@ -95,7 +105,7 @@ class Login extends Component {
     console.log('render login')
     return (
       <div className='login-container'>
-        <div className='login-form-container'>
+        <div className='form-container'>
           <Form />
         </div>
       </div>
@@ -112,7 +122,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onLogin: payload => { dispatch(actionsCreators.login( payload )) },
-    onUpdateFormState: payload => dispatch( actionsCreators.updateFormState( payload ) )
+    onUpdateFormState: payload => dispatch( actionsCreators.updateFormState( payload ) ),
+    onChangeTitle: payload => dispatch( actionsCreators.changeHeaderTitle( payload ) )
   }
 }
 

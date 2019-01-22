@@ -1,11 +1,14 @@
 @import "./base/base";
+@import "./base/animations";
 
 @import './layout/footer';
 @import './layout/header';
 @import './layout/mainLayout';
 @import './layout/sidebar';
+@import './layout/loading';
 
 @import './components//form';
 @import './components/inputs';
 @import './components/login';
 @import './components/addUser';
+@import './components/editUser';

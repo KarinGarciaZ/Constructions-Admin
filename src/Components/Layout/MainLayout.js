@@ -13,7 +13,6 @@ import Types from '../../Containers/Types';
 class MainLayout extends Component {
 
   render() {
-    console.log('render mainlayout')
 
     return (
       <div className='main-layout'>
