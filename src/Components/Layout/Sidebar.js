@@ -6,6 +6,7 @@ export default class Sidebar extends Component {
     return (
       <div className='sidebar'>
         <ul className='list-of-navs'>
+          <Navlink link='/' exact>Home</Navlink>
           <Navlink link='/allConstructions'>All Constructions</Navlink>
           <Navlink link='/createConstruction'>Create Construction</Navlink>
           <Navlink link='/construction'>Construction</Navlink>
