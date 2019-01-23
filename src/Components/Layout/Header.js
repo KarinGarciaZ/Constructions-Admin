@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
 import * as actionsCreators from '../../store/actions/index';
+import logo from '../../Assets/Images/Project/logo.png'
 
 class Header extends Component {
 
@@ -44,11 +45,10 @@ class Header extends Component {
     )
 
     return (
-      <div className='header'>
+      <div className='header'>      
+        <img src={logo} alt='logo' className='header__logo' />
         <p className='header__title'>{this.props.headerTitle}</p>
-        { this.props.user.username ? dropdown : null
-        }
-        
+        { this.props.user.username ? dropdown : null }
       </div>
     )
   }

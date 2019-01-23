@@ -3,14 +3,20 @@
   background-color: $color-primary-dark;
   min-height: 7vh;
 
-  padding-right: 4rem;
+  padding: 0 4rem;
 
   display: grid;
-  grid-template-columns: 1fr max-content;
+  grid-template-columns: max-content 1fr max-content;
   align-items: center;
 
   text-transform: capitalize;  
   color: $color-secondary;
+
+  &__logo {
+    max-width: 100%;
+    max-height: 100%;
+    transform: scale(1.7);
+  }
 
   &__title {
     justify-self: center;
@@ -30,9 +36,7 @@
     justify-content: center;
 
     position: relative;
-
-    
-
+   
     &--menu {
       position: absolute;
       display: grid;
