@@ -39,11 +39,11 @@ class Layout extends Component {
     let containerToRender = '';
 
     if ( this.props.isAuth && localStorage.getItem('userToken') ){
-      console.log('Tiene token y auth');
       containerToRender = 'Aux';
 
     } else if ( localStorage.getItem('userToken') && !this.props.isAuth ) {
-      axios.get( 'auth/getUserByToken', {headers: {authorization: localStorage.getItem('userToken')}} )
+      let TOKEN = localStorage.getItem('userToken');
+      axios.get( 'auth/getUserByToken', {headers: {'Authorization': 'Bearer ' + TOKEN}} )
       .then( resp => {
         if ( !this.props.isAuth ) {
           resp.data.isAuth = true;

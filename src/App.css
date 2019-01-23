@@ -22,7 +22,7 @@ body {
 @keyframes moveMenuDown {
   0% {
     opacity: 0;
-    transform: translateY(-25vh); }
+    transform: translateY(-50vh); }
   100% {
     opacity: 1;
     transform: translateY(0); } }
@@ -30,7 +30,7 @@ body {
 @keyframes moveMenuUp {
   0% {
     opacity: 1;
-    transform: translateY(32vh); }
+    transform: translateY(57vh); }
   100% {
     opacity: 0;
     transform: translateY(0); } }
@@ -80,7 +80,7 @@ body {
       box-shadow: 0 2px 5px 0px rgba(0, 0, 0, 0.2);
       z-index: 5;
       right: 0;
-      top: -25vh;
+      top: -50vh;
       animation: moveMenuUp 1s ease; }
       .header__user--menu > * {
         padding: .3rem 2rem; }

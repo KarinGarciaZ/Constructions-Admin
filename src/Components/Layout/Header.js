@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
 import * as actionsCreators from '../../store/actions/index';
-import axios from '../../axios-connection';
 
 class Header extends Component {
 
