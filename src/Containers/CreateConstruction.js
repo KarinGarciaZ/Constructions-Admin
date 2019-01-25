@@ -19,7 +19,7 @@ class CreateConstruction extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onChangeTitle: () => dispatch( actionsCreators.changeHeaderTitle('Create a new construction') )
+    onChangeTitle: () => dispatch( actionsCreators.changeHeaderTitle('Create a construction') )
   }
 }
 

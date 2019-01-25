@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUserCircle, faCaretDown, faCaretUp, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 
 import * as actionsCreators from '../../store/actions/index';
-import axios from '../../axios-connection';
+import logo from '../../Assets/Images/Project/logo.png'
 
 class Header extends Component {
 
@@ -31,7 +33,11 @@ class Header extends Component {
 
     let dropdown = (
       <div className='header__user' onClick={this.onMenuClick}>
-        <h4>{this.props.user.username}</h4>
+        <h4 className='header__user--username'>
+          <FontAwesomeIcon icon={faUserCircle} size='lg'/> 
+          {this.props.user.username}
+          <FontAwesomeIcon icon={this.state.menuActive ? faCaretUp : faCaretDown}/>
+        </h4>
         <nav className={menuClasses.join(' ')}>
           <div className='header__user--menu__info'>
             <p className='header__user--menu__info--name'>{this.props.user.name}</p>
@@ -39,17 +45,19 @@ class Header extends Component {
           </div>
           <NavLink className='header__user--menu__edit' to='/editOwnUser' >Edit User</NavLink>
           <p className=''>Change Password</p>
-          <p className='header__user--menu__logout' onClick={this.onLogout}>Logout</p>
+          <p className='header__user--menu__logout' onClick={this.onLogout}>
+            Logout
+            <FontAwesomeIcon icon={faSignOutAlt}/>
+          </p>
         </nav>
       </div>
     )
 
     return (
-      <div className='header'>
+      <div className='header'>      
+        <img src={logo} alt='logo' className='header__logo' />
         <p className='header__title'>{this.props.headerTitle}</p>
-        { this.props.user.username ? dropdown : null
-        }
-        
+        { this.props.user.username ? dropdown : null }
       </div>
     )
   }

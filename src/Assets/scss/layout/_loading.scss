@@ -1,4 +1,14 @@
 .loading-container {
   grid-column: 1 / -1;
   min-height: 87vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinner {
+  width: 10rem;
+  height: 10rem;
+
+  animation: loadingSpinner 5s infinite linear;
 }

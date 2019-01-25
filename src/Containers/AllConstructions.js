@@ -7,8 +7,9 @@ class AllConstructions extends Component {
 
   componentDidMount() {
     this.props.onChangeTitle();
-    const cachedHits = localStorage.getItem('userToken');
-    axios.get('/construction', {headers: {authorization: cachedHits}}).then( data => {
+    let TOKEN = localStorage.getItem('userToken');
+    axios.get('/construction', {headers: {'Authorization': 'Bearer ' + TOKEN}})
+    .then( data => {
       console.log(data)
     } )
   }

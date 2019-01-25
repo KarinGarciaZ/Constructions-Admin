@@ -23,12 +23,10 @@ class Layout extends Component {
   }
 
   componentWillUpdate() {
-    console.log('will update');
     this.renderAccess()
   }
 
   shouldComponentUpdate( nextProps, nextState ) {
-    console.log('nextProps: ', nextProps);
     if ( this.props.isAuth === nextProps.isAuth && this.state.render === nextState.render )
       if( this.props.location.pathname === nextProps.location.pathname && this.props.match.params === nextProps.match.params )
         return false;
@@ -39,14 +37,16 @@ class Layout extends Component {
     let containerToRender = '';
 
     if ( this.props.isAuth && localStorage.getItem('userToken') ){
-      console.log('Tiene token y auth');
       containerToRender = 'Aux';
 
     } else if ( localStorage.getItem('userToken') && !this.props.isAuth ) {
-      axios.get( 'auth/getUserByToken', {headers: {authorization: localStorage.getItem('userToken')}} )
+      let TOKEN = localStorage.getItem('userToken');
+      axios.get( 'auth/getUserByToken', {headers: {'Authorization': 'Bearer ' + TOKEN}} )
       .then( resp => {
-        resp.data.isAuth = true;
-        this.props.onLogin( resp.data );
+        if ( !this.props.isAuth ) {
+          resp.data.isAuth = true;
+          this.props.onLogin( resp.data );
+        }
         containerToRender = 'Aux';
       })
       .catch( err => {
