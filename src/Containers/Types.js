@@ -1,19 +1,28 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit, faSave, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faSave, faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
 
+import Loading from '../Components/Layout/Loading';
 import axios from '../axios-connection';
 import * as actionsCreators from '../store/actions/index';
-
+import Aux from '../hoc/Auxiliar';
 
 class Types extends Component {
 
   state = {
-    types: []
+    types: [],
+    addType: false,
+    newType: {
+      name: ''
+    }
   }
 
   componentDidMount() {
+    this.getTypes();
+  }
+
+  getTypes = () => {
     this.props.onChangeTitle();
     let TOKEN = localStorage.getItem('userToken');
     axios.get( '/type', { headers: { 'Authorization': 'Bearer ' + TOKEN }} )
@@ -37,16 +46,7 @@ class Types extends Component {
       }
     })
     this.setState({ types })
-  }
-
-  onChangeName = (event, typeId) => {
-    let types = [ ...this.state.types ];
-    types.forEach( element => {
-      if (element.id === typeId)
-        element.name = event.target.value;
-    })
-    this.setState({ types })
-  }
+  }  
 
   onUpdate = ( type ) => {
     let TOKEN = localStorage.getItem('userToken');
@@ -59,13 +59,51 @@ class Types extends Component {
     })
   }
 
+  onChangeName = (event, typeId) => {
+    let types = [ ...this.state.types ];
+    types.forEach( element => {
+      if (element.id === typeId)
+        element.name = event.target.value;
+    })
+    this.setState({ types })
+  }
+
   onCancel = () => {
     this.props.history.push('/');
+  }
+
+  onToggleAddType = () => {
+    this.setState( state => {
+      return { addType: !state.addType }
+    })
+  }
+
+  onSave = () => {
+    let name = this.state.newType.name;
+    let TOKEN = localStorage.getItem('userToken');
+    axios.post( '/type', { name }, { headers: { 'Authorization': 'Bearer ' + TOKEN }} )
+    .then( resp => {
+      this.onToggleAddType();
+      this.getTypes();
+      let resetNewType = { ...this.state.newType }
+      resetNewType.name = '';
+      this.setState({newType: resetNewType})
+    })
+    .catch( err => {
+      console.log(err)
+    })
+  }
+
+  onChangeNewTypeName = (event) => {
+    let newType = { ...this.state.newType };
+    newType.name = event.target.value;
+    this.setState({ newType });
   }
  
   render() {
 
     let types = [ ...this.state.types ];
+    let newType = { ...this.state.newType }
 
     let headerForm = (
       <div className='types-columns-container'>
@@ -75,9 +113,30 @@ class Types extends Component {
       </div>
     )
 
+    let newTypeForm = null;
+    
+    if ( this.state.addType )
+      newTypeForm = (
+        <div className='types-columns-container'>
+          <button className='btn btn-round btn-close' onClick={this.onToggleAddType}>
+            <FontAwesomeIcon icon={faTimes} />
+          </button>
+          <input 
+            value={newType.name} 
+            className='input input__add' 
+            onChange={(event) => this.onChangeNewTypeName( event )}
+          />
+          <button className='btn btn-small btn-edit' onClick={this.onSave}>
+            <FontAwesomeIcon icon={faSave} />
+          </button>
+        </div>
+      )
+
     let footerForm = (
       <div className='types-columns-container'>
-        <button className='btn btn-round'><FontAwesomeIcon icon={faPlus} /></button>
+        { !this.state.addType ? <button className='btn btn-round btn-add' onClick={this.onToggleAddType}>
+          <FontAwesomeIcon icon={faPlus} />
+        </button> : <p></p> }
         <p></p>
         <button className='btn btn-cancel' onClick={this.onCancel}>cancel</button>
       </div>
@@ -101,15 +160,20 @@ class Types extends Component {
     })
 
     return (
-      <div className='types-container'>
-        <div className='form-container'>
-          <div className='types-rows-container'>
-            { headerForm }
-            { typesElements }
-            { footerForm }
-          </div>
-        </div>
-      </div>
+      <Aux>
+        { types.length > 0 ? 
+          <div className='types-container'>
+            <div className='form-container'>
+              <div className='types-rows-container'>
+                { headerForm }
+                { typesElements }
+                { newTypeForm }
+                { footerForm }
+              </div>
+            </div>
+          </div> 
+        : <Loading />}
+      </Aux>
     )
   }
 }

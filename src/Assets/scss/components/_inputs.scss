@@ -4,6 +4,11 @@
   outline-style: none;
   border-radius: 5px;
   width: 100%;
+
+  &__add {
+    border-color: $color-green;
+    background-color: $color-green-light-transparent;
+  }
 }
 
 .input-error {
