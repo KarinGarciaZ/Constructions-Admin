@@ -36,6 +36,13 @@
     justify-content: center;
 
     position: relative;
+
+    &--username {
+      display: grid;
+      grid-template-columns: repeat(3, min-content);
+      grid-column-gap: 2rem;
+      align-items: center;
+    }
    
     &--menu {
       position: absolute;
@@ -79,6 +86,9 @@
         border-top: 1px solid $color-grey-light-2;
         padding-top: 0px;
         margin-top: 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
       }
     }
 

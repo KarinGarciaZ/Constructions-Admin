@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome } from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faSave, faPlus } from "@fortawesome/free-solid-svg-icons";
 
 import axios from '../axios-connection';
 import * as actionsCreators from '../store/actions/index';
@@ -77,7 +77,7 @@ class Types extends Component {
 
     let footerForm = (
       <div className='types-columns-container'>
-        <button className='btn btn-round'><strong>+</strong></button>
+        <button className='btn btn-round'><FontAwesomeIcon icon={faPlus} /></button>
         <p></p>
         <button className='btn btn-cancel' onClick={this.onCancel}>cancel</button>
       </div>
@@ -94,7 +94,7 @@ class Types extends Component {
             onChange={(event) => this.onChangeName( event, type.id )}
           />
           <button className='btn btn-small btn-edit' onClick={this.onEdit.bind( this, type.id )}>
-            { type.disable ? <FontAwesomeIcon icon={faHome} /> : 'Save' }
+            { type.disable ? <FontAwesomeIcon icon={faEdit} /> : <FontAwesomeIcon icon={faSave} /> }
           </button>
         </div>
       )
