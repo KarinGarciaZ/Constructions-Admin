@@ -23,12 +23,10 @@ class Layout extends Component {
   }
 
   componentWillUpdate() {
-    console.log('will update');
     this.renderAccess()
   }
 
   shouldComponentUpdate( nextProps, nextState ) {
-    console.log('nextProps: ', nextProps);
     if ( this.props.isAuth === nextProps.isAuth && this.state.render === nextState.render )
       if( this.props.location.pathname === nextProps.location.pathname && this.props.match.params === nextProps.match.params )
         return false;
