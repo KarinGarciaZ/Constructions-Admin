@@ -1,0 +1,53 @@
+.btn {
+  background-color: $color-primary;
+  color: white;
+  border: none;
+  border-radius: 0;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  padding: 1.2rem 2.4rem;
+  cursor: pointer;
+  transition: all .2s;
+
+  &:hover {
+    background-color: $color-primary-dark;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &-small {    
+    padding: .7rem 1.4rem;
+  }
+
+  &-cancel {
+    background-color: orangered;
+    &:hover {
+      background-color: red;
+    }
+  }
+
+  &-edit {
+    background-color: $color-secondary-light;
+    &:hover {
+      background-color: $color-secondary-light-2;
+    }
+  }
+
+  &-round {
+    background-color: $color-green;
+    border-radius: 50%;
+    padding: .9rem 1.3rem;
+    &:hover {
+      background-color: $color-green-hover;
+    }
+  }
+
+  &-disabled {
+    &:hover {
+      background-color: $color-primary;
+    }
+    opacity: .35;
+  }
+}

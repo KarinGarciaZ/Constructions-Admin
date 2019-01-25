@@ -185,9 +185,22 @@ body {
   grid-gap: 4rem; }
 
 .form-container {
-  padding: 5rem;
-  box-shadow: -1rem 1rem 4rem rgba(0, 0, 0, 0.15);
+  padding: 4rem;
+  box-shadow: -0.5rem 0.5rem 4rem rgba(0, 0, 0, 0.15);
   grid-column: col-start 1 / col-end 8; }
+
+.label {
+  font-size: 1.6rem;
+  display: block;
+  margin-bottom: .5rem;
+  text-transform: capitalize; }
+
+.form-buttons {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 11rem);
+  justify-content: end;
+  grid-column-gap: 3rem; }
 
 .input {
   padding: .6rem 1.5rem;
@@ -207,19 +220,6 @@ body {
   border-style: none;
   border: 2px solid rgba(255, 68, 0, 0.5); }
 
-.label {
-  font-size: 1.6rem;
-  display: block;
-  margin-bottom: .5rem;
-  text-transform: capitalize; }
-
-.form-buttons {
-  grid-column: 1 / -1;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, 11rem);
-  justify-content: end;
-  grid-column-gap: 3rem; }
-
 .btn {
   background-color: #c69963;
   color: white;
@@ -234,10 +234,22 @@ body {
     background-color: #B28451; }
   .btn:focus {
     outline: none; }
+  .btn-small {
+    padding: .7rem 1.4rem; }
   .btn-cancel {
     background-color: orangered; }
     .btn-cancel:hover {
       background-color: red; }
+  .btn-edit {
+    background-color: #486f9c; }
+    .btn-edit:hover {
+      background-color: #03356d; }
+  .btn-round {
+    background-color: #599e7e;
+    border-radius: 50%;
+    padding: .9rem 1.3rem; }
+    .btn-round:hover {
+      background-color: #468166; }
   .btn-disabled {
     opacity: .35; }
     .btn-disabled:hover {
@@ -269,3 +281,25 @@ body {
   align-content: center;
   justify-content: center;
   grid-template-columns: [user-start] minmax(3rem, 1fr) repeat(8, [col-start] minmax(min-content, 9rem) [col-end]) minmax(3rem, 1fr) [user-end]; }
+
+.types-container {
+  height: 100%;
+  width: 100%;
+  padding: 2rem 0;
+  display: grid;
+  align-content: center;
+  justify-content: center;
+  grid-template-columns: [type-start] minmax(3rem, 1fr) repeat(8, [col-start] minmax(max-content, 9rem) [col-end]) minmax(3rem, 1fr) [type-end]; }
+
+.types-rows-container {
+  display: grid;
+  grid-row-gap: 3rem; }
+
+.types-columns-container {
+  display: grid;
+  grid-template-columns: 3rem 1fr max-content;
+  grid-column-gap: 1.5rem;
+  justify-items: center;
+  align-items: center; }
+  .types-columns-container p {
+    font-size: 1.8rem; }
