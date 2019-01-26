@@ -12,10 +12,12 @@ class Types extends Component {
 
   state = {
     types: [],
-    addType: false,
     newType: {
       name: ''
-    }
+    },    
+    addType: false,
+    showTypes: false,
+    createErrorMessages: ''
   }
 
   componentDidMount() {
@@ -29,35 +31,35 @@ class Types extends Component {
     .then( typesRes => {
       let typesUdated = typesRes.data.map(element => {
         element.disable = true;
+        element.errorMessage = ''
         return element;
       });
-      this.setState({ types: typesUdated })
+      this.setState({ types: typesUdated, showTypes: true })
     })
     .catch( err => console.log( err.response ))
   }
 
   onEdit = ( typeId ) => {
     let types = [ ...this.state.types ];
-    types.forEach( element => {
-      if (element.id === typeId) {
-        element.disable = !element.disable;
-        if ( element.disable )
-          this.onUpdate( element )
+    types.forEach( type => {
+      if (type.id === typeId) {
+        type.disable = !type.disable;
+        if( type.disable ) {
+          let TOKEN = localStorage.getItem('userToken');
+          axios.put( `/type/${type.id}`, { name: type.name }, { headers: { 'Authorization': 'Bearer ' + TOKEN }} )
+          .then( resp => {            
+            this.getTypes();
+          })
+          .catch( err => {
+            type.disable = !type.disable;    
+            type.errorMessage = '* There is a type with same name.';            
+            this.setState({ types })
+          })
+        } else 
+            this.setState({ types })
       }
-    })
-    this.setState({ types })
+    })        
   }  
-
-  onUpdate = ( type ) => {
-    let TOKEN = localStorage.getItem('userToken');
-    axios.put( `/type/${type.id}`, { name: type.name }, { headers: { 'Authorization': 'Bearer ' + TOKEN }} )
-    .then( resp => {
-      console.log(resp)
-    })
-    .catch( err => {
-      console.log(err)
-    })
-  }
 
   onChangeName = (event, typeId) => {
     let types = [ ...this.state.types ];
@@ -74,7 +76,7 @@ class Types extends Component {
 
   onToggleAddType = () => {
     this.setState( state => {
-      return { addType: !state.addType }
+      return { addType: !state.addType, createErrorMessages: '' }
     })
   }
 
@@ -85,12 +87,12 @@ class Types extends Component {
     .then( resp => {
       this.onToggleAddType();
       this.getTypes();
-      let resetNewType = { ...this.state.newType }
+      let resetNewType = { ...this.state.newType };
       resetNewType.name = '';
-      this.setState({newType: resetNewType})
+      this.setState({newType: resetNewType, createErrorMessages: ''});
     })
     .catch( err => {
-      console.log(err)
+      this.setState({ createErrorMessages: '* There is a type with same name.' });
     })
   }
 
@@ -102,7 +104,7 @@ class Types extends Component {
  
   render() {
 
-    let types = [ ...this.state.types ];
+    let types = [ ...this.state.types ]; 
     let newType = { ...this.state.newType }
 
     let headerForm = (
@@ -137,31 +139,38 @@ class Types extends Component {
         { !this.state.addType ? <button className='btn btn-round btn-add' onClick={this.onToggleAddType}>
           <FontAwesomeIcon icon={faPlus} />
         </button> : <p></p> }
-        <p></p>
+        <p className='error-messages'>{this.state.createErrorMessages? this.state.createErrorMessages : null}</p>
         <button className='btn btn-cancel' onClick={this.onCancel}>cancel</button>
       </div>
     )
 
     let typesElements = types.map( type => {
-      return(        
-        <div className='types-columns-container' key={type.id}>
-          <p>{type.id}</p>
-          <input 
-            value={type.name} 
-            className='input' 
-            disabled={type.disable} 
-            onChange={(event) => this.onChangeName( event, type.id )}
-          />
-          <button className='btn btn-small btn-edit' onClick={this.onEdit.bind( this, type.id )}>
-            { type.disable ? <FontAwesomeIcon icon={faEdit} /> : <FontAwesomeIcon icon={faSave} /> }
-          </button>
-        </div>
+      return(   
+        <Aux key={type.id}>
+          <div className='types-columns-container'>
+            <p>{type.id}</p>
+            <input 
+              value={type.name} 
+              className='input' 
+              disabled={type.disable} 
+              onChange={(event) => this.onChangeName( event, type.id )}
+            />
+            <button className='btn btn-small btn-edit' onClick={this.onEdit.bind( this, type.id )}>
+              { type.disable ? <FontAwesomeIcon icon={faEdit} /> : <FontAwesomeIcon icon={faSave} /> }
+            </button>
+          </div>
+          { type.errorMessage?
+          <div className='types-columns-container'>
+            <p className='error-messages'>{type.errorMessage}</p>     
+          </div> : null}
+        </Aux>     
+        
       )
     })
 
     return (
       <Aux>
-        { types.length > 0 ? 
+        { this.state.showTypes ? 
           <div className='types-container'>
             <div className='form-container'>
               <div className='types-rows-container'>

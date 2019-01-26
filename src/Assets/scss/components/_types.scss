@@ -27,4 +27,12 @@
   p {
     font-size: 1.8rem;
   }
+
+  .error-messages {
+    grid-column: 2 / 3;
+    font-size: 1.5rem;
+    color: orangered;
+    justify-self: start;
+    margin-top: -4rem;
+  }
 }
