@@ -46,7 +46,7 @@ body {
   background-color: #192e46;
   min-height: 6vh;
   font-size: 2rem;
-  color: rgba(230, 183, 125, 0.89);
+  color: #e7be8b;
   display: grid;
   justify-content: center;
   align-content: center; }
@@ -75,7 +75,7 @@ body {
     font-size: 1.8rem;
     height: 100%;
     padding: 0 2rem;
-    background-color: rgba(230, 183, 125, 0.89);
+    background-color: #e7be8b;
     color: #192e46;
     cursor: pointer;
     display: flex;
@@ -133,7 +133,7 @@ body {
 
 .sidebar {
   grid-column: sidebar-start / sidebar-end;
-  background-color: rgba(230, 183, 125, 0.89);
+  background-color: #e7be8b;
   min-height: 87vh;
   padding-top: 3rem; }
 
@@ -145,16 +145,18 @@ body {
 .navlink {
   list-style: none;
   cursor: pointer;
-  position: relative; }
-  .navlink a {
+  position: relative;
+  z-index: 3; }
+  .navlink .link {
     color: #101d2c;
     text-decoration: none;
     display: block;
-    padding: 1rem 4rem;
+    padding: 1rem 3rem 1rem 1.5rem;
     position: relative;
-    z-index: 3;
     transition: color .2s .2s; }
-  .navlink a.active {
+    .navlink .link svg {
+      margin-right: 2rem; }
+  .navlink .link.active {
     color: white;
     background-color: #192e46; }
   .navlink::before {
@@ -170,10 +172,55 @@ body {
   .navlink:hover::before {
     transform: scaleY(1);
     width: 100%; }
-  .navlink:hover a {
+  .navlink:hover .link {
     color: white; }
   .navlink:active::before {
     background-color: #03356d; }
+
+.smenu {
+  background-color: #2b4058;
+  list-style: none;
+  display: none;
+  position: relative; }
+  .smenu-active {
+    display: block; }
+  .smenu__link {
+    cursor: pointer;
+    position: relative;
+    font-size: 1.6rem; }
+    .smenu__link::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 3px;
+      background-color: #486f9c;
+      transform: scaleY(0);
+      transition: transform .25s; }
+    .smenu__link:hover {
+      background-color: #374e68; }
+      .smenu__link:hover::before {
+        transform: scaleY(1); }
+    .smenu__link .link {
+      text-decoration: none;
+      display: block;
+      padding: .9rem 1.5rem .9rem 2rem;
+      color: white; }
+      .smenu__link .link svg {
+        margin-right: 2rem; }
+    .smenu__link .link.active {
+      background-color: #374e68; }
+  .smenu::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 3rem;
+    height: 1rem;
+    width: 1rem;
+    background-color: #e7be8b;
+    transform: rotate(45deg) translateY(-70%);
+    z-index: 2; }
 
 .loading-container {
   grid-column: 1 / -1;
