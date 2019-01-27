@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as actionsCreators from '../store/actions/index';
+import * as actionsCreators from '../../store/actions';
 
 class EditConstruction extends Component {
 

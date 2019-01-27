@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import {Switch, Route } from 'react-router-dom';
 
 import Home from '../../Containers/Home';
-import CreateConstruction from '../../Containers/CreateConstruction';
-import Construction from '../../Containers/Construction';
-import EditOwnUser from '../../Containers/EditOwnUser';
-import AddUser from '../../Containers/AddUser';
-import EditConstruction from '../../Containers/EditConstruction';
-import AllConstructions from '../../Containers/AllConstructions';
+import CreateConstruction from '../../Containers/Constructions/CreateConstruction';
+import Construction from '../../Containers/Constructions/Construction';
+import EditOwnUser from '../../Containers/User/EditOwnUser';
+import AddUser from '../../Containers/User/AddUser';
+import EditConstruction from '../../Containers/Constructions/EditConstruction';
+import AllConstructions from '../../Containers/Constructions/AllConstructions';
 import Types from '../../Containers/Types';
 
 class MainLayout extends Component {

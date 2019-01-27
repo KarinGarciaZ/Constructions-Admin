@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import * as actionsCreators from '../store/actions/index';
-import Form from '../Components/UI/Form/Form';
-import axios from '../axios-connection';
+import * as actionsCreators from '../../store/actions';
+import Form from '../../Components/UI/Form/Form';
+import axios from '../../axios-connection';
 
 class AddUser extends Component {
 
