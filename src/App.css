@@ -156,6 +156,8 @@ body {
     transition: color .2s .2s; }
     .navlink .link svg {
       margin-right: 2rem; }
+    .navlink .link-name {
+      display: inline; }
   .navlink .link.active {
     color: white;
     background-color: #192e46; }
@@ -180,10 +182,12 @@ body {
 .smenu {
   background-color: #2b4058;
   list-style: none;
-  display: none;
-  position: relative; }
+  position: relative;
+  transition: all .5s;
+  max-height: 0px;
+  overflow: hidden; }
   .smenu-active {
-    display: block; }
+    max-height: 20rem; }
   .smenu__link {
     cursor: pointer;
     position: relative;
@@ -209,6 +213,8 @@ body {
       color: white; }
       .smenu__link .link svg {
         margin-right: 2rem; }
+      .smenu__link .link-name {
+        display: inline; }
     .smenu__link .link.active {
       background-color: #374e68; }
   .smenu::before {

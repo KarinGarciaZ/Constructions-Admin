@@ -25,33 +25,41 @@ export default class Sidebar extends Component {
       <div className='sidebar'>
         <ul className='list-of-navs'>
           <Navlink cssClass={'navlink'} link='/' exact>
-            <FontAwesomeIcon icon={faHome}/>Home
+            <FontAwesomeIcon icon={faHome}/>
+            <p className='link-name'>Home</p>
+          </Navlink>
+
+          <Navlink cssClass={'navlink'} link='/types'>
+            <FontAwesomeIcon icon={faProjectDiagram}/>
+            <p className='link-name'>Types</p>
+          </Navlink>
+          <Navlink cssClass={'navlink'} link='/addUser'>
+            <FontAwesomeIcon icon={faUserPlus}/>
+            <p className='link-name'>Add User</p>
           </Navlink>
 
           <li className='navlink' onClick={this.onToggleSubmenu}>
             <p className='link'>
-              <FontAwesomeIcon icon={faCity}/>Constructions
+              <FontAwesomeIcon icon={faCity}/>
+              <p className='link-name'>Constructions</p>
             </p>            
           </li>
 
           <ul className={classes.join(' ')}>
             <Navlink cssClass={'smenu__link'} link='/allConstructions'>
-              <FontAwesomeIcon icon={faList}/>All Constructions
+              <FontAwesomeIcon icon={faList}/>
+              <p className='link-name'>All Constructions</p>
             </Navlink>
             <Navlink cssClass={'smenu__link'} link='/createConstruction'>
-              <FontAwesomeIcon icon={faPlusSquare}/>New Construction
+              <FontAwesomeIcon icon={faPlusSquare}/>
+              <p className='link-name'>New Construction</p>
             </Navlink>
             <Navlink cssClass={'smenu__link'} link='/editConstruction'>
-              <FontAwesomeIcon icon={faEdit}/>Edit Construction
+              <FontAwesomeIcon icon={faEdit}/>
+              <p className='link-name'>Edit Construction</p>
             </Navlink>
           </ul>
-
-          <Navlink cssClass={'navlink'} link='/types'>
-            <FontAwesomeIcon icon={faProjectDiagram}/>Types
-          </Navlink>
-          <Navlink cssClass={'navlink'} link='/addUser'>
-            <FontAwesomeIcon icon={faUserPlus}/>Add User
-          </Navlink>
+          
         </ul>
       </div>
     )

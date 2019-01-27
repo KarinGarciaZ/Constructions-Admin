@@ -28,6 +28,7 @@
     transition: color .2s .2s;
 
     svg { margin-right: 2rem; }
+    &-name { display: inline; }
   }
 
   .link.active {
@@ -70,10 +71,17 @@
 .smenu {
   background-color: $color-secondary-smenu;
   list-style: none;
-  display: none;
+  //display: none;
   position: relative;
+  transition: all .5s;
+  max-height: 0px;
+  overflow: hidden;
 
-  &-active{ display: block; }
+
+  &-active{ 
+    //display: block;
+    max-height: 20rem;
+  }
 
   &__link {
     cursor: pointer;
@@ -106,6 +114,7 @@
       color: white;
 
       svg { margin-right: 2rem; }
+      &-name { display: inline; }
     }
 
     .link.active {
