@@ -83,7 +83,7 @@ class Layout extends Component {
     return (
       <div className='container'>
         <Header />
-          {renderContainer}
+        {renderContainer}
         <Footer />
       </div>
     )

@@ -54,8 +54,8 @@ class Header extends Component {
     )
 
     return (
-      <div className='header'>      
-        <img src={logo} alt='logo' className='header__logo' />
+      <div className='header'>  
+        { this.props.user.username ? <img src={logo} alt='logo' className='header__logo' /> : null }        
         <p className='header__title'>{this.props.headerTitle}</p>
         { this.props.user.username ? dropdown : null }
       </div>
