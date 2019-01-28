@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import * as actionsCreators from '../store/actions/index';
-import axios from '../axios-connection';
-import Form from '../Components/UI/Form/Form';
+import * as actionsCreators from '../../store/actions';
+import axios from '../../axios-connection';
+import Form from '../../Components/UI/Form/Form';
 
 class EditOwnUser extends Component {
 

@@ -1,18 +1,65 @@
 import React, { Component } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUserPlus, faProjectDiagram, faCity, faHome, faEdit, faPlusSquare, faList } from "@fortawesome/free-solid-svg-icons";
+
 import Navlink from '../UI/Navigation/Navlink';
 
 export default class Sidebar extends Component {
+
+  state = {
+    smenuClasses: ['smenu']
+  }
+
+  onToggleSubmenu = () => {
+    if ( this.state.smenuClasses.length === 1 )
+      this.setState({smenuClasses: ['smenu', 'smenu-active'] })
+    else
+      this.setState({smenuClasses: ['smenu'] })
+  }
+
   render() {
+    console.log('this.state.smenuClasses: ', this.state.smenuClasses);
+    let classes = [ ...this.state.smenuClasses ]
+    
     return (
       <div className='sidebar'>
         <ul className='list-of-navs'>
-          <Navlink link='/' exact>Home</Navlink>
-          <Navlink link='/allConstructions'>All Constructions</Navlink>
-          <Navlink link='/createConstruction'>Create Construction</Navlink>
-          <Navlink link='/construction'>Construction</Navlink>
-          <Navlink link='/editConstruction'>Edit Construction</Navlink>
-          <Navlink link='/types'>Types</Navlink>
-          <Navlink link='/addUser'>Add User</Navlink>
+          <Navlink cssClass={'navlink'} link='/' exact>
+            <FontAwesomeIcon icon={faHome}/>
+            <p className='link-name'>Home</p>
+          </Navlink>
+
+          <Navlink cssClass={'navlink'} link='/types'>
+            <FontAwesomeIcon icon={faProjectDiagram}/>
+            <p className='link-name'>Types</p>
+          </Navlink>
+          <Navlink cssClass={'navlink'} link='/addUser'>
+            <FontAwesomeIcon icon={faUserPlus}/>
+            <p className='link-name'>Add User</p>
+          </Navlink>
+
+          <li className='navlink' onClick={this.onToggleSubmenu}>
+            <p className='link'>
+              <FontAwesomeIcon icon={faCity}/>
+              <p className='link-name'>Constructions</p>
+            </p>            
+          </li>
+
+          <ul className={classes.join(' ')}>
+            <Navlink cssClass={'smenu__link'} link='/allConstructions'>
+              <FontAwesomeIcon icon={faList}/>
+              <p className='link-name'>All Constructions</p>
+            </Navlink>
+            <Navlink cssClass={'smenu__link'} link='/createConstruction'>
+              <FontAwesomeIcon icon={faPlusSquare}/>
+              <p className='link-name'>New Construction</p>
+            </Navlink>
+            <Navlink cssClass={'smenu__link'} link='/editConstruction'>
+              <FontAwesomeIcon icon={faEdit}/>
+              <p className='link-name'>Edit Construction</p>
+            </Navlink>
+          </ul>
+          
         </ul>
       </div>
     )

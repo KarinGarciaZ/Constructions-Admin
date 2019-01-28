@@ -17,21 +17,21 @@
   list-style: none;
   cursor: pointer;
   position: relative;
+  z-index: 3;
 
-  a{
+  .link{
     color:$color-secondary;
     text-decoration: none;
-
     display: block;
-    padding: 1rem 4rem;
-
+    padding: 1rem 3rem 1rem 1.5rem;
     position: relative;
-    z-index: 3;
-
     transition: color .2s .2s;
+
+    svg { margin-right: 2rem; }
+    &-name { display: inline; }
   }
 
-  a.active {
+  .link.active {
     color: white;
     background-color: $color-secondary-hover;
   }
@@ -58,12 +58,79 @@
       width: 100%;
     }
 
-    a {
+    .link {
       color: white;
     }
   }
 
   &:active::before {
     background-color: $color-secondary-light-2;
+  }
+}
+
+.smenu {
+  background-color: $color-secondary-smenu;
+  list-style: none;
+  //display: none;
+  position: relative;
+  transition: all .5s;
+  max-height: 0px;
+  overflow: hidden;
+
+
+  &-active{ 
+    //display: block;
+    max-height: 20rem;
+  }
+
+  &__link {
+    cursor: pointer;
+    position: relative;
+    font-size: 1.6rem;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 3px;
+      background-color: $color-secondary-light;
+      transform: scaleY(0);   
+      transition: transform .25s;
+    }
+
+    &:hover {
+      background-color: $color-secondary-smenu-active;
+      &::before {
+        transform: scaleY(1);
+      }
+    }
+
+    .link {
+      text-decoration: none;
+      display: block;
+      padding: .9rem 1.5rem .9rem 2rem;      
+      color: white;
+
+      svg { margin-right: 2rem; }
+      &-name { display: inline; }
+    }
+
+    .link.active {
+      background-color: $color-secondary-smenu-active;
+    }
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 3rem;
+    height: 1rem;
+    width: 1rem;
+    background-color: $color-primary-light;
+    transform: rotate(45deg) translateY(-70%);   
+    z-index: 2;
   }
 }
