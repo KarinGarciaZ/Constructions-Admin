@@ -152,6 +152,7 @@ class AddUser extends Component {
 
   componentWillMount() {
     this.props.onChangeTitle();
+    this.props.onUpdateFormState({});
     
     let state = { ...this.state }
     this.props.onUpdateFormState( state );

@@ -6,6 +6,7 @@ import CreateConstruction from '../../Containers/Constructions/CreateConstructio
 import Construction from '../../Containers/Constructions/Construction';
 import EditOwnUser from '../../Containers/User/EditOwnUser';
 import AddUser from '../../Containers/User/AddUser';
+import ChangePassword from '../../Containers/User/ChangePassword';
 import EditConstruction from '../../Containers/Constructions/EditConstruction';
 import AllConstructions from '../../Containers/Constructions/AllConstructions';
 import Types from '../../Containers/Types';
@@ -24,6 +25,7 @@ class MainLayout extends Component {
           <Route path="/allConstructions" component={AllConstructions}/>
           <Route path="/createConstruction" component={CreateConstruction}/>
           <Route path="/editOwnUser" component={EditOwnUser}/>
+          <Route path="/changePassword" component={ChangePassword}/>
           <Route path="/addUser" component={AddUser}/>
           <Route path="/types" component={Types}/>
           <Route path="/" component={Home}/>

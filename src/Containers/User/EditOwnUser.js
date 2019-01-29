@@ -102,6 +102,7 @@ class EditOwnUser extends Component {
 
   componentWillMount() {
     this.props.onChangeTitle();
+    this.props.onUpdateFormState({});
 
     let userForm = { ...this.state }
     userForm.formElements.username.value = this.props.userInfo.username;
