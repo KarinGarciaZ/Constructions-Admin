@@ -18,7 +18,6 @@ export default class Sidebar extends Component {
   }
 
   render() {
-    console.log('this.state.smenuClasses: ', this.state.smenuClasses);
     let classes = [ ...this.state.smenuClasses ]
     
     return (
@@ -39,10 +38,10 @@ export default class Sidebar extends Component {
           </Navlink>
 
           <li className='navlink' onClick={this.onToggleSubmenu}>
-            <p className='link'>
+            <div className='link'>
               <FontAwesomeIcon icon={faCity}/>
               <p className='link-name'>Constructions</p>
-            </p>            
+            </div>            
           </li>
 
           <ul className={classes.join(' ')}>

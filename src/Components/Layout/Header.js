@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle, faCaretDown, faCaretUp, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 
@@ -43,8 +43,8 @@ class Header extends Component {
             <p className='header__user--menu__info--name'>{this.props.user.name}</p>
             <p className='header__user--menu__info--email'>{this.props.user.email}</p>
           </div>
-          <NavLink className='header__user--menu__edit' to='/editOwnUser' >Edit User</NavLink>
-          <p className=''>Change Password</p>
+          <Link className='header__user--menu__edit' to='/editOwnUser' >Edit User</Link>
+          <Link className='header__user--menu__edit' to='/changePassword'>Change Password</Link>
           <p className='header__user--menu__logout' onClick={this.onLogout}>
             Logout
             <FontAwesomeIcon icon={faSignOutAlt}/>
@@ -54,8 +54,8 @@ class Header extends Component {
     )
 
     return (
-      <div className='header'>      
-        <img src={logo} alt='logo' className='header__logo' />
+      <div className='header'>  
+        { this.props.user.username ? <img src={logo} alt='logo' className='header__logo' /> : null }        
         <p className='header__title'>{this.props.headerTitle}</p>
         { this.props.user.username ? dropdown : null }
       </div>

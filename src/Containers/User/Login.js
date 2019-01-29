@@ -50,7 +50,8 @@ class Login extends Component {
   }
 
   componentWillMount() {
-    this.props.onChangeTitle('Welcome!')
+    this.props.onChangeTitle();
+    this.props.onUpdateFormState({});
     let state = {...this.state};
     this.props.onUpdateFormState(state);
   }
@@ -121,9 +122,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    onChangeTitle: () => dispatch( actionsCreators.changeHeaderTitle('') ),
     onLogin: payload => { dispatch(actionsCreators.login( payload )) },
-    onUpdateFormState: payload => dispatch( actionsCreators.updateFormState( payload ) ),
-    onChangeTitle: payload => dispatch( actionsCreators.changeHeaderTitle( payload ) )
+    onUpdateFormState: payload => dispatch( actionsCreators.updateFormState( payload ) )
   }
 }
 
