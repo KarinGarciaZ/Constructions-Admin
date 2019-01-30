@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import Input from './Input';
 import { connect } from 'react-redux';
+
+import Input from './Input';
 import * as actionsCreators from '../../../store/actions/index';
 
 class Form extends Component {
@@ -26,29 +27,34 @@ class Form extends Component {
   }
 
   checkValidity = ( value, validation ) => {
-    let valid = [];
+    
+    if ( validation ) {
+      let valid = [];
 
-    if( validation.required ){
-      let elementValidation = value.trim() !== '';
-      valid.push( elementValidation );
-      validation.required.valid = elementValidation
-    }
-
-    if( validation.minLength ){
-      let elementValidation = value.length >= validation.minLength.value;
-      valid.push( elementValidation );
-      validation.minLength.valid = elementValidation;
-    }
-
-    if( validation.maxLength ){
-      let elementValidation = value.length <= validation.maxLength.value;
-      valid.push( elementValidation );
-      validation.maxLength.valid = elementValidation;
-    }
-
-    for( let bool of valid )
-      if ( !bool ) return [false, validation];
-    return [true, validation];
+      if( validation.required ){
+        let elementValidation = value.trim() !== '';
+        valid.push( elementValidation );
+        validation.required.valid = elementValidation
+      }
+  
+      if( validation.minLength ){
+        let elementValidation = value.length >= validation.minLength.value;
+        valid.push( elementValidation );
+        validation.minLength.valid = elementValidation;
+      }
+  
+      if( validation.maxLength ){
+        let elementValidation = value.length <= validation.maxLength.value;
+        valid.push( elementValidation );
+        validation.maxLength.valid = elementValidation;
+      }
+  
+      for( let bool of valid )
+        if ( !bool ) return [false, validation];
+      return [true, validation];
+    } else
+        return [true, {}];
+    
   }
 
   changedValueInput = ( id, event ) => {
@@ -63,6 +69,12 @@ class Form extends Component {
     formElement[id] = values;
 
     this.setState({ formElements: formElement })
+  }
+
+  changeValueSelect = ( id, event ) => {
+    let formElements = { ...this.state.formElements }
+    formElements[id].value = event.target.value;
+    this.setState({ formElements })
   }
 
   render() {
@@ -93,9 +105,11 @@ class Form extends Component {
             elementConfig={formElementForHTML.config.elementConfig} 
             value={formElementForHTML.config.value} 
             changed={( event ) => this.changedValueInput(formElementForHTML.id, event)}
+            changedSelect={ event => this.changeValueSelect( formElementForHTML.id, event)}
             valid={formElementForHTML.config.valid}
             shouldValidate={formElementForHTML.config.validation}
             touched={formElementForHTML.config.touched}
+            options={formElementForHTML.config.options}
             />
         })}
         <div className='form-buttons'>
