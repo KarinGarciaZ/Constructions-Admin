@@ -31,6 +31,32 @@ class CreateConstruction extends Component {
           }
         }
       },
+      statusConstruction: {
+        elementType: 'select',
+        valid: true,
+        touched: true, 
+        value: 'Finished',
+        options: [
+          {name:'Finished', id:'Finished'},
+          {name:'In Progress', id:'In Progress'},
+          {name:'Canceled', id:'Canceled'},
+        ],
+        elementConfig: {
+          placeholder: 'Status'
+        },
+        required: {}
+      },
+      type: {
+        elementType: 'select',
+        valid: true,
+        touched: true, 
+        value: null,
+        options: [],
+        elementConfig: {
+          placeholder: 'Construction Type'
+        },
+        required: {}
+      },
       startDate: {
         elementType: 'input',
         valid: true,
@@ -38,7 +64,7 @@ class CreateConstruction extends Component {
         value: '',
         elementConfig: {
           type: 'date',
-          placeholder: 'Start Construction Date'
+          placeholder: 'Start Working Date'
         },
         required: {}
       },
@@ -49,7 +75,7 @@ class CreateConstruction extends Component {
         value: '',
         elementConfig: {
           type: 'date',
-          placeholder: 'Finish Construction Date'
+          placeholder: 'Finish Working Date'
         },
         validation: {
           validDate: {
@@ -142,24 +168,23 @@ class CreateConstruction extends Component {
           }
         }
       },
-      statusConstruction: {
-        elementType: 'select',
+      addPictures: {
+        elementType: 'input',
         valid: true,
         touched: true, 
-        value: 'Finished',
-        options: [
-          'Finished',
-          'In Progress',
-          'Canceled'
-        ],
+        value: '',
         elementConfig: {
-          placeholder: 'Status'
+          type: 'file',
+          placeholder: 'Add Pictures',
+          multiple: true,
+          accept: 'image/*'
         },
-        required: {}
+        validation: {}
       }
     },
     formName: 'addUser',
-    loading: true
+    loading: true,
+    images: []
   }
 
   componentDidMount() {
@@ -170,7 +195,20 @@ class CreateConstruction extends Component {
     let props = { ...this.state }
     props.formElements.startDate.value = today;
     props.formElements.finishDate.value = today;
-    this.props.onUpdateFormState( props )
+    this.getTypes( props )
+  }
+
+  getTypes = ( props ) => {
+    let TOKEN = localStorage.getItem('userToken');
+    axios.get('/type', { headers: { 'Authorization': 'Bearer ' + TOKEN }} )
+    .then( data => {
+      let types = data.data.map( type => {
+        return { id: type.id, name: type.name };
+      })
+      props.formElements.type.options = types;
+      props.formElements.type.value = types[0].id;
+      this.props.onUpdateFormState( props )
+    })
   }
 
   shouldComponentUpdate( nextProps ) {
@@ -180,7 +218,8 @@ class CreateConstruction extends Component {
   }
 
   componentWillUpdate( nextProps ) {
-    if ( nextProps.formState.formElements.finishDate.valid ) {
+    console.log(nextProps.formState)
+    if ( nextProps.formState.formElements.finishDate.valid && nextProps.formState.images.length) {
       let startDate = nextProps.formState.formElements.startDate.value;
       let finishDate = nextProps.formState.formElements.finishDate.value;
       let sd = moment(startDate);
