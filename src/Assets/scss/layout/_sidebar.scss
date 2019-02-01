@@ -62,10 +62,6 @@
       color: white;
     }
   }
-
-  &:active::before {
-    background-color: $color-secondary-light-2;
-  }
 }
 
 .smenu {
