@@ -1,5 +1,8 @@
 import React from 'react';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUpload } from "@fortawesome/free-solid-svg-icons";
+
 const input = ( props ) => {
   let imputElement = null;
   let inputClasses = []
@@ -29,6 +32,13 @@ const input = ( props ) => {
       inputClasses.push('input')
       gridClasses = ''
       imputElement = <input className={ inputClasses.join(' ') } { ...props.elementConfig } value={ props.value } onChange={props.changed}/>      
+      if ( props.elementConfig.type === 'file' ) 
+        imputElement = ( 
+          <label className='btn btn-small btn-edit btn-upload'>
+            <input className={ inputClasses.join(' ') } { ...props.elementConfig } value={ props.value } onChange={props.changedFiles}/>
+            <FontAwesomeIcon icon={faUpload} /> Upload Images
+          </label>
+        )
       break;
     case 'select':
       inputClasses.push('input')
@@ -37,8 +47,8 @@ const input = ( props ) => {
       imputElement = <select className={ inputClasses.join(' ') } onChange={ props.changedSelect }>
         { props.options.map( option => {
           return (
-            <option className='option' value={option} key={option}>
-              {option}
+            <option className='option' value={option.id} key={option.id}>
+              {option.name}
             </option>
           )
         }) }
