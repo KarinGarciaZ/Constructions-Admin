@@ -218,24 +218,55 @@ class CreateConstruction extends Component {
   }
 
   componentWillUpdate( nextProps ) {
-    console.log(nextProps.formState)
     if ( nextProps.formState.formElements.finishDate.valid && nextProps.formState.images.length) {
       let startDate = nextProps.formState.formElements.startDate.value;
       let finishDate = nextProps.formState.formElements.finishDate.value;
       let sd = moment(startDate);
-      let fd = moment(finishDate);
-      
+      let fd = moment(finishDate);      
       if ( sd.isBefore(fd) ) {
-        //Save construction
+        let props = { ...nextProps.formState };
+        this.saveConstruction(props);
       } else {
         let errorProps = { ...nextProps };
         errorProps.formState.formElements.finishDate.valid = false;
         errorProps.formState.formElements.finishDate.validation.validDate.valid = false;
         this.props.onUpdateFormState( errorProps.formState )
       }
+    } else {
+      /*agregar código para avisar que no hay imagenes en el form*/
     }    
   }
 
+  saveConstruction = (props) => {    
+    console.log(props)
+
+    let newConstruction = {
+      title: props.formElements.title.value,
+      description: props.formElements.description.value,
+      statusConstruction: props.formElements.statusConstruction.value,
+      address: props.formElements.address.value,
+      city: props.formElements.city.value,
+      state: props.formElements.state.value,
+      startDate: props.formElements.startDate.value,
+      finishDate: props.formElements.finishDate.value,
+      idType: +props.formElements.type.value
+    }
+
+    const formData =  new FormData();
+    formData.append( 'constructionData', JSON.stringify(newConstruction) )
+    props.images.forEach( image => formData.append('image', image.file) )
+
+    let TOKEN = localStorage.getItem('userToken');
+    axios.post('/construction', formData, { headers: { 'Authorization': 'Bearer ' + TOKEN, 'Content-Type': 'multipart/form-data' } } )
+    .then( res => {
+      this.props.onUpdateFormState( {} )
+      console.log(res)
+    } )
+    .catch( error => {
+      console.log(error.response)
+    } )
+  }
+  
   onCancel = () => {
     this.props.onUpdateFormState( {} );
     this.props.history.push('/');

@@ -83,13 +83,8 @@ class Form extends Component {
   }
 
   changedValueFiles = ( event ) => {
-    let files =  { ...event.target.files }
-    let filesArray = []
-    let maxSizeImage = 5
-    
-    for( let key in files ) {
-      filesArray.push( files[key] )
-    }
+    let filesArray = Array.from(event.target.files)
+    let maxSizeImage = 3
 
     filesArray.forEach( file => {
       if ( file.size < (1024 * 1024 * maxSizeImage) ){
