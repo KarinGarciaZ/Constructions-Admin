@@ -260,7 +260,7 @@ class CreateConstruction extends Component {
     axios.post('/construction', formData, { headers: { 'Authorization': 'Bearer ' + TOKEN, 'Content-Type': 'multipart/form-data' } } )
     .then( res => {
       this.props.onUpdateFormState( {} )
-      console.log(res)
+      this.props.history.push('/');
     } )
     .catch( error => {
       console.log(error.response)
