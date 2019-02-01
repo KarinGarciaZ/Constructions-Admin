@@ -173,6 +173,7 @@ class EditOwnUser extends Component {
   }
 
   onCancel = () => {
+    this.props.onUpdateFormState( {} );
     this.props.history.push('/');
   }
 

@@ -1,13 +1,19 @@
 import React, { Component } from 'react';
-import Input from './Input';
 import { connect } from 'react-redux';
+
+import Input from './Input';
+import Aux from '../../../hoc/Auxiliar';
 import * as actionsCreators from '../../../store/actions/index';
+import Image from './Image';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 class Form extends Component {
 
   state = {
     formElements: {},
-    formName: ''
+    formName: '',
+    images: []
   }
 
   componentWillReceiveProps( nextProps ) {
@@ -26,35 +32,40 @@ class Form extends Component {
   }
 
   checkValidity = ( value, validation ) => {
-    let valid = [];
+    if ( validation ) {
+      let valid = [];
 
-    if( validation.required ){
-      let elementValidation = value.trim() !== '';
-      valid.push( elementValidation );
-      validation.required.valid = elementValidation
-    }
-
-    if( validation.minLength ){
-      let elementValidation = value.length >= validation.minLength.value;
-      valid.push( elementValidation );
-      validation.minLength.valid = elementValidation;
-    }
-
-    if( validation.maxLength ){
-      let elementValidation = value.length <= validation.maxLength.value;
-      valid.push( elementValidation );
-      validation.maxLength.valid = elementValidation;
-    }
-
-    for( let bool of valid )
-      if ( !bool ) return [false, validation];
-    return [true, validation];
+      if( validation.required ){
+        let elementValidation = value.trim() !== '';
+        valid.push( elementValidation );
+        validation.required.valid = elementValidation
+      }
+  
+      if( validation.minLength ){
+        let elementValidation = value.length >= validation.minLength.value;
+        valid.push( elementValidation );
+        validation.minLength.valid = elementValidation;
+      }
+  
+      if( validation.maxLength ){
+        let elementValidation = value.length <= validation.maxLength.value;
+        valid.push( elementValidation );
+        validation.maxLength.valid = elementValidation;
+      }
+  
+      for( let bool of valid )
+        if ( !bool ) return [false, validation];
+      return [true, validation];
+    } else
+        return [true, {}];
+    
   }
 
   changedValueInput = ( id, event ) => {
+
     let formElement = { ...this.state.formElements }
     let values = { ...formElement[id] }
-
+    
     values.value = event.target.value;
     let validationResponse = this.checkValidity( values.value, values.validation );
     values.valid = validationResponse[0];
@@ -63,6 +74,38 @@ class Form extends Component {
     formElement[id] = values;
 
     this.setState({ formElements: formElement })
+  }
+
+  changedValueSelect = ( id, event ) => {
+    let formElements = { ...this.state.formElements }
+    formElements[id].value = event.target.value;
+    this.setState({ formElements })
+  }
+
+  changedValueFiles = ( event ) => {
+    let filesArray = Array.from(event.target.files)
+    let maxSizeImage = 3
+
+    filesArray.forEach( file => {
+      if ( file.size < (1024 * 1024 * maxSizeImage) ){
+        let reader = new FileReader()      
+        reader.readAsDataURL( file )
+        reader.onload = ( e ) => {
+          let url = e.target.result
+          let images = [ ...this.state.images ]
+          images.push( {file, url} )
+          this.setState({ images }) 
+        } 
+      } else {
+        console.log('too large')
+      }   
+    })    
+  }
+
+  removeFile = ( index ) => {
+    let images = [ ...this.state.images ]
+    images.splice( index, 1 );
+    this.setState({ images })
   }
 
   render() {
@@ -84,6 +127,21 @@ class Form extends Component {
       }
     }
 
+    let images = [ ...this.state.images ]
+    let imagesArray = []
+    if ( images.length ) {
+      imagesArray = images.map( (image, index) => {
+        return (
+          <div key={index} className='image-container'>            
+            <Image url={image.url}></Image>
+            <figcaption className="image-container-caption" onClick={this.removeFile.bind(this, index)}>
+              <FontAwesomeIcon icon={faTimes} />
+            </figcaption>
+          </div>
+        )
+      })
+    }
+
     let form = (
       <form onSubmit={this.onSubmitForm} className='form'>      
         {formElementsForHTML.map( formElementForHTML => {
@@ -93,11 +151,18 @@ class Form extends Component {
             elementConfig={formElementForHTML.config.elementConfig} 
             value={formElementForHTML.config.value} 
             changed={( event ) => this.changedValueInput(formElementForHTML.id, event)}
+            changedSelect={ event => this.changedValueSelect( formElementForHTML.id, event)}
+            changedFiles={ this.changedValueFiles }
             valid={formElementForHTML.config.valid}
             shouldValidate={formElementForHTML.config.validation}
             touched={formElementForHTML.config.touched}
+            options={formElementForHTML.config.options}
             />
         })}
+        { images.length? 
+        <div className='form-images-container'>
+          {imagesArray}
+        </div> : null }
         <div className='form-buttons'>
           {(this.props.cancelButton)? <button className='btn btn-cancel' type='button' onClick={this.props.onCancel}>cancel</button> : null}
           <button className={btnClasses.join(' ')} disabled={buttonDisabled}>Submit</button>
@@ -106,9 +171,9 @@ class Form extends Component {
     );
 
     return (
-      <div>
+      <Aux>
         {form}        
-      </div>
+      </Aux>
     )
   }
 }

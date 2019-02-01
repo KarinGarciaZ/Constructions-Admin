@@ -1,9 +1,13 @@
 import React from 'react';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUpload } from "@fortawesome/free-solid-svg-icons";
+
 const input = ( props ) => {
   let imputElement = null;
   let inputClasses = []
   let arrayErrorMessages = [];
+  let gridClasses = '';
 
   if ( !props.valid && props.shouldValidate && props.touched ){
     let validationKeys = [];
@@ -26,12 +30,33 @@ const input = ( props ) => {
   switch( props.inputtype ) {
     case 'input':
       inputClasses.push('input')
-      imputElement = <input className={ inputClasses.join(' ') } { ...props.elementConfig } value={ props.value } onChange={props.changed}/>
+      gridClasses = ''
+      imputElement = <input className={ inputClasses.join(' ') } { ...props.elementConfig } value={ props.value } onChange={props.changed}/>      
+      if ( props.elementConfig.type === 'file' ) 
+        imputElement = ( 
+          <label className='btn btn-small btn-edit btn-upload'>
+            <input className={ inputClasses.join(' ') } { ...props.elementConfig } value={ props.value } onChange={props.changedFiles}/>
+            <FontAwesomeIcon icon={faUpload} /> Upload Images
+          </label>
+        )
       break;
-    case 'radio':
-      imputElement = <input type='radio' name={props.name} value={ props.value } onClick={props.clicked}/>
+    case 'select':
+      inputClasses.push('input')
+      inputClasses.push('select')
+      gridClasses = ''
+      imputElement = <select className={ inputClasses.join(' ') } onChange={ props.changedSelect }>
+        { props.options.map( option => {
+          return (
+            <option className='option' value={option.id} key={option.id}>
+              {option.name}
+            </option>
+          )
+        }) }
+      </select>
       break;
     case 'textarea':
+      inputClasses.push('textarea')
+      gridClasses = 'textarea-container'
       imputElement = <textarea className={ inputClasses.join(' ') } { ...props.elementConfig } value={ props.value } onChange={props.changed}/>
       break;
     default:
@@ -39,7 +64,7 @@ const input = ( props ) => {
   }
 
   return (
-    <div className='input-container'>
+    <div className={gridClasses}>
       <label className='label'>{props.elementConfig.placeholder}:</label>
       {imputElement}
       {arrayErrorMessages}
