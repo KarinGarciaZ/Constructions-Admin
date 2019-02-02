@@ -199,7 +199,8 @@ class CreateConstruction extends Component {
     },
     formName: 'addUser',
     loading: true,
-    images: []
+    images: [],
+    showSpinner: true
   }
 
   componentDidMount() {
@@ -227,15 +228,19 @@ class CreateConstruction extends Component {
     })
   }
 
-  shouldComponentUpdate( nextProps ) {
+  shouldComponentUpdate( nextProps, nextState ) {
+    if ( !nextState.showSpinner )
+      return true
     if ( nextProps.formState.formName === 'addUser' && !nextProps.formState.loading)
       return true
     return false
   }
 
-  componentWillUpdate( nextProps ) {    
+  componentWillUpdate( nextProps, nextState ) {    
     let errorProps = { ...nextProps };
-    if ( nextProps.formState.formElements.finishDate.valid && nextProps.formState.images.length) {
+    if ( !nextState.showSpinner ) {
+      this.setState({showSpinner: true})
+    } else if ( nextProps.formState.formElements.finishDate.valid && nextProps.formState.images.length) {
       let startDate = nextProps.formState.formElements.startDate.value;
       let finishDate = nextProps.formState.formElements.finishDate.value;
       let sd = moment(startDate);
