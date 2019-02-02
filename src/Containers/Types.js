@@ -127,6 +127,7 @@ class Types extends Component {
             value={newType.name} 
             className='input input__add' 
             onChange={(event) => this.onChangeNewTypeName( event )}
+            autoFocus
           />
           <button className='btn btn-small btn-edit' onClick={this.onSave}>
             <FontAwesomeIcon icon={faSave} />
