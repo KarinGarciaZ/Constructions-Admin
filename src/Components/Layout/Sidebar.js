@@ -53,10 +53,6 @@ export default class Sidebar extends Component {
               <FontAwesomeIcon icon={faPlusSquare}/>
               <p className='link-name'>New Construction</p>
             </Navlink>
-            <Navlink cssClass={'smenu__link'} link='/editConstruction'>
-              <FontAwesomeIcon icon={faEdit}/>
-              <p className='link-name'>Edit Construction</p>
-            </Navlink>
           </ul>
           
         </ul>

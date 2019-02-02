@@ -5,6 +5,8 @@ import * as actionsCreators from '../../store/actions';
 import Form from '../../Components/UI/Form/Form';
 import moment from 'moment';
 import axios from '../../axios-connection';
+import Loading from '../../Components/Layout/Loading';
+import Aux from '../../hoc/Auxiliar';
 
 class CreateConstruction extends Component {
 
@@ -170,16 +172,25 @@ class CreateConstruction extends Component {
       },
       addPictures: {
         elementType: 'input',
-        valid: true,
+        valid: false,
         touched: true, 
         value: '',
         elementConfig: {
           type: 'file',
-          placeholder: 'Add Pictures',
+          placeholder: 'Add Pictures (Max Size 4MB)',
           multiple: true,
           accept: 'image/*'
         },
-        validation: {}
+        validation: {
+          maxSize: {
+            valid: true,
+            errorMessage: "Some pictures weren't uploaded because they are larger then 4MB."
+          },
+          required: {
+            valid: true,
+            errorMessage: 'Upload at least 1 picture.'
+          }
+        }
       }
     },
     formName: 'addUser',
@@ -207,6 +218,7 @@ class CreateConstruction extends Component {
       })
       props.formElements.type.options = types;
       props.formElements.type.value = types[0].id;
+      this.setState({showSpinner: false})
       this.props.onUpdateFormState( props )
     })
   }
@@ -217,7 +229,8 @@ class CreateConstruction extends Component {
     return false
   }
 
-  componentWillUpdate( nextProps ) {
+  componentWillUpdate( nextProps ) {    
+    let errorProps = { ...nextProps };
     if ( nextProps.formState.formElements.finishDate.valid && nextProps.formState.images.length) {
       let startDate = nextProps.formState.formElements.startDate.value;
       let finishDate = nextProps.formState.formElements.finishDate.value;
@@ -227,19 +240,18 @@ class CreateConstruction extends Component {
         let props = { ...nextProps.formState };
         this.saveConstruction(props);
       } else {
-        let errorProps = { ...nextProps };
         errorProps.formState.formElements.finishDate.valid = false;
         errorProps.formState.formElements.finishDate.validation.validDate.valid = false;
         this.props.onUpdateFormState( errorProps.formState )
       }
     } else {
-      /*agregar código para avisar que no hay imagenes en el form*/
+      errorProps.formState.formElements.addPictures.valid = false;
+      errorProps.formState.formElements.addPictures.validation.required.valid = false;
+      this.props.onUpdateFormState( errorProps.formState )
     }    
   }
 
   saveConstruction = (props) => {    
-    console.log(props)
-
     let newConstruction = {
       title: props.formElements.title.value,
       description: props.formElements.description.value,
@@ -274,11 +286,15 @@ class CreateConstruction extends Component {
 
   render() {
     return (
-      <div className='create-construction-container'>
-        <div className='form-container'>
-          <Form onCancel={this.onCancel} cancelButton={true}/>
-        </div>
-      </div>
+      <Aux>
+        { (!this.state.showSpinner)? 
+          <div className='create-construction-container'>
+            <div className='form-container'>
+              <Form onCancel={this.onCancel} cancelButton={true}/>
+            </div>
+          </div>
+        : <Loading />}
+      </Aux>
     )
   }
 }
