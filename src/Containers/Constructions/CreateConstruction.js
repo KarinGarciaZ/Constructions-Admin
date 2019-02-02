@@ -177,18 +177,22 @@ class CreateConstruction extends Component {
         value: '',
         elementConfig: {
           type: 'file',
-          placeholder: 'Add Pictures (Max Size 4MB)',
+          placeholder: 'Add Pictures (Max Size 3MB)',
           multiple: true,
           accept: 'image/*'
         },
         validation: {
           maxSize: {
             valid: true,
-            errorMessage: "Some pictures weren't uploaded because they are larger then 4MB."
+            errorMessage: "Some pictures weren't uploaded because they are larger then 3MB."
           },
           required: {
             valid: true,
             errorMessage: 'Upload at least 1 picture.'
+          },
+          isImage: {
+            valid: true,
+            errorMessage: 'This is not an image.'
           }
         }
       }
