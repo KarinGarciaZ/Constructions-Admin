@@ -84,10 +84,12 @@ class Form extends Component {
 
   changedValueFiles = ( event ) => {
     let filesArray = Array.from(event.target.files)
-    let maxSizeImage = 3
+    let maxSizeImage = 4
+    
+    let state = { ...this.state.formElements }
 
     filesArray.forEach( file => {
-      if ( file.size < (1024 * 1024 * maxSizeImage) ){
+      if ( file.size <= (1024 * 1024 * maxSizeImage) ){
         let reader = new FileReader()      
         reader.readAsDataURL( file )
         reader.onload = ( e ) => {
@@ -97,9 +99,16 @@ class Form extends Component {
           this.setState({ images }) 
         } 
       } else {
-        console.log('too large')
+        state.addPictures.valid = false
+        state.addPictures.validation.maxSize.valid = false
+        this.setState({formElements: state})
       }   
     })    
+    setTimeout(() => {
+      state.addPictures.valid = true
+      state.addPictures.validation.maxSize.valid = true
+      this.setState({formElements: state})
+    }, 4000);
   }
 
   removeFile = ( index ) => {
