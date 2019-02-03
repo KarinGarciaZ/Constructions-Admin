@@ -97,7 +97,7 @@ class Form extends Component {
           reader.onload = ( e ) => {
             let url = e.target.result
             let images = [ ...this.state.images ]
-            images.push( {file, url} )            
+            images.push( {file, url, mainImage: false} )            
             state.addPictures.validation.required.valid = true
             this.setState({ images, formElements: state })
           }        
@@ -112,7 +112,7 @@ class Form extends Component {
         this.setState({formElements: state})
       }
     }) 
-    event.target.value = null;
+    event.target.value = null;    
     setTimeout(() => {
       state.addPictures.valid = true
       state.addPictures.validation.isImage.valid = true
@@ -125,6 +125,13 @@ class Form extends Component {
     let images = [ ...this.state.images ]
     images.splice( index, 1 );
     this.setState({ images })
+  }
+
+  onChangeMainImage = (index) => {
+    let images = [ ...this.state.images ]
+    images.forEach(image => image.mainImage = false)
+    images[index].mainImage = true;
+    this.setState({images})
   }
 
   render() {
@@ -149,10 +156,18 @@ class Form extends Component {
     let images = [ ...this.state.images ]
     let imagesArray = []
     if ( images.length ) {
+
+      let mainImageIndex = 0;
+      images.forEach( (image, index) => mainImageIndex = image.mainImage? index : mainImageIndex )
+
       imagesArray = images.map( (image, index) => {
         return (
-          <div key={index} className='image-container'>            
-            <Image url={image.url}></Image>
+          <div key={index} className='image-container'>    
+            <Image 
+              url={image.url} 
+              classes={mainImageIndex === index? 'image-container-img image-container-main':'image-container-img'} 
+              clicked={this.onChangeMainImage.bind(this, index)}>
+            </Image>
             <figcaption className="image-container-caption" onClick={this.removeFile.bind(this, index)}>
               <FontAwesomeIcon icon={faTimes} />
             </figcaption>
