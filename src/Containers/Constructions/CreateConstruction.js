@@ -177,25 +177,30 @@ class CreateConstruction extends Component {
         value: '',
         elementConfig: {
           type: 'file',
-          placeholder: 'Add Pictures (Max Size 4MB)',
+          placeholder: 'Add Pictures (Max Size 3MB)',
           multiple: true,
           accept: 'image/*'
         },
         validation: {
           maxSize: {
             valid: true,
-            errorMessage: "Some pictures weren't uploaded because they are larger then 4MB."
+            errorMessage: "Some pictures weren't uploaded because they are larger then 3MB."
           },
           required: {
             valid: true,
             errorMessage: 'Upload at least 1 picture.'
+          },
+          isImage: {
+            valid: true,
+            errorMessage: 'This is not an image.'
           }
         }
       }
     },
-    formName: 'addUser',
+    formName: 'createConstruction',
     loading: true,
-    images: []
+    images: [],
+    showSpinner: false
   }
 
   componentDidMount() {
@@ -223,13 +228,13 @@ class CreateConstruction extends Component {
     })
   }
 
-  shouldComponentUpdate( nextProps ) {
-    if ( nextProps.formState.formName === 'addUser' && !nextProps.formState.loading)
+  shouldComponentUpdate( nextProps, nextState ) {
+    if ( nextProps.formState.formName === 'createConstruction' && !nextProps.formState.loading)
       return true
     return false
   }
 
-  componentWillUpdate( nextProps ) {    
+  componentWillUpdate( nextProps, nextState ) {
     let errorProps = { ...nextProps };
     if ( nextProps.formState.formElements.finishDate.valid && nextProps.formState.images.length) {
       let startDate = nextProps.formState.formElements.startDate.value;
@@ -251,7 +256,10 @@ class CreateConstruction extends Component {
     }    
   }
 
-  saveConstruction = (props) => {    
+  saveConstruction = (props) => {
+    let mainImageIndex = 0;
+    props.images.forEach( (image, index) => mainImageIndex = image.mainImage? index : mainImageIndex);
+
     let newConstruction = {
       title: props.formElements.title.value,
       description: props.formElements.description.value,
@@ -261,7 +269,8 @@ class CreateConstruction extends Component {
       state: props.formElements.state.value,
       startDate: props.formElements.startDate.value,
       finishDate: props.formElements.finishDate.value,
-      idType: +props.formElements.type.value
+      idType: +props.formElements.type.value,
+      mainImage: mainImageIndex
     }
 
     const formData =  new FormData();

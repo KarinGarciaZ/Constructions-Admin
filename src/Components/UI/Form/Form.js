@@ -84,28 +84,38 @@ class Form extends Component {
 
   changedValueFiles = ( event ) => {
     let filesArray = Array.from(event.target.files)
-    let maxSizeImage = 4
+    let maxSizeImage = 3
     
     let state = { ...this.state.formElements }
 
     filesArray.forEach( file => {
-      if ( file.size <= (1024 * 1024 * maxSizeImage) ){
-        let reader = new FileReader()      
-        reader.readAsDataURL( file )
-        reader.onload = ( e ) => {
-          let url = e.target.result
-          let images = [ ...this.state.images ]
-          images.push( {file, url} )
-          this.setState({ images }) 
+      const validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
+      if ( file.size <= (1024 * 1024 * maxSizeImage ) ){
+        if( validImageTypes.includes(file.type) ) {
+          let reader = new FileReader()      
+          reader.readAsDataURL( file )
+          reader.onload = ( e ) => {
+            let url = e.target.result
+            let images = [ ...this.state.images ]
+            images.push( {file, url, mainImage: false} )            
+            state.addPictures.validation.required.valid = true
+            this.setState({ images, formElements: state })
+          }        
+        } else {          
+          state.addPictures.valid = false
+          state.addPictures.validation.isImage.valid = false
+          this.setState({formElements: state})
         } 
       } else {
         state.addPictures.valid = false
         state.addPictures.validation.maxSize.valid = false
         this.setState({formElements: state})
-      }   
-    })    
+      }
+    }) 
+    event.target.value = null;    
     setTimeout(() => {
       state.addPictures.valid = true
+      state.addPictures.validation.isImage.valid = true
       state.addPictures.validation.maxSize.valid = true
       this.setState({formElements: state})
     }, 4000);
@@ -115,6 +125,13 @@ class Form extends Component {
     let images = [ ...this.state.images ]
     images.splice( index, 1 );
     this.setState({ images })
+  }
+
+  onChangeMainImage = (index) => {
+    let images = [ ...this.state.images ]
+    images.forEach(image => image.mainImage = false)
+    images[index].mainImage = true;
+    this.setState({images})
   }
 
   render() {
@@ -139,10 +156,18 @@ class Form extends Component {
     let images = [ ...this.state.images ]
     let imagesArray = []
     if ( images.length ) {
+
+      let mainImageIndex = 0;
+      images.forEach( (image, index) => mainImageIndex = image.mainImage? index : mainImageIndex )
+
       imagesArray = images.map( (image, index) => {
         return (
-          <div key={index} className='image-container'>            
-            <Image url={image.url}></Image>
+          <div key={index} className='image-container'>    
+            <Image 
+              url={image.url} 
+              classes={mainImageIndex === index? 'image-container-img image-container-main':'image-container-img'} 
+              clicked={this.onChangeMainImage.bind(this, index)}>
+            </Image>
             <figcaption className="image-container-caption" onClick={this.removeFile.bind(this, index)}>
               <FontAwesomeIcon icon={faTimes} />
             </figcaption>
