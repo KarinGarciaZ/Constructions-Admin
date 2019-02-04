@@ -1,0 +1,71 @@
+.all-constructions-container {
+  height: 100%;
+  width: 100%;
+  padding: 2rem 0;
+  display: grid;
+  grid-template-rows: repeat(2, max-content);
+}
+
+.cards-main {
+  display: grid;
+  grid-template-columns: 1fr [start-center] repeat(8, minmax(min-content, 15rem)) [end-center] 1fr;  
+  padding: 5rem;
+}
+
+.cards-container {
+  grid-column: start-center / end-center;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+  grid-gap: 4rem;
+  justify-content: center;
+}
+
+.card {
+  width: 100%;  
+  background-color: $color-grey-light-1;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-row-gap: 2rem;
+  justify-items: center;
+  
+  &__image {
+    width: 100%;
+    grid-column: 1 / -1;
+    object-fit: cover;
+  }
+
+  &__title {
+    grid-column: 1 / -1;
+    font-size: 2rem;
+    background-color: $color-secondary;
+    color: whitesmoke;
+    width: 100%;
+    text-align: center;
+    padding: 1rem 2rem;
+    transform: translateY(-2rem);
+    font-weight: 300;
+    text-transform: capitalize;
+  }
+
+  &__info {    
+    text-align: center;
+    font-size: 1.6rem;
+  }
+
+  &__location {
+    font-size: 1.3rem;
+    font-style: italic;
+    text-align: center;
+  }
+
+  &__icon {
+    font-size: 2rem;
+    color: $color-primary;
+    transform: translateY(-1rem);
+  }
+
+  &__btn {
+    width: 100%;
+    grid-column: 1 / -1;
+  }
+}
