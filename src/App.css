@@ -487,39 +487,71 @@ body {
   grid-template-rows: repeat(2, max-content); }
 
 .cards-main {
+  display: grid; }
+  .cards-main-1 {
+    grid-template-columns: 1fr [start-center] repeat(8, minmax(min-content, 17rem)) [end-center] 1fr;
+    padding: 2rem;
+    border-bottom: 2px solid #f9f7f6; }
+  .cards-main-2 {
+    grid-template-columns: 1fr [start-center] repeat(8, minmax(min-content, 15rem)) [end-center] 1fr;
+    padding: 5rem; }
+
+.search-construction-container {
+  grid-column: start-center / end-center;
   display: grid;
-  grid-template-columns: 1fr [start-center] repeat(8, minmax(min-content, 15rem)) [end-center] 1fr;
-  padding: 5rem; }
+  grid-template-columns: repeat(auto-fit, minmax(35rem, 1fr));
+  grid-gap: 3rem; }
 
 .cards-container {
   grid-column: start-center / end-center;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
-  grid-gap: 4rem;
-  justify-content: center; }
+  grid-template-columns: repeat(auto-fit, minmax(28rem, 1fr));
+  grid-gap: 4rem; }
 
 .card {
   width: 100%;
   background-color: #f9f7f6;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-row-gap: 2rem;
   justify-items: center; }
   .card__image {
     width: 100%;
+    height: 25vh;
     grid-column: 1 / -1;
+    grid-row: 1 / 2;
     object-fit: cover; }
+  .card__edit {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    z-index: 1;
+    font-size: 2rem;
+    justify-self: end;
+    margin: 1rem;
+    cursor: pointer;
+    color: #c69963;
+    transition: all .2s; }
+    .card__edit:hover {
+      transform: scale(1.4); }
   .card__title {
     grid-column: 1 / -1;
     font-size: 2rem;
-    background-color: #101d2c;
-    color: whitesmoke;
+    color: #101d2c;
     width: 100%;
+    border-top: 1px solid #c69963;
+    border-bottom: 2px solid #c69963;
     text-align: center;
     padding: 1rem 2rem;
-    transform: translateY(-2rem);
     font-weight: 300;
     text-transform: capitalize; }
+  .card__middle {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    width: 100%;
+    align-items: center;
+    justify-items: center;
+    grid-row-gap: 2rem;
+    padding: 1rem 0; }
   .card__info {
     text-align: center;
     font-size: 1.6rem; }
@@ -528,9 +560,8 @@ body {
     font-style: italic;
     text-align: center; }
   .card__icon {
-    font-size: 2rem;
-    color: #c69963;
-    transform: translateY(-1rem); }
+    font-size: 2.5rem;
+    color: #192e46; }
   .card__btn {
     width: 100%;
     grid-column: 1 / -1; }
