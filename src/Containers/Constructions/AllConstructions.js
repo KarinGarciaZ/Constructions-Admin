@@ -6,6 +6,8 @@ import axios from '../../axios-connection';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkerAlt, faInfoCircle, faPen } from "@fortawesome/free-solid-svg-icons";
 import Input from '../../Components/UI/Form/Input';
+import Loading from '../../Components/Layout/Loading';
+import Aux from '../../hoc/Auxiliar';
 
 class AllConstructions extends Component {
 
@@ -48,8 +50,35 @@ class AllConstructions extends Component {
           placeholder: 'State'
         },
         validation: {}          
+      },
+      statusConstruction: {
+        elementType: 'select',
+        valid: true,
+        touched: true, 
+        value: '',
+        options: [
+          {name:'', id:''},
+          {name:'Finished', id:'Finished'},
+          {name:'In Progress', id:'In Progress'}
+        ],
+        elementConfig: {
+          placeholder: 'Construction Status'
+        },
+        required: {}
+      },
+      type: {
+        elementType: 'select',
+        valid: true,
+        touched: true, 
+        value: 0,
+        options: [],
+        elementConfig: {
+          placeholder: 'Construction Type'
+        },
+        required: {}
       }
-    }
+    },
+    loading: true
   }
 
   componentDidMount() {
@@ -58,7 +87,20 @@ class AllConstructions extends Component {
     axios.get('/construction', {headers: {'Authorization': 'Bearer ' + TOKEN}})
     .then( data => {
       this.setState({constructions: data.data, originalConstructions: data.data})
-    } )
+    })
+
+    axios.get('/type', {headers: {'Authorization': 'Bearer ' + TOKEN}})
+    .then( data => {
+      let formElements = { ...this.state.formElements }
+      let types = [ ...data.data ]
+      let options = []
+      options = types.map( type => {
+        return  { name: type.name, id: type.id }  
+      })
+      options.unshift({ name: '', id: 0 })
+      formElements.type.options = options
+      this.setState({formElements, loading: false})
+    })
   }
 
   onClickCard = (id) => {
@@ -76,7 +118,7 @@ class AllConstructions extends Component {
 
     if ( this.state.formElements.title.value !== '' && key !== 'title' ) {
       constructions = constructions.filter( construction => {
-        if ( construction.title.includes(this.state.formElements.title.value) ) 
+        if ( construction.title.toLowerCase().includes(this.state.formElements.title.value.toLowerCase()) ) 
           return true;
         return false
       })
@@ -84,7 +126,7 @@ class AllConstructions extends Component {
 
     if ( this.state.formElements.address.value !== '' && key !== 'address' ) {
       constructions = constructions.filter( construction => {
-        if ( construction.address.includes(this.state.formElements.address.value) ) 
+        if ( construction.address.toLowerCase().includes(this.state.formElements.address.value.toLowerCase()) ) 
           return true;
         return false
       })
@@ -92,7 +134,7 @@ class AllConstructions extends Component {
 
     if ( this.state.formElements.city.value !== '' && key !== 'city' ) {
       constructions = constructions.filter( construction => {
-        if ( construction.city.includes(this.state.formElements.city.value) ) 
+        if ( construction.city.toLowerCase().includes(this.state.formElements.city.value.toLowerCase()) ) 
           return true;
         return false
       })
@@ -100,17 +142,35 @@ class AllConstructions extends Component {
 
     if ( this.state.formElements.state.value !== '' && key !== 'state' ) {
       constructions = constructions.filter( construction => {
-        if ( construction.state.includes(this.state.formElements.state.value) ) 
+        if ( construction.state.toLowerCase().includes(this.state.formElements.state.value.toLowerCase()) ) 
           return true;
         return false
       })
     }
 
-    constructions = constructions.filter( construction => {
-      if ( construction[key].includes(value) || !value )
-        return true
-      return false
-    })
+    if ( this.state.formElements.statusConstruction.value !== '' && key !== 'statusConstruction' ) {
+      constructions = constructions.filter( construction => {
+        if ( construction.statusConstruction.toLowerCase().includes(this.state.formElements.statusConstruction.value.toLowerCase()) ) 
+          return true;
+        return false
+      })
+    }
+    if ( key === 'type' ) value = +value
+    if ((this.state.formElements.type.value !== 0 && key !== 'type') || (key === 'type' && +value !== 0)) {      
+      let typeValue = ( key === 'type' )? value : this.state.formElements.type.value
+      constructions = constructions.filter( construction => {
+        if ( construction.typeId === typeValue ) 
+          return true;
+        return false
+      })
+    }
+
+    if ( key !== 'type' )
+      constructions = constructions.filter( construction => {
+        if ( construction[key].toLowerCase().includes(value.toLowerCase()) || !value )
+          return true
+        return false
+      })
 
     formElements[key].value = value;
     this.setState({ constructions, formElements })
@@ -133,6 +193,7 @@ class AllConstructions extends Component {
           value={input.config.value}
           shouldValidate={input.config.validation}
           changed={( event ) => this.filterConstructions(input.key, event)}
+          options={input.config.options}
         />
       )      
     })   
@@ -149,8 +210,8 @@ class AllConstructions extends Component {
           <div className='card__middle'>          
             <FontAwesomeIcon icon={faInfoCircle} className='card__icon'/>
             <div className='card__info'>
-              <p>{construction.type.name}</p>
-              <p>{construction.statusConstruction}</p>
+              <p>Type: {construction.type.name}</p>
+              <p>Status: {construction.statusConstruction}</p>
             </div>
             <FontAwesomeIcon icon={faMapMarkerAlt} className='card__icon'/>
             <div className='card__location'>
@@ -165,18 +226,23 @@ class AllConstructions extends Component {
     })
 
     return (
-      <div className='all-constructions-container'>
-        <div className='cards-main cards-main-1'>
-          <div className='search-construction-container'>
-            {search}
-          </div>
-        </div>
-        <div className='cards-main cards-main-2'>
-          <div className='cards-container'>
-            {cards}
-          </div>
-        </div>
-      </div>
+      <Aux>
+        { (!this.state.loading)? 
+          <div className='all-constructions-container'>
+            <div className='cards-main cards-main-1'>
+              <div className='search-construction-container'>
+                <p className='search-title'>Filter Constructions:</p>
+                {search}
+              </div>
+            </div>
+            <div className='cards-main cards-main-2'>
+              <div className='cards-container'>
+                {cards}
+              </div>
+            </div>
+          </div> : <Loading />
+        }
+      </Aux>     
     )
   }
 }
