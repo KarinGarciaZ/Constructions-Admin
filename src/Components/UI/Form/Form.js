@@ -76,12 +76,6 @@ class Form extends Component {
     this.setState({ formElements: formElement })
   }
 
-  changedValueSelect = ( id, event ) => {
-    let formElements = { ...this.state.formElements }
-    formElements[id].value = event.target.value;
-    this.setState({ formElements })
-  }
-
   changedValueFiles = ( event ) => {
     let filesArray = Array.from(event.target.files)
     let maxSizeImage = 3
@@ -185,7 +179,6 @@ class Form extends Component {
             elementConfig={formElementForHTML.config.elementConfig} 
             value={formElementForHTML.config.value} 
             changed={( event ) => this.changedValueInput(formElementForHTML.id, event)}
-            changedSelect={ event => this.changedValueSelect( formElementForHTML.id, event)}
             changedFiles={ this.changedValueFiles }
             valid={formElementForHTML.config.valid}
             shouldValidate={formElementForHTML.config.validation}
