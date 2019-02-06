@@ -44,7 +44,7 @@ const input = ( props ) => {
       inputClasses.push('input')
       inputClasses.push('select')
       gridClasses = ''
-      imputElement = <select className={ inputClasses.join(' ') } onChange={ props.changedSelect }>
+      imputElement = <select className={ inputClasses.join(' ') } onChange={ props.changed }>
         { props.options.map( option => {
           return (
             <option className='option' value={option.id} key={option.id}>
