@@ -20,7 +20,8 @@ class Form extends Component {
     if (nextProps.formState.formElements !== this.state.formElements) {
       this.setState({ 
         formElements: nextProps.formState.formElements, 
-        formName: nextProps.formState.formName 
+        formName: nextProps.formState.formName,
+        images: nextProps.formState.images
       })
     }
   }
@@ -154,6 +155,7 @@ class Form extends Component {
       let mainImageIndex = 0;
       images.forEach( (image, index) => mainImageIndex = image.mainImage? index : mainImageIndex )
 
+      console.log(images)
       imagesArray = images.map( (image, index) => {
         return (
           <div key={index} className='image-container'>    
