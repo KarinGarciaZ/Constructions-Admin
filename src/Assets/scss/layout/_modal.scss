@@ -1,0 +1,33 @@
+.modal {
+  display: grid;
+  justify-items: right;
+  grid-template-columns: 1fr min-content;
+  grid-row-gap: 3rem;
+  column-gap: 1.5rem;
+
+  animation: loadingModal .2s;
+  background-color: white;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 3rem;  
+  box-shadow: 0 0 200rem 2000rem rgba(0, 0, 0, 0.466);
+
+  &__title {
+    grid-column: 1 / -1;
+    grid-row: 1 / 2;
+    font-size: 2rem;
+  }
+
+  &__close {
+    display: block;
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    justify-self: left;
+    color: red;
+    font-size: 2rem;
+    margin: -2rem 0 0 -2rem;
+    cursor: pointer;
+  }
+}
