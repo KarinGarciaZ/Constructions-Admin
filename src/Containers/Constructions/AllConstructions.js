@@ -231,7 +231,7 @@ class AllConstructions extends Component {
           <div className='all-constructions-container'>
             <div className='cards-main cards-main-1'>
               <div className='search-construction-container'>
-                <p className='search-title'>Filter Constructions:</p>
+                <p className='search-title'>Filter Constructions By:</p>
                 {search}
               </div>
             </div>

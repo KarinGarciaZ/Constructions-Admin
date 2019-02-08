@@ -76,3 +76,18 @@
     opacity: .35;
   }
 }
+
+.btn-link {
+  color: $color-primary-dark;
+  display: inline-block;
+  margin: 0 1rem;
+  text-decoration: none;
+  border: none;
+  border-bottom: 1px solid $color-primary;
+  background-color: transparent;
+  cursor: pointer;
+  
+  &:focus {
+    outline: none;
+  }
+}
