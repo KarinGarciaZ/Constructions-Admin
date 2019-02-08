@@ -8,12 +8,15 @@ import Loading from '../../Components/Layout/Loading';
 import Aux from '../../hoc/Auxiliar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import Modal from '../../Components/UI/Modal'
 
 class Construction extends Component {
 
   state = {
     construction: {},
-    loading: true
+    loading: true,
+    showAll: false,
+    showModal: false
   }
 
   componentDidMount() {
@@ -22,11 +25,17 @@ class Construction extends Component {
     this.loadConstruction( id )
   }
 
+  componentWillReceiveProps( nextProps ) {
+    if (nextProps.match.params.id !== this.props.match.params.id) {
+      let id = nextProps.match.params.id
+      this.loadConstruction( id );
+    }
+  }
+
   loadConstruction( id ) {
     let TOKEN = localStorage.getItem('userToken');
     axios.get('/construction/' + id, {headers: {'Authorization': 'Bearer ' + TOKEN}})
     .then( construction => {
-      console.log(construction.data)
       this.setState({ construction: construction.data, loading: false })
     })
     .catch( error => {
@@ -34,11 +43,15 @@ class Construction extends Component {
     })
   }
 
-  componentWillReceiveProps( nextProps ) {
-    if (nextProps.match.params.id !== this.props.match.params.id) {
-      let id = nextProps.match.params.id
-      this.loadConstruction( id );
-    }
+  deleteConstruction = ( id ) => {
+    let TOKEN = localStorage.getItem('userToken');
+    axios.delete('/construction/' + id, {headers: {'Authorization': 'Bearer ' + TOKEN}})
+    .then( data =>{
+      this.onClose();
+    })
+    .catch( error => {
+      console.log('error: ', error);
+    })
   }
 
   changeMainImage = ( id ) => {
@@ -53,8 +66,22 @@ class Construction extends Component {
     this.setState({construction})
   }
 
+  onShowMore = () => {
+    this.setState({showAll: true})
+  }
+
+  onToggleModal = () => {
+    this.setState(state => {
+      return { showModal: !state.showModal }
+    })
+  }
+
   onClose = () => {
     this.props.history.push('/allConstructions');
+  }
+  
+  onClickEdit = (id) => {
+    this.props.history.push('/editConstruction/'+id)
   }
 
   render() {
@@ -65,10 +92,17 @@ class Construction extends Component {
 
     let mainImageUrl = ''
     let images = []
+    let description = ''
+
+    let showMoreButton = <button className='btn-link' onClick={this.onShowMore}>Show more...</button>;
 
     if ( !this.state.loading ) {
+      description = construction.description;
       mainImageUrl = construction.images.filter( image => image.mainImage? true : false )[0].url
       mainImageUrl = 'http://localhost:3001/' + mainImageUrl
+
+      if ( !this.state.showAll && description.length > 1000) 
+        description = description.substring(0, 1000);      
 
       images = construction.images.map( image => {
         let classes = ['construction__images--img']
@@ -79,7 +113,8 @@ class Construction extends Component {
           className={classes.join(' ')}
           alt='Construction img' 
           src={'http://localhost:3001/' + image.url}
-          onMouseEnter={this.changeMainImage.bind(this, image.id)}></img>
+          onMouseEnter={this.changeMainImage.bind(this, image.id)}
+          key={image.id}></img>
       })
     }
 
@@ -118,16 +153,24 @@ class Construction extends Component {
 
             <div className='construction__description'>
               <p>Description</p>
-              <p className='description'>{construction.description}</p>
+              <p className='description'>
+                {description}
+                { ( !this.state.showAll && construction.description.length > 1000 )? showMoreButton : null}
+              </p>
+              
             </div>
 
             <div className='construction__buttons'>
-              <button className='btn btn-cancel'>Delete</button>
-              <button className='btn btn-edit'>Edit</button>
+              <button className='btn btn-cancel' onClick={this.onToggleModal}>Delete</button>
+              <button className='btn btn-edit' onClick={this.onClickEdit.bind(this, construction.id)}>Edit</button>
             </div>
-
+            
           </div>
-        </div> 
+          <Aux> 
+            { this.state.showModal? <Modal closeModal={this.onToggleModal} deleteConst={this.deleteConstruction.bind(this, construction.id)}/> : null }
+          </Aux>
+        </div>
+        
         : <Loading /> }
       </Aux>
       
