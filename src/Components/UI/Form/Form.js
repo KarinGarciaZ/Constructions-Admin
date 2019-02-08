@@ -18,10 +18,14 @@ class Form extends Component {
 
   componentWillReceiveProps( nextProps ) {
     if (nextProps.formState.formElements !== this.state.formElements) {
+      let images = []
+      if (nextProps.formState.images)      
+        images = nextProps.formState.images
+
       this.setState({ 
         formElements: nextProps.formState.formElements, 
         formName: nextProps.formState.formName,
-        images: nextProps.formState.images
+        images
       })
     }
   }
