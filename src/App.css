@@ -98,7 +98,7 @@ body {
       grid-template-columns: max-content;
       background-color: white;
       box-shadow: 0 2px 5px 0px rgba(0, 0, 0, 0.2);
-      z-index: 5;
+      z-index: 10;
       right: 0;
       top: -50vh;
       animation: moveMenuUp 1s ease; }
@@ -244,7 +244,7 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   padding: 3rem;
-  box-shadow: 0 0 200rem 2000rem rgba(0, 0, 0, 0.466); }
+  z-index: 10; }
   .modal__title {
     grid-column: 1 / -1;
     grid-row: 1 / 2;
@@ -258,6 +258,17 @@ body {
     font-size: 2rem;
     margin: -2rem 0 0 -2rem;
     cursor: pointer; }
+
+.shadow-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  width: 100vw;
+  height: 100vh; }
+
+.dark {
+  background-color: rgba(0, 0, 0, 0.466); }
 
 .loading-container {
   grid-column: 1 / -1;
@@ -606,7 +617,8 @@ body {
     align-items: center;
     justify-items: center;
     grid-row-gap: 1rem;
-    padding: 1rem 0; }
+    padding: 1rem 0;
+    text-transform: capitalize; }
   .card__info {
     text-align: center;
     font-size: 1.5rem; }

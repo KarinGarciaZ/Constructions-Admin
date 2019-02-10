@@ -8,7 +8,8 @@ import Loading from '../../Components/Layout/Loading';
 import Aux from '../../hoc/Auxiliar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import Modal from '../../Components/UI/Modal'
+import Modal from '../../Components/UI/Modal';
+import ShadowBackground from '../../Components/UI/ShadowBackground';
 
 class Construction extends Component {
 
@@ -167,7 +168,12 @@ class Construction extends Component {
             
           </div>
           <Aux> 
-            { this.state.showModal? <Modal closeModal={this.onToggleModal} deleteConst={this.deleteConstruction.bind(this, construction.id)}/> : null }
+            { this.state.showModal? 
+            <Aux>
+              <ShadowBackground classes='dark'/>
+              <Modal closeModal={this.onToggleModal} deleteConst={this.deleteConstruction.bind(this, construction.id)}/> 
+            </Aux>             
+              : null }
           </Aux>
         </div>
         

@@ -205,12 +205,12 @@ class CreateConstruction extends Component {
 
   componentDidMount() {
     let today = moment().format("YYYY-MM-DD");
-
+    let tomorrow = moment().add(1, 'day').format("YYYY-MM-DD");
     this.props.onChangeTitle();
 
     let props = { ...this.state }
     props.formElements.startDate.value = today;
-    props.formElements.finishDate.value = today;
+    props.formElements.finishDate.value = tomorrow;
     this.getTypes( props )
   }
 
@@ -280,8 +280,8 @@ class CreateConstruction extends Component {
     let TOKEN = localStorage.getItem('userToken');
     axios.post('/construction', formData, { headers: { 'Authorization': 'Bearer ' + TOKEN, 'Content-Type': 'multipart/form-data' } } )
     .then( res => {
-      this.props.onUpdateFormState( {} )
       this.props.history.push('/');
+      this.props.onUpdateFormState( {} )
     } )
     .catch( error => {
       console.log(error.response)
