@@ -11,7 +11,7 @@
   &-1{
     grid-template-columns: 1fr [start-center] repeat(8, minmax(min-content, 20rem)) [end-center] 1fr;  
     padding: 2rem;
-    border-bottom: 2px solid $color-grey-light-1;
+    border-bottom: 2px solid $color-primary-light-4;
   }
 
   &-2{
@@ -45,7 +45,7 @@
 
 .card {
   width: 100%;  
-  background-color: $color-grey-light-1;
+  background-color: $color-primary-light-4;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   justify-items: center;
@@ -70,7 +70,7 @@
     justify-self: end;
     margin: 1rem;
     cursor: pointer;
-    color: $color-primary;
+    color: $color-primary-light-3;
     transition: all .2s;
     &:hover {
       transform: scale(1.4);

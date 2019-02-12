@@ -1,8 +1,10 @@
 // COLOR VARIABLES
-$color-primary: #c69963;
-$color-primary-light: rgb(231, 190, 139);
-$color-primary-light-2: rgba(243, 208, 165, 0.89);
-$color-primary-dark: #B28451;
+$color-primary: #404040;
+$color-primary-dark: #202020;
+$color-primary-light: #606060;
+$color-primary-light-2: #808080;
+$color-primary-light-3: #B0B0B0;
+$color-primary-light-4: #E0E0E0;
 
 $color-secondary: #101d2c;
 $color-secondary-hover: #192e46;
@@ -14,13 +16,6 @@ $color-secondary-light: #486f9c;
 $color-green: #599e7e;
 $color-green-hover: #468166;
 $color-green-light-transparent: #99e2c052;
-
-$color-grey-light-1: #f9f7f6;
-$color-grey-light-2: #aaa;
-$color-grey-light-3: #ddd;
-
-$color-grey-dark-1: #54483A;
-$color-grey-dark-2: #6D5D4B;
 
 *,
 *::before,
@@ -36,7 +31,7 @@ html {
 }
 
 body {
-  color: $color-grey-dark-2;
+  color: $color-primary;
   font-weight: 300;
   line-height: 1.6;
 }

@@ -36,7 +36,7 @@
     justify-self: center;
     font-size: 3rem;
     text-transform: capitalize;
-    color: $color-grey-dark-1;
+    color: $color-primary-light;
     margin-top: 1.5rem;
   }
 
@@ -58,7 +58,7 @@
   &__image {
     grid-column: col-start 9 / col-end 19;
     grid-row: 1 / 6;
-    background-color: $color-grey-light-3;
+    background-color: $color-primary-light-4;
     display: grid;
     align-items: center;
     justify-items: center;
@@ -73,7 +73,7 @@
   &__images {
     grid-column: col-start 20 / col-end 20;
     grid-row: 1 / 6;
-    background-color: $color-grey-light-1;
+    background-color: $color-primary-light-4;
     display: grid;
     align-content: start;
 
