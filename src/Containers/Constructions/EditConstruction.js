@@ -285,7 +285,6 @@ class EditConstruction extends Component {
   editConstruction = (props) => {
     let mainImageIndex = 0;
     props.images.forEach( (image, index) => mainImageIndex = image.mainImage? index : mainImageIndex);
-    console.log(mainImageIndex)
 
     let constructionEdited = {
       title: props.formElements.title.value,

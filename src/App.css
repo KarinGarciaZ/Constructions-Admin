@@ -291,7 +291,8 @@ body {
 .form-container {
   padding: 4rem;
   box-shadow: -0.5rem 0.5rem 4rem rgba(0, 0, 0, 0.15);
-  grid-column: col-start 1 / col-end 8; }
+  grid-column: col-start 1 / col-end 8;
+  background-color: rgba(255, 255, 255, 0.4); }
 
 .label {
   font-size: 1.6rem;
@@ -345,7 +346,8 @@ body {
   border: 2px solid #B0B0B0;
   outline-style: none;
   border-radius: 5px;
-  width: 100%; }
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.35); }
   .input__add {
     border-color: #599e7e;
     background-color: #99e2c052; }
@@ -465,11 +467,14 @@ body {
 
 .login-container {
   grid-column: 1 / -1;
-  min-height: 87vh;
+  min-height: 100vh;
   padding: 2rem 0;
   display: grid;
   align-content: center;
   justify-content: center;
+  background-image: linear-gradient(to right bottom, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url(./Assets/Images/Project/login.jpg);
+  background-size: cover;
+  background-position: top;
   grid-template-columns: [login-start] minmax(3rem, 1fr) repeat(8, [col-start] minmax(min-content, 6rem) [col-end]) minmax(3rem, 1fr) [login-end]; }
 
 .add-user-container {
