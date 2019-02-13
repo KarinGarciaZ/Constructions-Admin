@@ -36,7 +36,7 @@ class Header extends Component {
       <div className='header__user' onClick={this.onMenuClick}>
         <h4 className='header__user--username'>
           <FontAwesomeIcon icon={faUserCircle} size='lg'/> 
-          {this.props.user.username}
+          <p className='header__user--username-name'>{this.props.user.username}</p>
           <FontAwesomeIcon icon={this.state.menuActive ? faCaretUp : faCaretDown}/>
         </h4>
         <nav className={menuClasses.join(' ')}>
