@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle, faCaretDown, faCaretUp, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 
 import * as actionsCreators from '../../store/actions/index';
-import logo from '../../Assets/Images/Project/logo.png';
+import logo from '../../Assets/Images/Project/spinner.png'
 import ShadowBackground from '../UI/ShadowBackground';
 
 class Header extends Component {
