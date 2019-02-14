@@ -81,8 +81,16 @@ class Login extends Component {
       localStorage.setItem('userToken', data.data.token);
       if ( data.data.userInfo ) {     
         this.props.onUpdateFormState({});
-        data.data.userInfo.isAuth = true;
-        this.props.onLogin( data.data.userInfo );
+
+        let userInfo = {
+          username: data.data.userInfo.username,
+          name: data.data.userInfo.name,
+          email: data.data.userInfo.email,
+          phoneNumber: data.data.userInfo.phoneNumber,
+          isAuth: true
+        }
+
+        this.props.onLogin( userInfo );
       } else {
         let formError = { ...form };
         formError.formElements.password.valid = false;
