@@ -1,4 +1,12 @@
 .main-layout {
   grid-column: full-start / full-end;
-  min-height: 80vh;
+  min-height: 83vh;
+}
+
+@media only screen and (max-width: $bp-500) {
+  .main-layout {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 }
