@@ -44,8 +44,8 @@ class Header extends Component {
             <p className='header__user--menu__info--name'>{this.props.user.name}</p>
             <p className='header__user--menu__info--email'>{this.props.user.email}</p>
           </div>
-          <Link className='header__user--menu__edit' to='/editOwnUser' >Edit User</Link>
-          <Link className='header__user--menu__edit' to='/changePassword'>Change Password</Link>
+          <Link className='header__user--menu__edit' to='/edit-own-user' >Edit User</Link>
+          <Link className='header__user--menu__edit' to='/change-password'>Change Password</Link>
           <p className='header__user--menu__logout' onClick={this.onLogout}>
             Logout
             <FontAwesomeIcon icon={faSignOutAlt}/>

@@ -78,11 +78,15 @@ class Construction extends Component {
   }
 
   onClose = () => {
-    this.props.history.push('/allConstructions');
+    this.props.history.push('/all-constructions');
   }
   
   onClickEdit = (id) => {
-    this.props.history.push('/editConstruction/'+id)
+    this.props.history.push('/edit-construction/'+id)
+  }
+
+  pageNotFound = () => {    
+    this.props.history.replace('/not-found')
   }
 
   render() {
@@ -97,7 +101,7 @@ class Construction extends Component {
 
     let showMoreButton = <button className='btn-link' onClick={this.onShowMore}>Show more...</button>;
 
-    if ( !this.state.loading ) {
+    if ( !this.state.loading && this.state.construction ) {
       description = construction.description;
       mainImageUrl = construction.images.filter( image => image.mainImage? true : false )[0].url
       mainImageUrl = 'http://localhost:3001/' + mainImageUrl
@@ -121,7 +125,7 @@ class Construction extends Component {
 
     return (
       <Aux>
-        { (!this.state.loading)?
+        { (!this.state.loading && this.state.construction)?
         <div className='construction-container'>
           <div className='construction'>
             <FontAwesomeIcon icon={faTimes} className='construction__close' onClick={this.onClose}/>
@@ -177,7 +181,9 @@ class Construction extends Component {
           </Aux>
         </div>
         
-        : <Loading /> }
+        : null }
+        { ( this.state.loading )? <Loading /> : null }
+        { ( !this.state.loading && !this.state.construction )? this.pageNotFound() : null }
       </Aux>
       
     )

@@ -10,6 +10,7 @@ import ChangePassword from '../../Containers/User/ChangePassword';
 import EditConstruction from '../../Containers/Constructions/EditConstruction';
 import AllConstructions from '../../Containers/Constructions/AllConstructions';
 import Types from '../../Containers/Types';
+import NotFound from '../../Containers/NotFound';
 
 class MainLayout extends Component {
 
@@ -19,15 +20,15 @@ class MainLayout extends Component {
       <div className='main-layout'>
         <Switch>
           <Route path="/construction/:id" component={Construction}/>
-          <Route path="/editConstruction/:id" component={EditConstruction}/>
+          <Route path="/edit-construction/:id" component={EditConstruction}/>
           <Route path="/construction" component={Construction}/>
-          <Route path="/editConstruction" component={EditConstruction}/>
-          <Route path="/allConstructions" component={AllConstructions}/>
-          <Route path="/createConstruction" component={CreateConstruction}/>
-          <Route path="/editOwnUser" component={EditOwnUser}/>
-          <Route path="/changePassword" component={ChangePassword}/>
-          <Route path="/addUser" component={AddUser}/>
+          <Route path="/all-constructions" component={AllConstructions}/>
+          <Route path="/create-construction" component={CreateConstruction}/>
+          <Route path="/edit-own-user" component={EditOwnUser}/>
+          <Route path="/change-password" component={ChangePassword}/>
+          <Route path="/add-user" component={AddUser}/>
           <Route path="/types" component={Types}/>
+          <Route path="/not-found" component={NotFound}/>
           <Route path="/" component={Home}/>
         </Switch> 
       </div>
