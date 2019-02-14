@@ -17,6 +17,17 @@ $color-green: #599e7e;
 $color-green-hover: #468166;
 $color-green-light-transparent: #99e2c052;
 
+// RESPONSIVE BREAKPOINTS
+$bp-1500: 93.75em;
+$bp-1200: 75em;
+$bp-1000: 62.5em;
+$bp-900: 56.25em;
+$bp-800: 50em;
+$bp-700: 43.75em;
+$bp-600: 37.5em;
+$bp-500: 31.25em;
+$bp-400: 25em;
+
 *,
 *::before,
 *::after{
@@ -27,7 +38,7 @@ $color-green-light-transparent: #99e2c052;
 
 html {
   box-sizing: border-box;
-  font-size: 62.5%;
+  font-size: 62.5%;  
 }
 
 body {
@@ -36,7 +47,6 @@ body {
   line-height: 1.6;
 }
 
-
 .container {
   display: grid;
   grid-template-rows: repeat(3, min-content);
@@ -44,4 +54,19 @@ body {
     [sidebar-end full-start] minmax(2rem, 1fr) 
     [center-start] repeat(8, [col-start] minmax(min-content, 14rem) [col-end]) 
     [center-end] minmax(2rem, 1fr) [full-end];
+}
+
+@media only screen and (max-width: $bp-700) {
+  html {
+    font-size: 50%;
+  }
+}
+
+@media only screen and (max-width: $bp-500) {
+  .container {
+    grid-template-rows: repeat(4, min-content);
+    grid-template-columns: [full-start] minmax(2rem, 1fr) 
+      [center-start] repeat(8, [col-start] minmax(min-content, 14rem) [col-end]) 
+      [center-end] minmax(2rem, 1fr) [full-end];
+  }
 }

@@ -25,7 +25,7 @@
   display: grid;
   grid-template-columns: repeat(6, minmax(18rem, 1fr));
   grid-gap: 3rem;
-  justify-content: center;
+  justify-content: center;  
 }
 
 .search-title {
@@ -121,5 +121,43 @@
   &__btn {
     width: 100%;
     grid-column: 1 / -1;
+  }
+}
+
+@media only screen and (max-width: $bp-1500) {
+  .search-construction-container {
+    grid-template-columns: repeat(3, minmax(18rem, 1fr));
+    grid-row-gap: 1.5rem;
+  }
+}
+
+@media only screen and (max-width: $bp-900) {
+  .cards-main-2 {
+    padding: 3rem;
+  }
+
+  .cards-container {
+    grid-gap: 2rem;
+  }
+}
+
+@media only screen and (max-width: $bp-600) {
+  .search-construction-container {
+    grid-template-columns: repeat(2, minmax(18rem, 1fr));
+  }
+
+  .cards-main-2 {
+    padding: 2rem;
+  }
+}
+
+@media only screen and (max-width: $bp-400) {
+  .search-construction-container {
+    grid-template-columns: minmax(18rem, 1fr);
+    grid-row-gap: 1rem;
+  }
+
+  .search-title {
+    font-size: 2.4rem;
   }
 }

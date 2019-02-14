@@ -75,16 +75,16 @@ class Layout extends Component {
     if ( this.state.render === 'Aux' )
       renderContainer = (
         <Aux>
+          <Header />
           <Sidebar />
-          <MainLayout />
+          <MainLayout />          
+          <Footer />
         </Aux>
       )
 
     return (
       <div className='container'>
-        <Header />
         {renderContainer}
-        <Footer />
       </div>
     )
   }

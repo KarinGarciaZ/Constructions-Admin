@@ -98,3 +98,41 @@
     }
   }
 }
+
+@media only screen and (max-width: $bp-600) {
+  .header {
+    padding: 0 1rem;
+
+    &__title {
+      font-size: 2.5rem;
+    }
+
+    &__user {
+      padding: 0 1rem;
+
+      &--username {
+        grid-column-gap: 1rem;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: $bp-500) {
+  .header {
+    grid-column: full-start / full-end;
+  }
+}
+
+@media only screen and (max-width: $bp-400) {
+  .header {
+    &__user {
+      &--username {
+        grid-template-columns: repeat(2, min-content);
+
+        &-name {
+          display: none;
+        }
+      }
+    }
+  }
+}

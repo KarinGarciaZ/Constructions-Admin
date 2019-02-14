@@ -255,7 +255,6 @@ class EditConstruction extends Component {
   }
 
   shouldComponentUpdate( nextProps, nextState ) {
-    console.log(nextProps)
     if ( nextProps.formState.formName === 'editConstruction' && !nextProps.formState.loading)
       return true
     return false
@@ -287,7 +286,7 @@ class EditConstruction extends Component {
     let mainImageIndex = 0;
     props.images.forEach( (image, index) => mainImageIndex = image.mainImage? index : mainImageIndex);
 
-    let newConstruction = {
+    let constructionEdited = {
       title: props.formElements.title.value,
       description: props.formElements.description.value,
       statusConstruction: props.formElements.statusConstruction.value,
@@ -300,19 +299,27 @@ class EditConstruction extends Component {
       mainImage: mainImageIndex
     }
 
+    let newImages = props.images.filter( image => image.url.startsWith('data:image/') )
+    let id = this.props.match.params.id
+    
     const formData =  new FormData();
-    formData.append( 'constructionData', JSON.stringify(newConstruction) )
-    props.images.forEach( image => formData.append('image', image.file) )
+    formData.append( 'constructionData', JSON.stringify(constructionEdited) )
+    newImages.forEach( image => formData.append('image', image.file) )
 
+    let imagesToDelete = { images: props.deletedImages }
+    
     let TOKEN = localStorage.getItem('userToken');
-    axios.post('/construction', formData, { headers: { 'Authorization': 'Bearer ' + TOKEN, 'Content-Type': 'multipart/form-data' } } )
-    .then( res => {
+    let prom1 = axios.put('/construction/' + id, formData, { headers: { 'Authorization': 'Bearer ' + TOKEN, 'Content-Type': 'multipart/form-data' } } )
+    let prom2 = axios.put('/image', imagesToDelete, { headers: { 'Authorization': 'Bearer ' + TOKEN } } )
+
+    Promise.all([prom1, prom2])
+    .then( () => {
       this.props.onUpdateFormState( {} )
       this.props.history.push('/');
-    } )
+    })
     .catch( error => {
       console.log(error.response)
-    } )
+    })    
   }
 
   render() {

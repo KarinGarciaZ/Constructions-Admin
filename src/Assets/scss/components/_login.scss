@@ -1,11 +1,19 @@
 .login-container {
   grid-column: 1 / -1;  
-  min-height: 87vh;
+  min-height: 100vh;
   padding: 2rem 0;
 
   display: grid;
   align-content: center;
   justify-content: center;
+
+  background-image: linear-gradient( to right bottom,
+    rgba(black, 0.75),
+    rgba(black, 0.75)),
+    url(./Assets/Images/Project/login.jpg);
+  
+  background-size: cover;
+  background-position: top;
 
   grid-template-columns: [login-start] minmax(3rem, 1fr) 
     repeat(8, [col-start] minmax(min-content, 6rem) [col-end])

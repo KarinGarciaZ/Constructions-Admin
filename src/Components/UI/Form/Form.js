@@ -13,7 +13,8 @@ class Form extends Component {
   state = {
     formElements: {},
     formName: '',
-    images: []
+    images: [],
+    deletedImages: []
   }
 
   componentWillReceiveProps( nextProps ) {
@@ -122,8 +123,13 @@ class Form extends Component {
 
   removeFile = ( index ) => {
     let images = [ ...this.state.images ]
+    let deletedImages = [ ...this.state.deletedImages ]
+    
+    if( images[index].id )
+      deletedImages.push(images[index].id)
+
     images.splice( index, 1 );
-    this.setState({ images })
+    this.setState({ images, deletedImages })
   }
 
   onChangeMainImage = (index) => {
@@ -159,7 +165,6 @@ class Form extends Component {
       let mainImageIndex = 0;
       images.forEach( (image, index) => mainImageIndex = image.mainImage? index : mainImageIndex )
 
-      console.log(images)
       imagesArray = images.map( (image, index) => {
         return (
           <div key={index} className='image-container'>    
