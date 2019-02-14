@@ -47,14 +47,14 @@ class Layout extends Component {
           resp.data.isAuth = true;
           this.props.onLogin( resp.data );
         }
-        containerToRender = 'Aux';
+        containerToRender = 'Aux';        
+        if( this.state.render !== containerToRender )  
+          this.setState({render: containerToRender})
       })
       .catch( err => {
         containerToRender = 'Login'        
-      })
-      .finally( fin => {
         if( this.state.render !== containerToRender )  
-        this.setState({render: containerToRender})
+          this.setState({render: containerToRender}) 
       })
     }
     else 

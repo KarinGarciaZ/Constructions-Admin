@@ -23,16 +23,6 @@ class ChangePassword extends Component {
             valid: false,
             errorMessage: 'This field is required.'
           },
-          maxLength: {
-            valid: true,
-            value: 16,
-            errorMessage: 'Max length is 16 characters.'
-          },
-          minLength: {
-            valid: true,
-            value: 6,
-            errorMessage: 'Min length is 6 characters.'
-          },
           validPassword: {
             valid: true,
             errorMessage: 'This password is not valid.'
