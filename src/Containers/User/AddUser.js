@@ -25,8 +25,8 @@ class AddUser extends Component {
           },
           maxLength: {
             valid: true,
-            value: 100,
-            errorMessage: 'Max length is 100 characters.'
+            value: 16,
+            errorMessage: 'Max length is 16 characters.'
           },
           unique: {
             valid: true,
@@ -50,8 +50,8 @@ class AddUser extends Component {
           },
           maxLength: {
             valid: true,
-            value: 100,
-            errorMessage: 'Max length is 100 characters.'
+            value: 50,
+            errorMessage: 'Max length is 50 characters.'
           }
         }
       },
