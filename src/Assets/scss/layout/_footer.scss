@@ -15,3 +15,9 @@
     color: $color-primary-light-4;
   }
 }
+
+@media only screen and (max-width: $bp-500) {
+  .footer {
+    grid-column: full-start / full-end;
+  }
+}
