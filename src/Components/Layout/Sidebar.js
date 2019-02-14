@@ -32,7 +32,7 @@ export default class Sidebar extends Component {
             <FontAwesomeIcon icon={faProjectDiagram}/>
             <p className='link-name'>Types</p>
           </Navlink>
-          <Navlink cssClass={'navlink'} link='/addUser'>
+          <Navlink cssClass={'navlink'} link='/add-user'>
             <FontAwesomeIcon icon={faUserPlus}/>
             <p className='link-name'>Add User</p>
           </Navlink>
@@ -45,11 +45,11 @@ export default class Sidebar extends Component {
           </li>
 
           <ul className={classes.join(' ')}>
-            <Navlink cssClass={'smenu__link'} link='/allConstructions'>
+            <Navlink cssClass={'smenu__link'} link='/all-constructions'>
               <FontAwesomeIcon icon={faList}/>
               <p className='link-name'>All Constructions</p>
             </Navlink>
-            <Navlink cssClass={'smenu__link'} link='/createConstruction'>
+            <Navlink cssClass={'smenu__link'} link='/create-construction'>
               <FontAwesomeIcon icon={faPlusSquare}/>
               <p className='link-name'>New Construction</p>
             </Navlink>

@@ -78,11 +78,11 @@ class Construction extends Component {
   }
 
   onClose = () => {
-    this.props.history.push('/allConstructions');
+    this.props.history.push('/all-constructions');
   }
   
   onClickEdit = (id) => {
-    this.props.history.push('/editConstruction/'+id)
+    this.props.history.push('/edit-construction/'+id)
   }
 
   pageNotFound = () => {    

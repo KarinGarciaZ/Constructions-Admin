@@ -108,7 +108,7 @@ class AllConstructions extends Component {
   }
 
   onClickEdit = (id) => {
-    this.props.history.push('/editConstruction/'+id)
+    this.props.history.push('/edit-construction/'+id)
   }
 
   filterConstructions = ( key, event) => {
