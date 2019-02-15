@@ -218,11 +218,11 @@ class EditConstruction extends Component {
   getData = ( id ) => {
     let props = { ...this.state }
 
-    let TOKEN = localStorage.getItem('userToken');
-    axios.get('/construction/' + id, {headers: {'Authorization': 'Bearer ' + TOKEN}})
+    
+    axios.get('/construction/' + id)
     .then( construction => {
 
-      axios.get('/type', { headers: { 'Authorization': 'Bearer ' + TOKEN }} )
+      axios.get('/type')
       .then( data => {
         let types = data.data.map( type => {
           return { id: type.id, name: type.name };
@@ -308,9 +308,9 @@ class EditConstruction extends Component {
 
     let imagesToDelete = { images: props.deletedImages }
     
-    let TOKEN = localStorage.getItem('userToken');
-    let prom1 = axios.put('/construction/' + id, formData, { headers: { 'Authorization': 'Bearer ' + TOKEN, 'Content-Type': 'multipart/form-data' } } )
-    let prom2 = axios.put('/image', imagesToDelete, { headers: { 'Authorization': 'Bearer ' + TOKEN } } )
+    
+    let prom1 = axios.put('/construction/' + id, formData, { headers: { 'Content-Type': 'multipart/form-data' } } )
+    let prom2 = axios.put('/image', imagesToDelete)
 
     Promise.all([prom1, prom2])
     .then( () => {

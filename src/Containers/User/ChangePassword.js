@@ -23,16 +23,6 @@ class ChangePassword extends Component {
             valid: false,
             errorMessage: 'This field is required.'
           },
-          maxLength: {
-            valid: true,
-            value: 16,
-            errorMessage: 'Max length is 16 characters.'
-          },
-          minLength: {
-            valid: true,
-            value: 6,
-            errorMessage: 'Min length is 6 characters.'
-          },
           validPassword: {
             valid: true,
             errorMessage: 'This password is not valid.'
@@ -122,14 +112,12 @@ class ChangePassword extends Component {
 
   changePassword = ( props ) => {
     let userInfo = {
-      userId: props.userInfo.id,
       currentPassword: props.formState.formElements.currentPassword.value,
       newPassword: props.formState.formElements.password.value
     }
-
-    let TOKEN = localStorage.getItem('userToken');
-    axios.put( '/user/changePassword', userInfo, {headers: { 'Authorization': 'Bearer ' + TOKEN}})
-    .then( data => {
+    
+    axios.put( '/user/changePassword', userInfo)
+    .then( () => {
       this.props.onUpdateFormState( {} );
       this.props.history.push('/');
     })

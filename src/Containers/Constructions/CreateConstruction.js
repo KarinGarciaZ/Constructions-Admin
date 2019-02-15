@@ -215,8 +215,8 @@ class CreateConstruction extends Component {
   }
 
   getTypes = ( props ) => {
-    let TOKEN = localStorage.getItem('userToken');
-    axios.get('/type', { headers: { 'Authorization': 'Bearer ' + TOKEN }} )
+    
+    axios.get('/type')
     .then( data => {
       let types = data.data.map( type => {
         return { id: type.id, name: type.name };
@@ -277,8 +277,8 @@ class CreateConstruction extends Component {
     formData.append( 'constructionData', JSON.stringify(newConstruction) )
     props.images.forEach( image => formData.append('image', image.file) )
 
-    let TOKEN = localStorage.getItem('userToken');
-    axios.post('/construction', formData, { headers: { 'Authorization': 'Bearer ' + TOKEN, 'Content-Type': 'multipart/form-data' } } )
+    
+    axios.post('/construction', formData, { headers: { 'Content-Type': 'multipart/form-data' } } )
     .then( res => {
       this.props.history.push('/');
       this.props.onUpdateFormState( {} )

@@ -79,7 +79,7 @@ body {
   min-height: 7vh;
   padding: 0 4rem;
   display: grid;
-  grid-template-columns: max-content 1fr max-content;
+  grid-template-columns: 6rem 1fr max-content;
   align-items: center;
   text-transform: capitalize;
   color: #B0B0B0; }
@@ -410,7 +410,7 @@ body {
   display: grid;
   grid-template-columns: repeat(auto-fit, 12rem);
   justify-content: center;
-  grid-gap: 2rem; }
+  grid-gap: 1.2rem; }
 
 .image-container {
   position: relative; }

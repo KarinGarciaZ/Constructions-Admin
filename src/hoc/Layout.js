@@ -40,21 +40,20 @@ class Layout extends Component {
       containerToRender = 'Aux';
 
     } else if ( localStorage.getItem('userToken') && !this.props.isAuth ) {
-      let TOKEN = localStorage.getItem('userToken');
-      axios.get( 'auth/getUserByToken', {headers: {'Authorization': 'Bearer ' + TOKEN}} )
+      axios.get( 'auth/getUserByToken' )
       .then( resp => {
         if ( !this.props.isAuth ) {
           resp.data.isAuth = true;
           this.props.onLogin( resp.data );
         }
-        containerToRender = 'Aux';
+        containerToRender = 'Aux';        
+        if( this.state.render !== containerToRender )  
+          this.setState({render: containerToRender})
       })
       .catch( err => {
         containerToRender = 'Login'        
-      })
-      .finally( fin => {
         if( this.state.render !== containerToRender )  
-        this.setState({render: containerToRender})
+          this.setState({render: containerToRender}) 
       })
     }
     else 

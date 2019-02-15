@@ -34,8 +34,8 @@ class Construction extends Component {
   }
 
   loadConstruction( id ) {
-    let TOKEN = localStorage.getItem('userToken');
-    axios.get('/construction/' + id, {headers: {'Authorization': 'Bearer ' + TOKEN}})
+    
+    axios.get('/construction/' + id)
     .then( construction => {
       this.setState({ construction: construction.data, loading: false })
     })
@@ -45,8 +45,8 @@ class Construction extends Component {
   }
 
   deleteConstruction = ( id ) => {
-    let TOKEN = localStorage.getItem('userToken');
-    axios.delete('/construction/' + id, {headers: {'Authorization': 'Bearer ' + TOKEN}})
+    
+    axios.delete('/construction/' + id)
     .then( data =>{
       this.onClose();
     })

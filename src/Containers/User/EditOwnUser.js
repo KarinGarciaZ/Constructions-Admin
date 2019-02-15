@@ -135,8 +135,8 @@ class EditOwnUser extends Component {
       email: formProps.formElements.email.value
     }
 
-    let TOKEN = localStorage.getItem('userToken');
-    axios.put( '/user', newUser, {headers: {'Authorization': 'Bearer ' + TOKEN}})
+    
+    axios.put( '/user', newUser )
     .then( data => {
       let newUserInfo = { ...this.props.userInfo };
       newUserInfo.username = newUser.username;
