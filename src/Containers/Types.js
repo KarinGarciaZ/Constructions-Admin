@@ -26,8 +26,8 @@ class Types extends Component {
 
   getTypes = () => {
     this.props.onChangeTitle();
-    let TOKEN = localStorage.getItem('userToken');
-    axios.get( '/type', { headers: { 'Authorization': 'Bearer ' + TOKEN }} )
+    
+    axios.get( '/type')
     .then( typesRes => {
       let typesUdated = typesRes.data.map(element => {
         element.disable = true;
@@ -45,8 +45,8 @@ class Types extends Component {
       if (type.id === typeId) {
         type.disable = !type.disable;
         if( type.disable ) {
-          let TOKEN = localStorage.getItem('userToken');
-          axios.put( `/type/${type.id}`, { name: type.name }, { headers: { 'Authorization': 'Bearer ' + TOKEN }} )
+          
+          axios.put( `/type/${type.id}`, { name: type.name })
           .then( resp => {            
             this.getTypes();
           })
@@ -82,8 +82,8 @@ class Types extends Component {
 
   onSave = () => {
     let name = this.state.newType.name;
-    let TOKEN = localStorage.getItem('userToken');
-    axios.post( '/type', { name }, { headers: { 'Authorization': 'Bearer ' + TOKEN }} )
+    
+    axios.post( '/type', { name })
     .then( resp => {
       this.onToggleAddType();
       this.getTypes();

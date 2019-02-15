@@ -186,8 +186,8 @@ class AddUser extends Component {
       password: props.formElements.password.value
     }
 
-    let TOKEN = localStorage.getItem('userToken');
-    axios.post( '/user', newUser, {headers: { 'Authorization': 'Bearer ' + TOKEN}})
+    
+    axios.post( '/user', newUser)
     .then( data => {
       this.props.onUpdateFormState( {} );
       this.props.history.push('/');

@@ -83,13 +83,13 @@ class AllConstructions extends Component {
 
   componentDidMount() {
     this.props.onChangeTitle();
-    let TOKEN = localStorage.getItem('userToken');
-    axios.get('/construction', {headers: {'Authorization': 'Bearer ' + TOKEN}})
+    
+    axios.get('/construction')
     .then( data => {
       this.setState({constructions: data.data, originalConstructions: data.data})
     })
 
-    axios.get('/type', {headers: {'Authorization': 'Bearer ' + TOKEN}})
+    axios.get('/type')
     .then( data => {
       let formElements = { ...this.state.formElements }
       let types = [ ...data.data ]
