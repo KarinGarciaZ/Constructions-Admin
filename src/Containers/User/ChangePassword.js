@@ -112,14 +112,12 @@ class ChangePassword extends Component {
 
   changePassword = ( props ) => {
     let userInfo = {
-      userId: props.userInfo.id,
       currentPassword: props.formState.formElements.currentPassword.value,
       newPassword: props.formState.formElements.password.value
     }
-
-    let TOKEN = localStorage.getItem('userToken');
-    axios.put( '/user/changePassword', userInfo, {headers: { 'Authorization': 'Bearer ' + TOKEN}})
-    .then( data => {
+    
+    axios.put( '/user/changePassword', userInfo)
+    .then( () => {
       this.props.onUpdateFormState( {} );
       this.props.history.push('/');
     })
