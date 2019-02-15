@@ -596,7 +596,8 @@ body {
     color: #192e46;
     margin-left: 0;
     align-self: center;
-    border-bottom: 1px solid #192e46; }
+    border-bottom: 1px solid #192e46;
+    font-size: 1.5rem; }
 
 .login-container {
   grid-column: 1 / -1;

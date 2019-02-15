@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import { Link } from 'react-router-dom';
 import Input from './Input';
 import Aux from '../../../hoc/Auxiliar';
 import * as actionsCreators from '../../../store/actions/index';
@@ -202,7 +203,7 @@ class Form extends Component {
           {imagesArray}
         </div> : null }
         <div className='form-buttons'>
-          {(this.props.forgotPassword)? <button className='btn-link btn-link-login' onClick={this.onForgotPassword}>Forgot password?</button> : null}
+          {(this.props.forgotPassword)? <Link className='btn-link btn-link-login' to='/reset-password'>Forgot password?</Link> : null}
           {(this.props.cancelButton)? <button className='btn btn-cancel' type='button' onClick={this.props.onCancel}>cancel</button> : null}
           <button className={btnClasses.join(' ')} disabled={buttonDisabled}>Submit</button>
         </div>
