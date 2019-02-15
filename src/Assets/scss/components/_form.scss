@@ -21,10 +21,11 @@
 
 .form-buttons {
   grid-column: 1 / -1;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, 11rem );
-  justify-content: end;
-  grid-column-gap: 3rem;
+  display: flex;
+  justify-content: flex-end;
+  .btn {
+    margin-left: 3rem;
+  }
 }
 
 .form-images-container {
