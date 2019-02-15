@@ -115,7 +115,7 @@ class Login extends Component {
     return (
       <div className='login-container'>
         <div className='form-container'>
-          <Form />
+          <Form forgotPassword={true} />
         </div>
       </div>
     )

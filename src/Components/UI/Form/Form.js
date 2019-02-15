@@ -202,6 +202,7 @@ class Form extends Component {
           {imagesArray}
         </div> : null }
         <div className='form-buttons'>
+          {(this.props.forgotPassword)? <button className='btn-link btn-link-login' onClick={this.onForgotPassword}>Forgot password?</button> : null}
           {(this.props.cancelButton)? <button className='btn btn-cancel' type='button' onClick={this.props.onCancel}>cancel</button> : null}
           <button className={btnClasses.join(' ')} disabled={buttonDisabled}>Submit</button>
         </div>

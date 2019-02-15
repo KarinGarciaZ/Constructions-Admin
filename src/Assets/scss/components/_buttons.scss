@@ -90,4 +90,14 @@
   &:focus {
     outline: none;
   }
+
+  &-login {
+    margin-right: auto;
+    border-bottom: none;
+    color: $color-secondary-hover;
+    margin-left: 0;
+    align-self: center;
+    border-bottom: 1px solid $color-secondary-hover;
+  }
+
 }
