@@ -221,7 +221,6 @@ class EditConstruction extends Component {
     
     axios.get('/construction/' + id)
     .then( construction => {
-
       axios.get('/type')
       .then( data => {
         let types = data.data.map( type => {
@@ -251,6 +250,7 @@ class EditConstruction extends Component {
     })
     .catch( error => {
       console.log('error: ', error);
+      this.pageNotFound()
     })    
   }
 
@@ -320,6 +320,10 @@ class EditConstruction extends Component {
     .catch( error => {
       console.log(error.response)
     })    
+  }
+
+  pageNotFound = () => {    
+    this.props.history.replace('/not-found')
   }
 
   render() {
