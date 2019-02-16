@@ -5,9 +5,20 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  color: $color-primary-light;
 }
 
 .img-404 {
   max-width: 90vw;
+  max-height: 50vh;
   display: block;
+}
+
+.text-404 {
+  font-size: 8rem;
+}
+
+.not-found {
+  font-size: 3rem;
+  font-weight: 600;
 }
