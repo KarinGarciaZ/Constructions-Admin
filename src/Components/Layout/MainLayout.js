@@ -10,7 +10,6 @@ import ChangePassword from '../../Containers/User/ChangePassword';
 import EditConstruction from '../../Containers/Constructions/EditConstruction';
 import AllConstructions from '../../Containers/Constructions/AllConstructions';
 import Types from '../../Containers/Types';
-import ResetPassword from '../../Containers/User/ResetPassword';
 import NotFound from '../../Containers/NotFound';
 
 class MainLayout extends Component {
@@ -29,7 +28,6 @@ class MainLayout extends Component {
           <Route path="/change-password" component={ChangePassword}/>
           <Route path="/add-user" component={AddUser}/>
           <Route path="/types" component={Types}/>          
-          <Route path="/reset-password" component={ResetPassword}/>
           <Route path="/not-found" component={NotFound}/>
           <Route path="/" component={Home}/>
         </Switch> 

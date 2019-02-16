@@ -7,7 +7,7 @@ import Footer from  '../Components/Layout/Footer';
 import Sidebar from  '../Components/Layout/Sidebar';
 import Header from  '../Components/Layout/Header';
 import MainLayout from  '../Components/Layout/MainLayout';
-import Login from '../Containers/User/Login';
+import OutRoutes from '../Containers/Out/OutRoutes';
 import Aux from '../hoc/Auxiliar';
 import Loading from '../Components/Layout/Loading';
 import axios from '../axios-connection';
@@ -69,7 +69,7 @@ class Layout extends Component {
     let renderContainer = <Loading />;    
 
     if ( this.state.render === 'Login' )
-      renderContainer = <Login />
+      renderContainer = <OutRoutes />
 
     if ( this.state.render === 'Aux' )
       renderContainer = (

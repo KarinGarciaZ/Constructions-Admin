@@ -382,7 +382,7 @@ body {
 
 .form-container {
   padding: 4rem;
-  box-shadow: -0.5rem 0.5rem 4rem rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.15);
   grid-column: col-start 1 / col-end 8;
   background-color: rgba(255, 255, 255, 0.4); }
 
@@ -602,14 +602,24 @@ body {
 .login-container {
   grid-column: 1 / -1;
   min-height: 100vh;
-  padding: 2rem 0;
-  display: grid;
-  align-content: center;
-  justify-content: center;
   background-image: linear-gradient(to right bottom, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url(./Assets/Images/Project/login.jpg);
   background-size: cover;
   background-position: top;
-  grid-template-columns: [login-start] minmax(3rem, 1fr) repeat(8, [col-start] minmax(min-content, 6rem) [col-end]) minmax(3rem, 1fr) [login-end]; }
+  filter: blur(3px); }
+
+.form-container-login {
+  padding: 4rem;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.15);
+  background-color: rgba(255, 255, 255, 0.4);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 45rem; }
+
+@media only screen and (max-width: 25em) {
+  .form-container-login {
+    min-width: 35rem; } }
 
 .add-user-container {
   height: 100%;
@@ -811,7 +821,7 @@ body {
   grid-template-rows: repeat(7, max-content);
   grid-row-gap: 2rem;
   padding: 0 0 4rem 4rem;
-  box-shadow: -0.5rem 0.5rem 4rem rgba(0, 0, 0, 0.15); }
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.15); }
   .construction__close {
     color: orangered;
     grid-column: col-start 1 / col-end 2;
@@ -953,3 +963,56 @@ body {
 .not-found {
   font-size: 3rem;
   font-weight: 600; }
+
+.reset-password-container {
+  grid-column: 1 / -1;
+  min-height: 54vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #FEFEFE; }
+
+.reset-header {
+  min-height: 40vh;
+  background-color: #B0B0B0;
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+  .reset-header .icon-reset {
+    grid-column: col-start 4/ col-end 5;
+    justify-self: center;
+    font-size: 10rem;
+    color: #E0E0E0; }
+
+.reset-form-container {
+  padding: 4rem;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.15);
+  min-width: 40rem;
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  display: flex;
+  flex-direction: column; }
+
+.reset-password-buttons {
+  display: flex;
+  margin-top: 2rem; }
+  .reset-password-buttons .btn-link {
+    flex: 1;
+    color: red;
+    border-bottom: none; }
+
+.reset-verify {
+  text-align: center;
+  font-size: 1.6rem;
+  color: #192e46; }
+  .reset-verify-name {
+    font-size: 2.5rem; }
+
+@media only screen and (max-width: 25em) {
+  .reset-form-container {
+    min-width: 30rem;
+    padding: 3rem; } }

@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import axios from '../../axios-connection';
 import * as actionsCreators from '../../store/actions';
 import Form from '../../Components/UI/Form/Form';
+import image from '../../Assets/Images/Project/login.jpg';
+import Aux from '../../hoc/Auxiliar';
 
 class Login extends Component {
 
@@ -50,6 +52,7 @@ class Login extends Component {
   }
 
   componentWillMount() {
+    
     this.props.onChangeTitle();
     this.props.onUpdateFormState({});
     let state = {...this.state};
@@ -111,13 +114,14 @@ class Login extends Component {
   }
 
   render() {
-    console.log('render login')
     return (
-      <div className='login-container'>
-        <div className='form-container'>
+      <Aux>
+        <div className='login-container'></div>
+        
+        <div className='form-container-login'>
           <Form forgotPassword={true} />
         </div>
-      </div>
+      </Aux>      
     )
   }
 }
