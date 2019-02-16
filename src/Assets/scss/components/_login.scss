@@ -1,11 +1,6 @@
 .login-container {
   grid-column: 1 / -1;  
   min-height: 100vh;
-  padding: 2rem 0;
-
-  display: grid;
-  align-content: center;
-  justify-content: center;
 
   background-image: linear-gradient( to right bottom,
     rgba(black, 0.75),
@@ -14,8 +9,23 @@
   
   background-size: cover;
   background-position: top;
+  filter: blur(3px);
+}
 
-  grid-template-columns: [login-start] minmax(3rem, 1fr) 
-    repeat(8, [col-start] minmax(min-content, 6rem) [col-end])
-    minmax(3rem, 1fr) [login-end];
+.form-container-login {
+  padding: 4rem;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.15);
+  background-color: rgba( white, 0.4 );
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  min-width: 45rem;
+}
+
+@media only screen and (max-width: $bp-400) {
+  .form-container-login {
+    min-width: 35rem;
+  }
 }
