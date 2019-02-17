@@ -602,7 +602,7 @@ body {
 .login-container {
   grid-column: 1 / -1;
   min-height: 100vh;
-  background-image: linear-gradient(to right bottom, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url(./Assets/Images/Project/login.JPG);
+  background-image: linear-gradient(to right bottom, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url(./Assets/Images/Project/login.jpg);
   background-size: cover;
   background-position: top;
   filter: blur(3px); }
