@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import axios from '../../axios-connection';
 import * as actionsCreators from '../../store/actions';
 import Form from '../../Components/UI/Form/Form';
-import image from '../../Assets/Images/Project/login.jpg';
 import Aux from '../../hoc/Auxiliar';
 
 class Login extends Component {
