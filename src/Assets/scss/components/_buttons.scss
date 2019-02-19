@@ -54,6 +54,7 @@
       background-color: $color-green-hover;
     }
   }
+  
   &-upload {
     border-radius: 4px;
     display: grid;
@@ -74,6 +75,29 @@
       background-color: $color-primary;
     }
     opacity: .35;
+  }
+
+  &-continue {
+    text-decoration: none;
+    display: block;
+    justify-self: center;
+    background-color: $color-secondary-light-2;
+    text-transform: capitalize;
+    padding: .8rem .8rem .8rem 1.6rem;
+
+    .icon-arrow {      
+      transition: all .3s;
+      margin-left: 2rem;
+    }
+
+    &:hover {
+      background-color: $color-secondary-light-2;
+      transform: translateY(0);
+
+      .icon-arrow {
+        margin-left: 5rem;
+      }
+    }
   }
 }
 
