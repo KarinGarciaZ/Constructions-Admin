@@ -663,6 +663,42 @@ body {
   justify-content: center;
   grid-template-columns: [user-start] minmax(3rem, 1fr) repeat(8, [col-start] minmax(min-content, 5rem) [col-end]) minmax(3rem, 1fr) [user-end]; }
 
+.change-password-cont {
+  grid-column: 1 / -1;
+  min-height: 94vh;
+  padding: 2rem 0;
+  display: grid;
+  align-content: center;
+  justify-content: center;
+  grid-row-gap: 6rem;
+  grid-template-columns: [user-start] minmax(3rem, 1fr) repeat(8, [col-start] minmax(min-content, 5rem) [col-end]) minmax(3rem, 1fr) [user-end]; }
+  .change-password-cont__header {
+    grid-column: col-start 1 / col-end 8;
+    text-align: center;
+    color: #B0B0B0;
+    font-size: 2rem;
+    text-transform: capitalize; }
+    .change-password-cont__header .icon-reset {
+      font-size: 10rem;
+      margin-bottom: 2rem; }
+
+.elements-change-password {
+  display: grid;
+  grid-row-gap: 3rem;
+  justify-items: center; }
+  .elements-change-password .reset-password-buttons {
+    flex-direction: column;
+    margin-top: 0; }
+    .elements-change-password .reset-password-buttons .btn-link {
+      margin: 0;
+      text-align: center;
+      margin-top: 1rem;
+      color: red;
+      border-bottom: none; }
+  .elements-change-password .icon-reset {
+    font-size: 4rem;
+    color: #808080; }
+
 .types-container {
   height: 100%;
   width: 100%;
