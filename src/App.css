@@ -686,15 +686,8 @@ body {
   display: grid;
   grid-row-gap: 3rem;
   justify-items: center; }
-  .elements-change-password .reset-password-buttons {
-    flex-direction: column;
-    margin-top: 0; }
-    .elements-change-password .reset-password-buttons .btn-link {
-      margin: 0;
-      text-align: center;
-      margin-top: 1rem;
-      color: red;
-      border-bottom: none; }
+  .elements-change-password .form {
+    grid-row-gap: 2rem; }
   .elements-change-password .icon-reset {
     font-size: 4rem;
     color: #808080; }
