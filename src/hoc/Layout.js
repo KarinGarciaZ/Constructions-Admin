@@ -40,7 +40,8 @@ class Layout extends Component {
       containerToRender = 'Aux';
 
     } else if ( localStorage.getItem('userToken') && !this.props.isAuth ) {
-      axios.get( 'auth/getUserByToken' )
+      let TOKEN = localStorage.getItem('userToken');
+      axios.get( '/auth/getUserByToken', { headers:  {'Authorization': 'Bearer ' + TOKEN} } )
       .then( resp => {
         if ( !this.props.isAuth ) {
           resp.data.isAuth = true;
@@ -63,9 +64,7 @@ class Layout extends Component {
       this.setState({render: containerToRender})
   }
 
-  render() {
-    console.log('RENDER LAYOUT');
-
+  render() {    
     let renderContainer = <Loading />;    
 
     if ( this.state.render === 'Login' )
