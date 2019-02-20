@@ -1,102 +1,142 @@
 import React, { Component } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle, faLock } from "@fortawesome/free-solid-svg-icons";
-import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-import Aux from '../../hoc/Auxiliar';
-import Input from '../../Components/UI/Form/Input';
-
+import * as actionsCreators from '../../store/actions';
 import axios from '../../axios-connection';
+import Form from '../../Components/UI/Form/Form';
 
-export default class ChangePassword extends Component {
+class ChangePassword extends Component {
 
-  state = {
-    code: {
-      elementType: 'input',
-      valid: false,
-      touched: false, 
-      value: '',
-      elementConfig: {
-        type: 'number',
-        placeholder: 'Enter code we sent you'
-      },
-      validation: {
-        required: {
-          valid: false,
-          errorMessage: 'Code required.'
+  state = {    
+    formElements: {  
+      code: {
+        elementType: 'input',
+        valid: false,
+        touched: false, 
+        value: '',
+        elementConfig: {
+          type: 'number',
+          placeholder: 'Enter code we sent you'
         },
-        notExists: {
-          valid: true,
-          errorMessage: 'This code in not correct.'
+        validation: {
+          required: {
+            valid: false,
+            errorMessage: 'Code required.'
+          },
+          notExists: {
+            valid: true,
+            errorMessage: 'This code in not correct.'
+          }
+        }
+      }, 
+      password: {
+        elementType: 'input',
+        valid: false,
+        touched: false, 
+        value: '',
+        elementConfig: {
+          type: 'password',
+          placeholder: 'New Password'
+        },
+        validation: {
+          required: {
+            valid: false,
+            errorMessage: 'This field is required.'
+          },
+          maxLength: {
+            valid: true,
+            value: 16,
+            errorMessage: 'Max length is 16 characters.'
+          },
+          minLength: {
+            valid: true,
+            value: 6,
+            errorMessage: 'Min length is 6 characters.'
+          }          
+        }
+      },
+      confirmPassword: {
+        elementType: 'input',
+        valid: false,
+        touched: false, 
+        value: '',
+        elementConfig: {
+          type: 'password',
+          placeholder: 'Confirm New Password'
+        },
+        validation: { 
+          required: {
+            valid: false,
+            errorMessage: 'This field is required.'
+          },
+          passwordMatch: {
+            valid: true,
+            errorMessage: 'Password doesn´t match.'
+          },
+          minLength: {
+            valid: true,
+            value: 6,
+            errorMessage: 'Min length is 6 characters.'
+          }   
         }
       }
     },
-    showCode: true,
-
+    formName: 'changePassword',
+    isLoading: true
   }
 
-  changedCode = ( event ) => {
-    let newValue = event.target.value;
-    let code = { ...this.state.code };
+  componentWillMount() {
+    if( !this.props.user.name )
+      this.onCancel()
 
-    code.value = newValue;
-    code.touched = true;
-
-    if( newValue !== '' ) {
-      code.valid = true;
-      code.validation.required.valid = true;
-    } else {
-      code.valid = false;
-      code.validation.required.valid = false;
-    }    
-    
-    this.setState({ code });
+    let form = { ...this.state }
+    this.props.onUpdateFormState( form );
   }
 
-  onClickCode = () => {
-    let code = { ...this.state.code };
+  shouldComponentUpdate( nextProps ) {
+    if ( nextProps.formState.formName === 'changePassword' && !nextProps.formState.isLoading )
+      return true;
+    return false;
+  }
+
+  componentWillUpdate( nextProps ) {
+    let props = { ...nextProps };
+    if ( nextProps.formState.formElements.password.valid) { 
+      if ( nextProps.formState.formElements.password.value === nextProps.formState.formElements.confirmPassword.value )     
+        this.changePassword( props );
+      else {
+        props.formState.formElements.confirmPassword.validation.passwordMatch.valid = false;
+        props.formState.formElements.confirmPassword.valid = false;
+        this.props.onUpdateFormState( props.formState );
+      }
+    }
+  }
+
+  changePassword = ( props ) => {
+    let code =  props.formState.formElements.code;
     let user = { ...this.props.user };
+    let password = props.formState.formElements.password.value;
 
-    axios.post('/reset/verifyCode', { code: +code.value, userId: user.id })
+    axios.post('/reset/verifyCode', { code: +code.value, userId: user.id, password })
     .then( res => {
-      console.log('1')
-      this.setState({ showCode: false}) 
+      this.onCancel();
     })
     .catch( error => {
-      console.log('2')
-      let code = { ...this.state.code };
-      code.validation.notExists.valid = false;
-      code.valid = false;
-      this.setState({ code })
+      props.formState.formElements.code.validation.notExists.valid = false;
+      props.formState.formElements.code.valid = false;   
+      let errorProps = { ...props.formState }     
+      this.props.onUpdateFormState( errorProps );
     })  
   }
 
-  render() {
+  onCancel = () => {
+    this.props.onUpdateFormState( {} );
+    this.props.history.push('/login');
+  }
 
-    let btnClasses = ['btn'];
-    if( !this.state.code.valid )
-      btnClasses.push('btn-disabled');
-
-    let showInForm = <Aux>
-      <Input 
-        inputtype={this.state.code.elementType} 
-        elementConfig={this.state.code.elementConfig} 
-        value={this.state.code.value} 
-        changed={ e => this.changedCode(e) }
-        valid={this.state.code.valid}
-        shouldValidate={this.state.code.validation}
-        touched={this.state.code.touched}
-        />
-      <div className='reset-password-buttons'>
-        <button className={btnClasses.join(' ')} disabled={ !this.state.code.valid } onClick={this.onClickCode}>Set new password</button>        
-        <Link className='btn-link btn-link-login' to='/login'>Cancel</Link>
-      </div>
-    </Aux>
-
-    if( !this.state.showCode ) {
-      showInForm = null
-    }
-    
+  render() {    
 
     return (
       <div className='change-password-cont'>
@@ -107,10 +147,24 @@ export default class ChangePassword extends Component {
         <div className='form-container'>
           <div className='elements-change-password'>          
             <FontAwesomeIcon icon={faLock} className='icon-reset'/>
-            {showInForm}
+            <Form onCancel={this.onCancel} cancelButton={true}/>
           </div>
         </div>
       </div>
     )
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    formState: state.formState.form
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onUpdateFormState: payload => dispatch( actionsCreators.updateFormState( payload ) )
+  }
+}
+
+export default connect( mapStateToProps, mapDispatchToProps )(ChangePassword);
