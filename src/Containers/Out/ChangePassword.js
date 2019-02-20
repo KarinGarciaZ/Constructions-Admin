@@ -28,6 +28,11 @@ class ChangePassword extends Component {
           notExists: {
             valid: true,
             errorMessage: 'This code in not correct.'
+          },
+          maxLength: {
+            valid: true,
+            value: 4,
+            errorMessage: 'Code is lower than 5.'
           }
         }
       }, 
@@ -103,7 +108,7 @@ class ChangePassword extends Component {
 
   componentWillUpdate( nextProps ) {
     let props = { ...nextProps };
-    if ( nextProps.formState.formElements.password.valid) { 
+    if ( nextProps.formState.formElements.password.valid && nextProps.formState.formElements.code.valid) { 
       if ( nextProps.formState.formElements.password.value === nextProps.formState.formElements.confirmPassword.value )     
         this.changePassword( props );
       else {
