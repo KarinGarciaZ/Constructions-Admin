@@ -23,7 +23,7 @@ export default class ResetPassword extends Component {
     return (
       <Aux>        
         <Switch>     
-          <Route path={currentPath + '/change-password'} component={ () => <ChangePassword user={this.state.user}/>}/>
+          <Route path={currentPath + '/change-password'} component={ () => <ChangePassword user={this.state.user} { ...this.props } />}/>
           <Route path={currentPath} component={ () => <SendEmail getUser={this.getUser} user={this.state.user}/> }/>
         </Switch>
         <Footer />
