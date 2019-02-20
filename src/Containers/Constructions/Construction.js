@@ -33,15 +33,19 @@ class Construction extends Component {
     }
   }
 
-  loadConstruction( id ) {
-    
+  loadConstruction( id ) {    
     axios.get('/construction/' + id)
     .then( construction => {
       this.setState({ construction: construction.data, loading: false })
     })
-    .catch( error => {
+    .catch( error => {      
       console.log('error: ', error);
+      this.pageNotFound()
     })
+  }
+
+  pageNotFound = () => {    
+    this.props.history.replace('/not-found')
   }
 
   deleteConstruction = ( id ) => {
