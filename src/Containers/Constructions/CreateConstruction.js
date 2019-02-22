@@ -40,8 +40,7 @@ class CreateConstruction extends Component {
         value: 'Finished',
         options: [
           {name:'Finished', id:'Finished'},
-          {name:'In Progress', id:'In Progress'},
-          {name:'Canceled', id:'Canceled'},
+          {name:'In Progress', id:'In Progress'}
         ],
         elementConfig: {
           placeholder: 'Status'
