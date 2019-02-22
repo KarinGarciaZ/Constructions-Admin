@@ -44,26 +44,34 @@ class MainLayout extends Component {
     let loadRoutesIfTypesExist = null;
 
     if( this.state.typesLoaded ) {
-      loadRoutesIfTypesExist = <Aux>
+      loadRoutesIfTypesExist = <Switch>
         <Route path="/construction/:id" component={Construction}/>
         <Route path="/edit-construction/:id" component={EditConstruction}/>
         <Route path="/construction" component={Construction}/>
         <Route path="/all-constructions" component={AllConstructions}/>
         <Route path="/create-construction" component={CreateConstruction}/>
-      </Aux>
+        <Route path="/edit-own-user" component={EditOwnUser}/>
+        <Route path="/change-password" component={ChangePassword}/>
+        <Route path="/add-user" component={AddUser}/>
+        <Route path="/types" component={Types}/>          
+        <Route path="/not-found" component={NotFound}/>
+        <Route path="/" component={Home}/>
+      </Switch> 
+    } else {
+      loadRoutesIfTypesExist = <Switch>
+        <Route path="/edit-own-user" component={EditOwnUser}/>
+        <Route path="/change-password" component={ChangePassword}/>
+        <Route path="/add-user" component={AddUser}/>
+        <Route path="/types" component={Types}/>          
+        <Route path="/not-found" component={NotFound}/>
+        <Route path="/" component={Home}/>
+      </Switch> 
     }
+
 
     return (
       <div className='main-layout'>
-        <Switch>
-          {loadRoutesIfTypesExist}
-          <Route path="/edit-own-user" component={EditOwnUser}/>
-          <Route path="/change-password" component={ChangePassword}/>
-          <Route path="/add-user" component={AddUser}/>
-          <Route path="/types" component={Types}/>          
-          <Route path="/not-found" component={NotFound}/>
-          <Route path="/" component={Home}/>
-        </Switch> 
+        { loadRoutesIfTypesExist }
       </div>
     )
   }
