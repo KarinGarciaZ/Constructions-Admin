@@ -11,19 +11,52 @@ import EditConstruction from '../../Containers/Constructions/EditConstruction';
 import AllConstructions from '../../Containers/Constructions/AllConstructions';
 import Types from '../../Containers/Types';
 import NotFound from '../../Containers/NotFound';
+import axios from '../../axios-connection';
+import Aux from '../../hoc/Auxiliar';
 
 class MainLayout extends Component {
 
+  state = {
+    typesLoaded: false
+  } 
+
+  componentDidMount() {
+    this.validateIfTypesExist();
+  }
+
+  validateIfTypesExist = () => {
+    axios.get( '/type')
+    .then( types => {      
+      if( types.data.length ){
+        this.setState({ typesLoaded: true })
+      }
+    })
+    .catch( err => console.log( err.response ))
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    if( !nextState.typesLoaded )
+      this.validateIfTypesExist()
+  }
+
   render() {
+
+    let loadRoutesIfTypesExist = null;
+
+    if( this.state.typesLoaded ) {
+      loadRoutesIfTypesExist = <Aux>
+        <Route path="/construction/:id" component={Construction}/>
+        <Route path="/edit-construction/:id" component={EditConstruction}/>
+        <Route path="/construction" component={Construction}/>
+        <Route path="/all-constructions" component={AllConstructions}/>
+        <Route path="/create-construction" component={CreateConstruction}/>
+      </Aux>
+    }
 
     return (
       <div className='main-layout'>
         <Switch>
-          <Route path="/construction/:id" component={Construction}/>
-          <Route path="/edit-construction/:id" component={EditConstruction}/>
-          <Route path="/construction" component={Construction}/>
-          <Route path="/all-constructions" component={AllConstructions}/>
-          <Route path="/create-construction" component={CreateConstruction}/>
+          {loadRoutesIfTypesExist}
           <Route path="/edit-own-user" component={EditOwnUser}/>
           <Route path="/change-password" component={ChangePassword}/>
           <Route path="/add-user" component={AddUser}/>
