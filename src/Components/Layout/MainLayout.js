@@ -12,7 +12,6 @@ import AllConstructions from '../../Containers/Constructions/AllConstructions';
 import Types from '../../Containers/Types';
 import NotFound from '../../Containers/NotFound';
 import axios from '../../axios-connection';
-import Aux from '../../hoc/Auxiliar';
 
 class MainLayout extends Component {
 

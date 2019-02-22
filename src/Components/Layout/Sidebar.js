@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserPlus, faProjectDiagram, faCity, faHome, faEdit, faPlusSquare, faList } from "@fortawesome/free-solid-svg-icons";
+import { faUserPlus, faProjectDiagram, faCity, faHome, faPlusSquare, faList } from "@fortawesome/free-solid-svg-icons";
 
 import Navlink from '../UI/Navigation/Navlink';
 
@@ -8,7 +8,7 @@ export default class Sidebar extends Component {
 
   state = {
     smenuClasses: ['smenu']
-  }
+  } 
 
   onToggleSubmenu = () => {
     if ( this.state.smenuClasses.length === 1 )
