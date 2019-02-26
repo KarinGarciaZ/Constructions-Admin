@@ -15,7 +15,7 @@ import axios from '../axios-connection';
 class Layout extends Component {
 
   state = {
-    render: ''
+    render: 'Aux'
   }
 
   componentWillMount() {
@@ -34,7 +34,7 @@ class Layout extends Component {
   }
 
   renderAccess = () => {
-    let containerToRender = '';
+    let containerToRender = 'Aux';
 
     if ( this.props.isAuth && localStorage.getItem('userToken') ){
       containerToRender = 'Aux';
