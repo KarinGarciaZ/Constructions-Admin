@@ -44,8 +44,14 @@ class Layout extends Component {
       axios.get( '/auth/getUserByToken', { headers:  {'Authorization': 'Bearer ' + TOKEN} } )
       .then( resp => {
         if ( !this.props.isAuth ) {
-          resp.data.isAuth = true;
-          this.props.onLogin( resp.data );
+          let userInfo = {
+            username: resp.data.username,
+            name: resp.data.name,
+            email: resp.data.email,
+            phoneNumber: resp.data.phoneNumber,
+            isAuth: true
+          }
+          this.props.onLogin( userInfo );
         }
         containerToRender = 'Aux';        
         if( this.state.render !== containerToRender )  
