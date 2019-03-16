@@ -39,7 +39,7 @@ class Construction extends Component {
       this.setState({ construction: construction.data, loading: false })
     })
     .catch( error => {      
-      console.log('error: ', error);
+      console.log('error: ', error.response);
       this.pageNotFound()
     })
   }
@@ -55,7 +55,7 @@ class Construction extends Component {
       this.onClose();
     })
     .catch( error => {
-      console.log('error: ', error);
+      console.log('error: ', error.response);
     })
   }
 
