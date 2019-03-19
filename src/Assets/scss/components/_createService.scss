@@ -1,0 +1,13 @@
+.create-service-container {
+  height: 100%;
+  width: 100%;
+  padding: 2rem 0;
+
+  display: grid;
+  align-content: center;
+  justify-content: center;
+
+  grid-template-columns: [user-start] minmax(3rem, 1fr) 
+    repeat(8, [col-start] minmax(min-content, 10rem) [col-end])
+    minmax(3rem, 1fr) [user-end];
+}

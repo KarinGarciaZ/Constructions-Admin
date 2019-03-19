@@ -15,6 +15,7 @@ class Form extends Component {
     formElements: {},
     formName: '',
     images: [],
+    image: {},
     deletedImages: []
   }
 
@@ -81,6 +82,41 @@ class Form extends Component {
     formElement[id] = values;
 
     this.setState({ formElements: formElement })
+  }
+
+  changedValueFile = ( event ) => {
+    let file =  event.target.files[0]
+    let maxSizeImage = 5
+    
+    let state = { ...this.state.formElements }
+    const validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
+
+    if ( file.size <= (1024 * 1024 * maxSizeImage ) ){
+      if( validImageTypes.includes(file.type) ) {
+        let reader = new FileReader()      
+        reader.readAsDataURL( file )
+        reader.onload = ( e ) => {
+          let url = e.target.result
+          let image = { ...this.state.image }
+          image = {file, url}         
+          state.addPictures.validation.required.valid = true
+          state.addPictures.valid = true
+          state.addPictures.validation.isImage.valid = true
+          state.addPictures.validation.maxSize.valid = true
+          this.setState({ image, formElements: state })
+        }        
+      } else {          
+        state.addPictures.valid = false
+        state.addPictures.validation.isImage.valid = false
+        this.setState({formElements: state})
+      } 
+    } else {
+      state.addPictures.valid = false
+      state.addPictures.validation.maxSize.valid = false
+      this.setState({formElements: state})
+    }
+
+    event.target.value = null;       
   }
 
   changedValueFiles = ( event ) => {
@@ -159,6 +195,17 @@ class Form extends Component {
       }
     }
 
+    let bigImage =  { ...this.state.image }
+    let image = null;
+    if ( bigImage.url ) {
+      image = <div className='image-container'>    
+        <Image 
+          url={bigImage.url} 
+          classes='image-container-big'>
+        </Image>
+      </div>
+    }
+
     let images = [ ...this.state.images ]
     let imagesArray = []
     if ( images.length ) {
@@ -192,6 +239,7 @@ class Form extends Component {
             value={formElementForHTML.config.value} 
             changed={( event ) => this.changedValueInput(formElementForHTML.id, event)}
             changedFiles={ this.changedValueFiles }
+            changedFile={ this.changedValueFile }
             valid={formElementForHTML.config.valid}
             shouldValidate={formElementForHTML.config.validation}
             touched={formElementForHTML.config.touched}
@@ -201,6 +249,10 @@ class Form extends Component {
         { images.length? 
         <div className='form-images-container'>
           {imagesArray}
+        </div> : null }
+        { (Object.keys(bigImage).length > 0)? 
+        <div className='form-image-container'>
+          {image}
         </div> : null }
         <div className='form-buttons'>
           {(this.props.forgotPassword)? <Link className='btn-link btn-link-login' to='/reset-password'>Forgot password?</Link> : null}

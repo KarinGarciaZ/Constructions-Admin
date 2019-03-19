@@ -61,7 +61,7 @@ export default class SendEmail extends Component {
     let email = { ...this.state.email };
 
     if( regex.test(String(email.value).toLowerCase()) ) {
-      axios.post('/reset/resetPassword', { email: email.value })
+      axios.post('/mail/sendMail', { email: email.value })
       .then( res => {
         this.setState({ user: res.data })
         this.props.getUser( res.data )     

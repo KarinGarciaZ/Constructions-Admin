@@ -101,8 +101,8 @@ class CreateConstruction extends Component {
           },
           maxLength: {
             valid: true,
-            value: 10000,
-            errorMessage: 'Max length is 10000 characters.'
+            value: 2000,
+            errorMessage: 'Max length is 2000 characters.'
           }
         }
       },

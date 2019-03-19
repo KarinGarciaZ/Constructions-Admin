@@ -15,7 +15,7 @@ import axios from '../axios-connection';
 class Layout extends Component {
 
   state = {
-    render: ''
+    render: 'Aux'
   }
 
   componentWillMount() {
@@ -34,14 +34,13 @@ class Layout extends Component {
   }
 
   renderAccess = () => {
-    let containerToRender = '';
+    let containerToRender = 'Aux';
 
     if ( this.props.isAuth && localStorage.getItem('userToken') ){
       containerToRender = 'Aux';
 
     } else if ( localStorage.getItem('userToken') && !this.props.isAuth ) {
-      let TOKEN = localStorage.getItem('userToken');
-      axios.get( '/auth/getUserByToken', { headers:  {'Authorization': 'Bearer ' + TOKEN} } )
+      axios.get( '/auth/getUserByToken')
       .then( resp => {
         if ( !this.props.isAuth ) {
           let userInfo = {
@@ -72,7 +71,7 @@ class Layout extends Component {
 
   render() {    
     let renderContainer = <Loading />;    
-
+    console.log(' this.state.render: ',  this.state.render);
     if ( this.state.render === 'Login' )
       renderContainer = <OutRoutes />
 

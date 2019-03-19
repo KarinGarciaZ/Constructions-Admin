@@ -32,11 +32,18 @@ const input = ( props ) => {
       inputClasses.push('input')
       gridClasses = ''
       imputElement = <input className={ inputClasses.join(' ') } { ...props.elementConfig } value={ props.value } onChange={props.changed}/>      
-      if ( props.elementConfig.type === 'file' ) 
+      if ( props.elementConfig.type === 'file' && props.elementConfig.multiple) 
         imputElement = ( 
           <label className='btn btn-small btn-edit btn-upload'>
             <input className={ inputClasses.join(' ') } { ...props.elementConfig } value={ props.value } onChange={props.changedFiles}/>
             <FontAwesomeIcon icon={faUpload} /> Upload Images
+          </label>
+        )
+      if ( props.elementConfig.type === 'file' && !props.elementConfig.multiple) 
+        imputElement = ( 
+          <label className='btn btn-small btn-edit btn-upload'>
+            <input className={ inputClasses.join(' ') } { ...props.elementConfig } value={ props.value } onChange={props.changedFile}/>
+            <FontAwesomeIcon icon={faUpload} /> Upload Image
           </label>
         )
       break;
