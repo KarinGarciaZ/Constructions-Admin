@@ -1,17 +1,25 @@
 import React, { Component } from 'react';
 import {Switch, Route } from 'react-router-dom';
 
+import axios from '../../axios-connection';
+
 import Home from '../../Containers/Home';
+
 import CreateConstruction from '../../Containers/Constructions/CreateConstruction';
 import Construction from '../../Containers/Constructions/Construction';
+import EditConstruction from '../../Containers/Constructions/EditConstruction';
+import AllConstructions from '../../Containers/Constructions/AllConstructions';
+
 import EditOwnUser from '../../Containers/User/EditOwnUser';
 import AddUser from '../../Containers/User/AddUser';
 import ChangePassword from '../../Containers/User/ChangePassword';
-import EditConstruction from '../../Containers/Constructions/EditConstruction';
-import AllConstructions from '../../Containers/Constructions/AllConstructions';
+
+import AllServices from '../../Containers/Services/AllServices';
+import EditService from '../../Containers/Services/EditService';
+import CreateService from '../../Containers/Services/CreateService';
+
 import Types from '../../Containers/Types';
 import NotFound from '../../Containers/NotFound';
-import axios from '../../axios-connection';
 
 class MainLayout extends Component {
 
@@ -46,12 +54,14 @@ class MainLayout extends Component {
       loadRoutesIfTypesExist = <Switch>
         <Route path="/construction/:id" component={Construction}/>
         <Route path="/edit-construction/:id" component={EditConstruction}/>
-        <Route path="/construction" component={Construction}/>
         <Route path="/all-constructions" component={AllConstructions}/>
         <Route path="/create-construction" component={CreateConstruction}/>
         <Route path="/edit-own-user" component={EditOwnUser}/>
         <Route path="/change-password" component={ChangePassword}/>
         <Route path="/add-user" component={AddUser}/>
+        <Route path="/all-services" component={AllServices}/>
+        <Route path="/create-service" component={CreateService}/>        
+        <Route path="/edit-service" component={EditService}/>
         <Route path="/types" component={Types}/>          
         <Route path="/not-found" component={NotFound}/>
         <Route path="/" component={Home}/>
@@ -61,6 +71,9 @@ class MainLayout extends Component {
         <Route path="/edit-own-user" component={EditOwnUser}/>
         <Route path="/change-password" component={ChangePassword}/>
         <Route path="/add-user" component={AddUser}/>
+        <Route path="/all-services" component={AllServices}/>
+        <Route path="/create-service" component={CreateService}/>        
+        <Route path="/edit-service" component={EditService}/>
         <Route path="/types" component={Types}/>          
         <Route path="/not-found" component={NotFound}/>
         <Route path="/" component={Home}/>
