@@ -359,7 +359,7 @@ body {
 
 .modal-service {
   display: grid;
-  grid-template-columns: 60rem;
+  grid-template-columns: 80rem;
   justify-items: center;
   grid-row-gap: 1rem;
   animation: loadingModal .2s;
@@ -371,7 +371,7 @@ body {
   padding: 3rem;
   z-index: 10; }
   .modal-service--img {
-    width: 80%;
+    width: 60%;
     max-height: 25rem;
     object-fit: cover;
     grid-column: 1 / 2;
