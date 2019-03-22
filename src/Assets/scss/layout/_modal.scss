@@ -35,7 +35,7 @@
 
 .modal-service {
   display: grid;
-  grid-template-columns: 60rem;
+  grid-template-columns: 80rem;
   justify-items: center;
   grid-row-gap: 1rem;
 
@@ -50,7 +50,7 @@
   z-index: 10;
 
   &--img {
-    width: 80%;
+    width: 60%;
     max-height: 25rem;
     object-fit: cover;
     grid-column: 1 / 2;

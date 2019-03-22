@@ -45,8 +45,8 @@ class CreateService extends Component {
           },
           maxLength: {
             valid: true,
-            value: 2000,
-            errorMessage: 'Max length is 2000 characters.'
+            value: 3000,
+            errorMessage: 'Max length is 3000 characters.'
           }
         }
       },
