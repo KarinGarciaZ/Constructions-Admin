@@ -11,20 +11,58 @@
   grid-column: center-starts / center-ends;
 
   display: grid;
-  grid-template-columns: repeat(auto-fit, 35rem);
+  grid-template-columns: repeat(auto-fit, 30rem);
   grid-gap: 5rem;
   justify-content: center;
+  align-content: start;
 
-  &__card {
-    width: 100%;
-    background-color: $color-primary-light-4;
-    padding-right: 2rem;
-
+  &__card {    
     display: grid;
+    align-items: center;
 
     img {
-      height: 30rem;
-      width: 35rem;
+      grid-column: 1 / -1;
+      height: 20rem;
+      width: 100%;
+      object-fit: cover;
+    }
+
+    &--name {
+      grid-column: 1 / -1;
+      color: white;
+      background-color: $color-secondary;
+      padding: .5rem 1rem;
+      font-size: 2rem;
+      text-transform: capitalize;
+      text-align: center;
+    }
+
+    &--icons {
+      grid-column: 1 / -1;
+      align-self: end;
+      font-size: 2rem;
+      background-color: $color-primary-light-4;
+
+      display: grid;
+      grid-template-columns: repeat(2, min-content) 1fr min-content;
+      column-gap: 2rem;
+      padding: 1rem;
+
+      &-trash {
+        color: orangered;        
+        cursor: pointer;
+      }
+
+      &-pen {
+        cursor: pointer;
+        color: $color-secondary-light;
+      }
+
+      &-eye {
+        cursor: pointer;
+        color: $color-secondary;     
+        grid-column: 4 / 5;
+      }
     }
   }
 }
