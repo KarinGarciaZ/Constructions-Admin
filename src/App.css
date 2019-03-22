@@ -1110,14 +1110,42 @@ body {
 .services-cards {
   grid-column: center-starts / center-ends;
   display: grid;
-  grid-template-columns: repeat(auto-fit, 35rem);
+  grid-template-columns: repeat(auto-fit, 30rem);
   grid-gap: 5rem;
-  justify-content: center; }
+  justify-content: center;
+  align-content: start; }
   .services-cards__card {
-    width: 100%;
-    background-color: #E0E0E0;
-    padding-right: 2rem;
-    display: grid; }
+    display: grid;
+    align-items: center; }
     .services-cards__card img {
-      height: 30rem;
-      width: 35rem; }
+      grid-column: 1 / -1;
+      height: 20rem;
+      width: 100%;
+      object-fit: cover; }
+    .services-cards__card--name {
+      grid-column: 1 / -1;
+      color: white;
+      background-color: #101d2c;
+      padding: .5rem 1rem;
+      font-size: 2rem;
+      text-transform: capitalize;
+      text-align: center; }
+    .services-cards__card--icons {
+      grid-column: 1 / -1;
+      align-self: end;
+      font-size: 2rem;
+      background-color: #E0E0E0;
+      display: grid;
+      grid-template-columns: repeat(2, min-content) 1fr min-content;
+      column-gap: 2rem;
+      padding: 1rem; }
+      .services-cards__card--icons-trash {
+        color: orangered;
+        cursor: pointer; }
+      .services-cards__card--icons-pen {
+        cursor: pointer;
+        color: #486f9c; }
+      .services-cards__card--icons-eye {
+        cursor: pointer;
+        color: #101d2c;
+        grid-column: 4 / 5; }
