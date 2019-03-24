@@ -38,8 +38,8 @@ export default class AllServices extends Component {
   }
 
   onToggleShowModal = (id) => {
-    let service = {}
-    let services = [ ...this.state.services ]
+    let service = {};
+    let services = [ ...this.state.services ];
 
     if( id ) {
       service = services.filter( service => service.id === id )[0]
