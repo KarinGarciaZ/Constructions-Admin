@@ -11,16 +11,16 @@ export default class Sidebar extends Component {
     smenuClassesService: ['smenu']
   } 
 
-  onToggleSubmenuConstruction = () => {
+  onToggleSubmenuConstruction = () => {    
     if ( this.state.smenuClassesConstruction.length === 1 )
-      this.setState({smenuClassesConstruction: ['smenu', 'smenu-active'] })
+      this.setState({smenuClassesConstruction: ['smenu', 'smenu-active'], smenuClassesService: ['smenu'] })
     else
       this.setState({smenuClassesConstruction: ['smenu'] })
   }
 
   onToggleSubmenuService = () => {
     if ( this.state.smenuClassesService.length === 1 )
-      this.setState({smenuClassesService: ['smenu', 'smenu-active'] })
+      this.setState({smenuClassesService: ['smenu', 'smenu-active'], smenuClassesConstruction: ['smenu'] })
     else
       this.setState({smenuClassesService: ['smenu'] })
   }
