@@ -25,10 +25,15 @@ class Form extends Component {
       if (nextProps.formState.images)      
         images = nextProps.formState.images
 
+      let image = {}
+      if (nextProps.formState.image)      
+        image.url = nextProps.formState.image
+
       this.setState({ 
         formElements: nextProps.formState.formElements, 
         formName: nextProps.formState.formName,
-        images
+        images,
+        image
       })
     }
   }
