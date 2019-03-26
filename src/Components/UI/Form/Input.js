@@ -64,7 +64,7 @@ const input = ( props ) => {
     case 'textarea':
       inputClasses.push('textarea')
       gridClasses = 'textarea-container'
-      imputElement = <textarea className={ inputClasses.join(' ') } { ...props.elementConfig } value={ props.value } onChange={props.changed}/>
+      imputElement = <textarea className={ inputClasses.join(' ') } { ...props.elementConfig } value={ props.value } onChange={props.changed} rows='8'/>
       break;
     default:
       imputElement = <input className={ inputClasses.join(' ') } { ...props.elementConfig } value={ props.value } onChange={props.changed}/>
