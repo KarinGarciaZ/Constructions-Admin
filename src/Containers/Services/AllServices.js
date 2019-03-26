@@ -38,8 +38,8 @@ export default class AllServices extends Component {
   }
 
   onToggleShowModal = (id) => {
-    let service = {}
-    let services = [ ...this.state.services ]
+    let service = {};
+    let services = [ ...this.state.services ];
 
     if( id ) {
       service = services.filter( service => service.id === id )[0]
@@ -60,8 +60,8 @@ export default class AllServices extends Component {
     .catch( error => console.log(error) )
   }
 
-  onEyeClick = () => {
-    this.props.history.push()
+  onEditService = ( id ) => {
+    this.props.history.push( '/edit-service/' + id )
   }
 
   render() {
@@ -74,7 +74,7 @@ export default class AllServices extends Component {
           <p className='services-cards__card--name'>{service.name}</p>
           <div className='services-cards__card--icons'>
             <FontAwesomeIcon icon={faTrash} className='services-cards__card--icons-trash' onClick={this.onToggleDeleteModal.bind(this, service.id)}/>
-            <FontAwesomeIcon icon={faPen} className='services-cards__card--icons-pen'/>
+            <FontAwesomeIcon icon={faPen} className='services-cards__card--icons-pen' onClick={this.onEditService.bind(this, service.id)}/>
             <FontAwesomeIcon icon={faEye} className='services-cards__card--icons-eye' onClick={this.onToggleShowModal.bind(this, service.id)}/>
           </div>         
         </div>

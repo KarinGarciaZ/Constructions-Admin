@@ -8,6 +8,32 @@ class CreateService extends Component {
 
   state = {
     formElements: {
+      addPictures: {
+        elementType: 'input',
+        valid: false,
+        touched: true, 
+        value: '',
+        elementConfig: {
+          type: 'file',
+          placeholder: 'Add a Picture (Max Size 5MB)',
+          multiple: false,
+          accept: 'image/*'
+        },
+        validation: {
+          maxSize: {
+            valid: true,
+            errorMessage: "This picture is larger than 5MB."
+          },
+          required: {
+            valid: true,
+            errorMessage: 'Upload 1 picture.'
+          },
+          isImage: {
+            valid: true,
+            errorMessage: 'This is not an image.'
+          }
+        }
+      },
       name: {
         elementType: 'input',
         valid: false,
@@ -45,41 +71,22 @@ class CreateService extends Component {
           },
           maxLength: {
             valid: true,
-            value: 3000,
-            errorMessage: 'Max length is 3000 characters.'
+            value: 2000,
+            errorMessage: 'Max length is 2000 characters.'
           }
         }
-      },
-      addPictures: {
-        elementType: 'input',
-        valid: false,
-        touched: true, 
-        value: '',
-        elementConfig: {
-          type: 'file',
-          placeholder: 'Add a Picture (Max Size 5MB)',
-          multiple: false,
-          accept: 'image/*'
-        },
-        validation: {
-          maxSize: {
-            valid: true,
-            errorMessage: "Some pictures weren't uploaded because they are larger then 5MB."
-          },
-          required: {
-            valid: true,
-            errorMessage: 'Upload 1 picture.'
-          },
-          isImage: {
-            valid: true,
-            errorMessage: 'This is not an image.'
-          }
-        }
-      }     
+      }    
     },
     formName: 'createService',
     loading: true,
     image: null
+  }  
+
+  componentDidMount() {
+    this.props.onChangeTitle();
+
+    let props = { ...this.state }
+    this.props.onUpdateFormState( props )
   }
 
   shouldComponentUpdate( nextProps, nextState ) {
@@ -94,7 +101,6 @@ class CreateService extends Component {
   }
 
   saveService = (props) => {
-    console.log(props)
     let newService = {
       name: props.formElements.name.value,
       description: props.formElements.description.value
@@ -114,13 +120,6 @@ class CreateService extends Component {
     .catch( error => {
       console.log(error.response)
     } )
-  }
-
-  componentDidMount() {
-    this.props.onChangeTitle();
-
-    let props = { ...this.state }
-    this.props.onUpdateFormState( props )
   }
 
   onCancel = () => {

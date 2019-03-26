@@ -61,7 +61,7 @@ class MainLayout extends Component {
         <Route path="/add-user" component={AddUser}/>
         <Route path="/all-services" component={AllServices}/>
         <Route path="/create-service" component={CreateService}/>        
-        <Route path="/edit-service" component={EditService}/>
+        <Route path="/edit-service/:id" component={EditService}/>
         <Route path="/types" component={Types}/>          
         <Route path="/not-found" component={NotFound}/>
         <Route path="/" component={Home}/>
@@ -73,7 +73,7 @@ class MainLayout extends Component {
         <Route path="/add-user" component={AddUser}/>
         <Route path="/all-services" component={AllServices}/>
         <Route path="/create-service" component={CreateService}/>        
-        <Route path="/edit-service" component={EditService}/>
+        <Route path="/edit-service/:id" component={EditService}/>
         <Route path="/types" component={Types}/>          
         <Route path="/not-found" component={NotFound}/>
         <Route path="/" component={Home}/>

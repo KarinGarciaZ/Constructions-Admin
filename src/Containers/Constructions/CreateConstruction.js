@@ -183,7 +183,7 @@ class CreateConstruction extends Component {
         validation: {
           maxSize: {
             valid: true,
-            errorMessage: "Some pictures weren't uploaded because they are larger then 3MB."
+            errorMessage: "Some pictures weren't uploaded because they are larger than 3MB."
           },
           required: {
             valid: true,
