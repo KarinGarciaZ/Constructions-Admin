@@ -315,7 +315,7 @@ class EditConstruction extends Component {
     Promise.all([prom1, prom2])
     .then( () => {
       this.props.onUpdateFormState( {} )
-      this.props.history.push('/');
+      this.props.history.push('/all-constructions');
     })
     .catch( error => {
       console.log(error.response)
