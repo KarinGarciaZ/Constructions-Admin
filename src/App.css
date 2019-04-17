@@ -381,6 +381,9 @@ body {
     text-transform: capitalize; }
   .modal-service--description {
     text-align: justify; }
+    .modal-service--description-p {
+      text-indent: 4rem;
+      margin-bottom: 1rem; }
 
 .shadow-background {
   position: fixed;

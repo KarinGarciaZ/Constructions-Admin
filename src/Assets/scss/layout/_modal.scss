@@ -64,6 +64,11 @@
 
   &--description {
     text-align: justify;    
+    
+    &-p{
+      text-indent: 4rem;
+      margin-bottom: 1rem;
+    }
   }
 }
 
