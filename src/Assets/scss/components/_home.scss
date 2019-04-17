@@ -1,0 +1,88 @@
+.home {
+  width: 100%;
+  height: 100%;  
+  display: grid;
+  grid-template-columns: minmax(3rem, 1fr) [center-starts] repeat(9, minmax( min-content, 10rem )) [center-ends] minmax(3rem, 1fr);
+ 
+  &-container {
+    grid-column: center-starts / center-ends;
+    margin: 5rem 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax( min-content, 25rem ));
+    grid-template-rows: min-content;
+    grid-gap: 7.5rem;
+    justify-content: center;
+    align-content: center;
+  }
+
+  &__count {
+    display: grid;
+    grid-template-columns: min-content 1fr;
+    color: white;
+    padding: .5rem 2rem;
+
+    &--icon {
+      font-size: 3rem;
+      grid-row: 1 / 3;
+      align-self: center;
+    }
+
+    &--name {
+      font-size: 1.5rem;
+      text-align: center;
+    }
+
+    &--count {
+      font-size: 4rem;      
+      text-align: center;
+    }
+
+    &--serv {
+      background-color: $color-green-hover;
+    }
+
+    &--const {
+      background-color: $color-secondary;
+    }
+
+    &--type {
+      background-color: $color-primary;
+    }
+
+  }
+}
+
+@media only screen and (max-width: $bp-1000) {
+  .home {
+    &-container {      
+      grid-gap: 3rem;
+    }
+  }
+}
+
+@media only screen and (max-width: $bp-800) {
+  .home {
+    &-container {     
+      grid-template-columns: 25rem; 
+      grid-gap: 8rem;
+    }
+
+    &__count {
+      transform: scale(1.5);
+    }
+  }
+}
+
+@media only screen and (min-width: $bp-500) {
+  .home {
+    background-image: linear-gradient( to right bottom,
+    rgba(black, 0.75),
+    rgba(black, 0.75)),
+    url(./Assets/Images/Project/login.jpg);
+
+    background-size: cover;
+    background-position: center;
+    filter: brightness(.7);
+  }
+}
+

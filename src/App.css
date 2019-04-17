@@ -381,6 +381,9 @@ body {
     text-transform: capitalize; }
   .modal-service--description {
     text-align: justify; }
+    .modal-service--description-p {
+      text-indent: 4rem;
+      margin-bottom: 1rem; }
 
 .shadow-background {
   position: fixed;
@@ -696,8 +699,8 @@ body {
   min-height: 100vh;
   background-image: linear-gradient(to right bottom, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url(./Assets/Images/Project/login.jpg);
   background-size: cover;
-  background-position: top;
-  filter: blur(3px); }
+  background-position: center;
+  filter: blur(2px); }
 
 .form-container-login {
   padding: 4rem;
@@ -1200,3 +1203,57 @@ body {
         cursor: pointer;
         color: #101d2c;
         grid-column: 4 / 5; }
+
+.home {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: minmax(3rem, 1fr) [center-starts] repeat(9, minmax(min-content, 10rem)) [center-ends] minmax(3rem, 1fr); }
+  .home-container {
+    grid-column: center-starts / center-ends;
+    margin: 5rem 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(min-content, 25rem));
+    grid-template-rows: min-content;
+    grid-gap: 7.5rem;
+    justify-content: center;
+    align-content: center; }
+  .home__count {
+    display: grid;
+    grid-template-columns: min-content 1fr;
+    color: white;
+    padding: .5rem 2rem; }
+    .home__count--icon {
+      font-size: 3rem;
+      grid-row: 1 / 3;
+      align-self: center; }
+    .home__count--name {
+      font-size: 1.5rem;
+      text-align: center; }
+    .home__count--count {
+      font-size: 4rem;
+      text-align: center; }
+    .home__count--serv {
+      background-color: #468166; }
+    .home__count--const {
+      background-color: #101d2c; }
+    .home__count--type {
+      background-color: #404040; }
+
+@media only screen and (max-width: 62.5em) {
+  .home-container {
+    grid-gap: 3rem; } }
+
+@media only screen and (max-width: 50em) {
+  .home-container {
+    grid-template-columns: 25rem;
+    grid-gap: 8rem; }
+  .home__count {
+    transform: scale(1.5); } }
+
+@media only screen and (min-width: 31.25em) {
+  .home {
+    background-image: linear-gradient(to right bottom, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url(./Assets/Images/Project/login.jpg);
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.7); } }

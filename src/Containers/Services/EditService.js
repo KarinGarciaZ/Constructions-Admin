@@ -128,7 +128,7 @@ class EditService extends Component {
     
     axios.put('/service', formData, { headers: { 'Content-Type': 'multipart/form-data' } } )
     .then( res => {
-      this.props.history.push('/');
+      this.props.history.push('/all-services');
       this.props.onUpdateFormState( {} )
     } )
     .catch( error => {
