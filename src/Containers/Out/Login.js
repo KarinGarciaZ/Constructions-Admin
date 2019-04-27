@@ -80,7 +80,7 @@ class Login extends Component {
 
     axios.post( '/auth/login', user )
     .then( data => {
-      localStorage.setItem('userToken', data.data.token);
+      localStorage.setItem('isLogged', data.data.isLogged);
       if ( data.data.userInfo ) {     
         this.props.onUpdateFormState({});
 
