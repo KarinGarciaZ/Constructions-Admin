@@ -15,7 +15,7 @@ import axios from '../axios-connection';
 class Layout extends Component {
 
   state = {
-    render: 'Aux'
+    render: ''
   }
 
   componentWillMount() {
@@ -33,13 +33,17 @@ class Layout extends Component {
     return true;
   }
 
+  changeContainer( containerToRender ) {
+    if( this.state.render !== containerToRender )
+      this.setState({render: containerToRender})    
+  }
+
   renderAccess = () => {
-    let containerToRender = 'Aux';
-
-    if ( this.props.isAuth && localStorage.getItem('userToken') ){
-      containerToRender = 'Aux';
-
-    } else if ( localStorage.getItem('userToken') && !this.props.isAuth ) {
+    
+    if ( this.props.isAuth && localStorage.getItem('isLogged') ){
+      this.changeContainer('Aux')
+      
+    } else if ( localStorage.getItem('isLogged') && !this.props.isAuth ) {
       axios.get( '/auth/getUserByToken')
       .then( resp => {
         if ( !this.props.isAuth ) {
@@ -52,26 +56,28 @@ class Layout extends Component {
           }
           this.props.onLogin( userInfo );
         }
-        containerToRender = 'Aux';        
-        if( this.state.render !== containerToRender )  
-          this.setState({render: containerToRender})
+        this.changeContainer('Aux')
       })
-      .catch( err => {
-        containerToRender = 'Login'        
-        if( this.state.render !== containerToRender )  
-          this.setState({render: containerToRender}) 
+      .catch( err => {   
+        localStorage.removeItem('isLogged');    
+        this.changeContainer('Login')
       })
     }
-    else 
-      containerToRender = 'Login'
-      
-    if( this.state.render !== containerToRender )      
-      this.setState({render: containerToRender})
+    else {     
+      axios.get('/auth/website-token')
+      .then( () => {
+        localStorage.removeItem('isLogged');
+        this.changeContainer('Login') 
+      })  
+    }      
+  
+
   }
 
   render() {    
+
     let renderContainer = <Loading />;    
-    console.log(' this.state.render: ',  this.state.render);
+
     if ( this.state.render === 'Login' )
       renderContainer = <OutRoutes />
 
