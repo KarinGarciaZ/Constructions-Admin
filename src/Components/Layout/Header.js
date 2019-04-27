@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import axios from '../../axios-connection';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle, faCaretDown, faCaretUp, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 
@@ -17,7 +18,8 @@ class Header extends Component {
   onLogout = () => {
     this.props.onLogout( { isAuth: false } );
     this.props.onUpdateFormState( {} );
-    localStorage.removeItem('userToken');
+    localStorage.removeItem('isLogged');
+    axios.post( '/auth/logout' )
   }
 
   onMenuClick = () => {
