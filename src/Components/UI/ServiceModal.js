@@ -21,7 +21,7 @@ const serviceModal = (props) => {
   return (
     <div className='modal-service'>
       <FontAwesomeIcon icon={faTimes} className='modal__close' onClick={props.closeModal}/>
-      <img src={'http://localhost:3001/' + service.image}  alt='ser-img' className='modal-service--img'/>
+      <img src={'https://murmuring-eyrie-84778.herokuapp.com/' + service.image}  alt='ser-img' className='modal-service--img'/>
       <p className='modal-service--title'><strong>{service.name}</strong></p>
       <p className='modal-service--description'>{paragraphs}</p>
     </div>

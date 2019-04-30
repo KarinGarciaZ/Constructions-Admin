@@ -238,7 +238,7 @@ class EditConstruction extends Component {
         props.formElements.state.value = construction.data.state;
 
         props.images = construction.data.images.map( image => {
-          image.url = 'http://localhost:3001/' + image.url
+          image.url = 'https://murmuring-eyrie-84778.herokuapp.com/' + image.url
           return image
         })
         
