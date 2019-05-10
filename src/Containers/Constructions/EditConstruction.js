@@ -237,10 +237,7 @@ class EditConstruction extends Component {
         props.formElements.city.value = construction.data.city;
         props.formElements.state.value = construction.data.state;
 
-        props.images = construction.data.images.map( image => {
-          image.url = 'https://murmuring-eyrie-84778.herokuapp.com/' + image.url
-          return image
-        })
+        props.images = construction.data.images
         
         this.setState({showSpinner: false})
         this.props.onUpdateFormState( props )        
@@ -308,7 +305,6 @@ class EditConstruction extends Component {
 
     let imagesToDelete = { images: props.deletedImages }
     
-    
     let prom1 = axios.put('/construction/' + id, formData, { headers: { 'Content-Type': 'multipart/form-data' } } )
     let prom2 = axios.put('/image', imagesToDelete)
 
@@ -320,6 +316,11 @@ class EditConstruction extends Component {
     .catch( error => {
       console.log(error.response)
     })    
+  }
+
+  onCancel = () => {
+    this.props.onUpdateFormState( {} );
+    this.props.history.push('/');
   }
 
   pageNotFound = () => {    

@@ -94,7 +94,7 @@ class EditService extends Component {
     let id = this.props.match.params.id
     axios.get( 'service/' + id )
     .then( service => {
-      props.image = 'https://murmuring-eyrie-84778.herokuapp.com/' + service.data.image;
+      props.image = service.data.image;
       props.formElements.name.value = service.data.name
       props.formElements.description.value = service.data.description
 

@@ -70,7 +70,7 @@ export default class AllServices extends Component {
     let serviceCards = services.map( service => {
       return (
         <div className='services-cards__card' key={service.id}> 
-          <img src={'https://murmuring-eyrie-84778.herokuapp.com/' + service.image}  alt='ser-img'/>
+          <img src={service.image}  alt='ser-img'/>
           <p className='services-cards__card--name'>{service.name}</p>
           <div className='services-cards__card--icons'>
             <FontAwesomeIcon icon={faTrash} className='services-cards__card--icons-trash' onClick={this.onToggleDeleteModal.bind(this, service.id)}/>
