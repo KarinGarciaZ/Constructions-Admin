@@ -108,7 +108,6 @@ class Construction extends Component {
     if ( !this.state.loading && this.state.construction ) {
       description = construction.description;
       mainImageUrl = construction.images.filter( image => image.mainImage? true : false )[0].url
-      mainImageUrl = 'https://murmuring-eyrie-84778.herokuapp.com/' + mainImageUrl
 
       if ( !this.state.showAll && description.length > 1000) 
         description = description.substring(0, 1000);      
@@ -121,7 +120,7 @@ class Construction extends Component {
         return <img 
           className={classes.join(' ')}
           alt='Construction img' 
-          src={'https://murmuring-eyrie-84778.herokuapp.com/' + image.url}
+          src={image.url}
           onMouseEnter={this.changeMainImage.bind(this, image.id)}
           key={image.id}></img>
       })
