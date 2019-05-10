@@ -201,7 +201,6 @@ class AllConstructions extends Component {
     
     let cards = this.state.constructions.map( construction => {
       let imageUrl = construction.images.filter( image => image.mainImage? true : false )[0].url;
-      imageUrl = 'https://murmuring-eyrie-84778.herokuapp.com/' + imageUrl;
       return (
         <div className='card' key={construction.id}>
           <img className='card__image' src={imageUrl} alt='Construction img'></img>
